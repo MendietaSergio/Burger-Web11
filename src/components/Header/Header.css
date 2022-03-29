@@ -1,6 +1,15 @@
 .navbar-nav{
     text-transform: uppercase;
 }
+.row-header,.navbar{
+    background-color: #313131 !important;
+}
+.navbar a,.cart-icon{
+    color: white !important;
+}
+.navbar-toggler-icon{
+    background-color: white;
+}
 @media(min-width: 992px){
     .navbar-collapse{
         display: flex;

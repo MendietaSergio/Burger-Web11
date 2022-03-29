@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 export const Header = () => {
     return (
-        <div className='row'>
+        <div className='row row-header'>
             <div className='container'>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <a className="navbar-brand" href="#">Burger</a>
@@ -48,7 +48,7 @@ export const Header = () => {
                                 </div>
                             </li>
                         </ul>
-                        <div className="ml-4 my-2 my-lg-0">
+                        <div className="cart-icon ml-4 my-2 my-lg-0">
                         0<i class="fas fa-shopping-cart"></i>
                         </div>
                     </div>
