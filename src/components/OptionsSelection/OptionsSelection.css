@@ -1,0 +1,42 @@
+.row-optionsSelection{
+    background-color: #313131;
+}
+.container-optionSelection{
+    width: 100%;
+    height: 350px;
+    position: relative;
+    color: white;
+    font-family: "Prequel", Sans-serif;
+    font-weight: 900;
+}
+.img-optionsSelection{
+    background-size: cover;
+    width: 100%;
+    height: inherit;
+}
+.container-titleOptions{
+    position: absolute;
+    bottom: 0;
+    right: 0%;
+    padding: 10%;
+}
+.container-optionsLink{
+    background-color: red;
+    width: 150px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 8px;
+}
+.container-optionsLink a{
+    color: white;
+    text-decoration: none;
+}
+.container-optionsLink:hover{
+    cursor: pointer;
+    background-color: #ff0000c4;
+}
+@media(min-width: 768px) {
+    .row-optionsSelection{
+        margin-top: 150px !important;
+    }
+}
