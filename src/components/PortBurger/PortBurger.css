@@ -1,0 +1,17 @@
+.container_img {
+    height: 350px;
+}
+
+.img_port {
+    max-width          : 100%;
+    background-position: center;
+    margin: 0 !important;
+}
+.dropdown-menu{
+    background-color: #313131;
+}
+@media(min-width: 768px) {
+    .img_port {
+        height: 500px;
+    }
+}
