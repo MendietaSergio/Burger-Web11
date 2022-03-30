@@ -1,0 +1,44 @@
+.img-banner {
+    background-image: url('https://res.cloudinary.com/freelance01/image/upload/v1648605141/burger_web/banner-bg_mhsrj1.jpg');
+    height          : 400px;
+    padding         : 60px 15px 60px 15px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.img-banner .container {
+    height             : inherit;
+    /* background-color: #00ffff85; */
+}
+
+.container-banner {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : start;
+    padding        : 87px 20px;
+    height         : max-content;
+}
+
+.text-banner {
+    font-weight: 900;
+    color      : white;
+    padding    : 10px;
+}
+
+.btn-banner {
+    background-color: #FF5151;
+    padding         : 8px;
+}
+
+.linkProducts {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-right: 8px;
+}
+
+.linkProducts i {
+    font-size: 18px;
+}
