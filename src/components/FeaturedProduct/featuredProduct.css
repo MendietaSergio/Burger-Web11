@@ -1,0 +1,111 @@
+.featuredProduct {
+    width           : 100%;
+    height          : 350px;
+    background-color: red;
+}
+
+.container-info {
+    display        : flex;
+    justify-content: center;
+    flex-direction : column;
+    align-items    : center;
+}
+
+.container-img-featuredProduct {
+    position : relative;
+    /* cursor: pointer; */
+}
+
+.img-featuredProduct {
+    background-size: cover;
+    width          : 100%;
+    height         : inherit;
+    cursor         : pointer;
+}
+
+.container-img-detail {
+    position        : absolute;
+    top             : -30px;
+    left            : 0;
+    padding         : 15px;
+    width           : 100%;
+    text-align      : center;
+    color           : #fff;
+    font-size       : 18px;
+    opacity         : 0;
+    height          : -webkit-fill-available;
+    background-color: rgba(31, 31, 31,58%);
+
+}
+
+.container-img-detail .viewDetail {
+    font-weight   : 700;
+    font-size     : 32px;
+    margin        : 0 0 20px;
+    transform     : translateY(30px);
+    /* opacity    : 0;] */
+    transition    : all 0.3s ease-out;
+}
+
+.viewDetail {
+
+    color                : rgb(255, 255, 255);
+    cursor               : pointer;
+    display              : inline-block;
+    padding              : 10px 25px;
+    border-radius        : 5px;
+    text-decoration      : none;
+    transform            : translateY(30px);
+    transition           : all 0.3s ease-out 0.4s; 
+}
+
+.container-img-featuredProduct:hover {
+    background-color: #FF5151;
+}
+
+.container-img-featuredProduct:hover .container-img-detail {
+    color    : red;
+    opacity  : 1;
+    transform: translateY(30px);
+}
+
+/* .img-featuredProduct:hover {
+    cursor: pointer;
+    background-color: #000;
+}
+
+.img-featuredProduct:hover .viewDetail {
+    display         : block;
+    color           : red;
+    /* transform    : translateY(0px); */
+/* } */
+
+*/ .title-categorie {
+    color: rgb(92, 92, 92);
+}
+
+.price {
+    color      : black;
+    font-weight: 600;
+}
+
+.btn-link {
+    background-color: #FF5151;
+    padding         : 8px;
+}
+
+.btn-link:hover {
+    background-color: #ff5151b3;
+}
+
+.btn-link a {
+    text-transform : uppercase;
+    font-weight    : 700;
+    color          : white;
+    padding-right  : 8px;
+    text-decoration: none;
+}
+
+.btn-link i {
+    font-size: 18px;
+}
