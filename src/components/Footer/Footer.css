@@ -1,0 +1,34 @@
+footer{
+    height: auto;
+    width: 100%;
+    background-color: #313131 !important;
+    color: white;
+}
+footer h1{
+    color: white;
+}
+.icon-social{
+    color: white;
+    cursor: pointer;
+    font-size: 25px;
+}
+footer li{
+    font-weight: 700;
+    color: #747474;
+}
+footer hr{
+    margin-top: 80px;
+    color: black;
+    height: 10px;
+}
+footer a{
+    color: white;
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
