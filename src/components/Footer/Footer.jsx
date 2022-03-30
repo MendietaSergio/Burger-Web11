@@ -5,8 +5,8 @@ export const Footer = () => {
         <footer className='container-fluid'>
             <div className="container">
                 <div className="row">
-                    <div className="col-12">
-                        <h1 className='text-center my-4'>Burgers</h1>
+                    <div className="col-12 col-md-4">
+                        <h1 className='footer-title my-4'>Burgers</h1>
                         <ul className='social-list list-inline mb-0'>
                             <li className='list-inline-item'>
                                 <a
@@ -30,24 +30,44 @@ export const Footer = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className='col-12'>
+                    <div className='col-12 col-md-4'>
                         <h5 className='my-3'>Enlaces rápidos</h5>
                         <ul className='social-list list-inline mb-0'>
                             <li className='list-block-item py-1'>
-                                Todos los productos
+                                <a
+                                    href="/productos"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    className=''
+                                >Todos los productos</a>
                             </li>
                             <li className='list-block-item py-1'>
-                                Carrito
+                            <a
+                                    href="/carrito"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    className=''
+                                >Carrito</a>
                             </li>
                             <li className='list-block-item py-1'>
-                                Términos y condiciones
+                            <a
+                                    href="/terminosycondiciones"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    className=''
+                                >Términos y condiciones</a>
                             </li>
                             <li className='list-block-item py-1'>
-                                Llámanos
+                            <a
+                                    href="#"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                    className=''
+                                >Llámanos</a>
                             </li>
                         </ul>
                     </div>
-                    <div className="col-12">
+                    <div className="col-12 col-md-4">
                         <h5 className='my-3'>Horarios de atención</h5>
                         <ul className='social-list list-inline mb-0'>
                             <li className='list-block-item py-1'>

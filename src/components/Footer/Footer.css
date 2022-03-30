@@ -4,7 +4,8 @@ footer{
     background-color: #313131 !important;
     color: white;
 }
-footer h1{
+.footer-title{
+    text-align: center;
     color: white;
 }
 .icon-social{
@@ -12,9 +13,20 @@ footer h1{
     cursor: pointer;
     font-size: 25px;
 }
+footer li a{
+    font-weight: 700;
+    color: #747474;
+}
 footer li{
     font-weight: 700;
     color: #747474;
+}
+footer li:hover{
+    color: rgb(213 61 61 / 95%)
+}
+footer li a:hover{
+    text-decoration: none;
+    color: rgb(213 61 61 / 95%)
 }
 footer hr{
     margin-top: 80px;
@@ -24,11 +36,19 @@ footer hr{
 footer a{
     color: white;
 }
+footer a:hover{
+    text-decoration: none;
+    color: rgb(213 61 61 / 95%)
+}
 .info-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    
+}
+@media(min-width: 768px){
+    .footer-title{
+        text-align: left !important;
+    }
 }
