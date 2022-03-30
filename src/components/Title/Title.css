@@ -1,0 +1,7 @@
+.title-bar{
+    height: 2px ;
+    width: 15%;
+    display: flex;
+    margin: 0 auto;
+    background-color: red;
+}
