@@ -22,3 +22,8 @@ code {
 .row{
   margin: 0 !important;
 }
+@media(min-width: 768px){
+  .container-detail{
+    margin: 0 60px;
+  }
+}
