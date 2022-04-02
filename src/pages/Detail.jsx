@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { Description } from '../components/Container/Description/Description'
 import { ItemDetail } from '../components/Container/ItemDetail/ItemDetail'
+import { Ratings } from '../components/Container/Ratings/Ratings'
 import { RelatedProducts } from '../components/Container/RelatedProducts/RelatedProducts'
 export const Detail = () => {
   const [showLine, setShowLine] = useState(true)
@@ -24,27 +26,9 @@ export const Detail = () => {
         </div>
         <div className="row">
           {showLine ? (
-            <div className="col-12">
-              <span className='detail-categorie'>papas rusticas caseras incluidas</span>
-              <div className='detail-list'>
-                <ul>
-                  <li>mac cheese</li>
-                  <li>panceta</li>
-                  <li>salsa bbq</li>
-                  <li>200g de carne</li>
-                  <li>deep fried</li>
-                </ul>
-              </div>
-            </div>
+            <Description />
           ) : (
-            <div className="col-12">
-              <h4>Valoraciones</h4>
-              <small>No hay valoraciones</small>
-              <div className='detail-warning'>
-                <h5>Sé el primero en valorar "Burger ELYSÉE"</h5>
-                <span>Debes <a href='/login'>acceder</a> para publicar una reseña</span>
-              </div>
-            </div>
+            <Ratings />
           )}
         </div>
       </div>
