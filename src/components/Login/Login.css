@@ -1,0 +1,58 @@
+.container-form {
+    width : 90%;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.container-form-body {
+    height          : auto;
+    background-color: white;
+    padding-bottom  : 50px;
+}
+
+.form-subTitle {
+    width : 100%;
+    margin: 0 auto;
+}
+
+.container-form h5 {
+    padding: 0 30px;
+}
+
+.form-login {
+    background-color: white;
+    height          : auto;
+    width           : 80%;
+    margin          : 0 auto;
+    border          : 1px solid #c1c1c1;
+    border-radius   : 2%;
+    padding         : 20px;
+}
+
+label small {
+    color      : #FF515C;
+    font-weight: 900;
+}
+
+.btn-toAccess {
+    width           : 150px;
+    height          : 50px;
+    background-color: #FF515C;
+    color           : white;
+    border          : none;
+}
+
+.info-password {
+    color      : #FF515C;
+    font-weight: 400;
+}
+
+@media(min-width: 768px) {
+    .form-login {
+        width: 40%;
+    }
+
+    .form-subTitle {
+        width: 42%;
+    }
+}
