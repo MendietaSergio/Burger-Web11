@@ -1,0 +1,16 @@
+.container-navigation-page {
+    display        : flex;
+    justify-content: start;
+    padding-left   : 30px;
+}
+
+.navigation-page a {
+    padding-left : 6px;
+    cursor: pointer;
+    color    : black;
+    font-size: 15px;
+}
+
+.navigation-page a i {
+    font-size: 10px;
+}
