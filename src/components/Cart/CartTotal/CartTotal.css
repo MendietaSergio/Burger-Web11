@@ -1,0 +1,14 @@
+.container-cartTotal{
+    height: auto;
+    width: 100%;
+    border: 1px solid #a9a9a9;
+}
+.container-cartTotal-section{
+    height: auto;
+    padding: 10px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+.container-cartTotal-section h5{
+    text-align: start;
+    color: red;
+}
