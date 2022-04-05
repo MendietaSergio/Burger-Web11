@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { CartModal } from '../Cart/CartModal/CartModal'
 import './Header.css'
 export const Header = () => {
+    const [showCartList, setShowCartList] = useState(false)
+
     return (
         <div className='row row-header'>
             <div className='container'>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <a className="navbar-brand" href="#">Burger</a>
+
+                    <div className="cart-icon-movil ml-4 my-2 my-lg-0">
+                        0<i class="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                        {
+                            showCartList ? (
+                                <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />
+                            ) : (null)}
+                    </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -49,7 +60,12 @@ export const Header = () => {
                             </li>
                         </ul>
                         <div className="cart-icon ml-4 my-2 my-lg-0">
-                        0<i class="fas fa-shopping-cart"></i>
+                            0<i class="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                            {
+                                showCartList ? (
+                                    <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />
+                                ) : (null)
+                            }
                         </div>
                     </div>
                 </nav>
