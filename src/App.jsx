@@ -9,17 +9,19 @@ import { Detail } from './pages/Detail'
 import { MyAccount } from './pages/MyAccount'
 import { Cart } from './pages/Cart'
 
+
 function App() {
   return (
     <BrowserRouter>
+
       <div className="container-fluid">
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/productos' element={<Productos />} />
           <Route path='/productos/:idDetail' element={<Detail />} />
-          <Route path='/ingresar' element={<MyAccount/>} />
-          <Route path='/carrito' element={<Cart/>} />
+          <Route path='/ingresar' element={<MyAccount />} />
+          <Route path='/carrito' element={<Cart />} />
         </Routes>
         <Footer />
       </div>
