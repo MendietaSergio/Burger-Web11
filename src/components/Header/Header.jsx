@@ -11,7 +11,7 @@ export const Header = () => {
                     <a className="navbar-brand" href="#">Burger</a>
 
                     <div className="cart-icon-movil ml-4 my-2 my-lg-0">
-                        0<i class="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                        0<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
                         {
                             showCartList ? (
                                 <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />
@@ -60,7 +60,7 @@ export const Header = () => {
                             </li>
                         </ul>
                         <div className="cart-icon ml-4 my-2 my-lg-0">
-                            0<i class="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                            0<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
                             {
                                 showCartList ? (
                                     <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />

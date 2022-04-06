@@ -7,7 +7,7 @@ export const EmptyCart = () => {
                 <div className='col-12 container-textInfo'>
                     <div className='container-emptyCart'>
                         <span className='cart-line-red'></span>
-                        <i class="fa-solid fa-cart-circle-xmark"></i><span>Tu carrito está vacío.</span>
+                        <i className="fa-solid fa-cart-circle-xmark"></i><span>Tu carrito está vacío.</span>
                     </div>
                 </div>
                 <div className="col-12">

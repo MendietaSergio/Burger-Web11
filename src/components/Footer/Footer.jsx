@@ -25,7 +25,7 @@ export const Footer = () => {
                                     target="_blank"
                                     className='icon-social'
                                 >
-                                    <i class="fab fa-facebook" height='50px'></i>
+                                    <i className="fab fa-facebook" height='50px'></i>
                                 </a>
                             </li>
                         </ul>

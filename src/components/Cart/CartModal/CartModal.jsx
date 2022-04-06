@@ -7,7 +7,7 @@ export const CartModal = ({ showCartList, setShowCartList }) => {
     <div className='container-cart-widget'>
       <div className='container-cartTitle-movil my-3'>
         <h5 className='text-center'>Carrito de compras</h5>
-        <i class="far fa-times-circle" onClick={() => setShowCartList(!showCartList)}></i>
+        <i className="far fa-times-circle" onClick={() => setShowCartList(!showCartList)}></i>
       </div>
       {preview ? (
         <>

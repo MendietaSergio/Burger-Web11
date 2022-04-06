@@ -54,14 +54,13 @@ export const Productos = () => {
             </div>
             <div className="row">
                 <div className="col-12 d-flex justify-content-center">
-                    <nav aria-label="...">
-                        <ul class="pagination pagination-lg">
-                            {/* disabled */}
-                            <li class="page-item ">
-                                <a class="page-link"  tabindex="-1">1</a>
+                    <nav>
+                        <ul className="pagination pagination-lg">
+                            <li className="page-item ">
+                                <a className="page-link" >1</a>
                             </li>
-                            <li class="page-item"><a class="page-link" >2</a></li>
-                            <li class="page-item"><a class="page-link" >3</a></li>
+                            <li className="page-item"><a className="page-link" >2</a></li>
+                            <li className="page-item"><a className="page-link" >3</a></li>
                         </ul>
                     </nav>
                 </div>

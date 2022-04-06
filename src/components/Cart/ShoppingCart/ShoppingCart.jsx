@@ -17,7 +17,7 @@ export const ShoppingCart = () => {
             <div className='col-12'>
                 <div className="container-item-cart">
                     <div className='container-cart-section'>
-                        <i class="far fa-times-circle"></i>
+                        <i className="far fa-times-circle"></i>
                     </div>
                     <div className='container-cart-section'>
                         <img className='cart-img' src="https://res.cloudinary.com/freelance01/image/upload/v1648984024/burger_web/img-prueba_lqluh4.png" alt="Producto" />
@@ -32,7 +32,7 @@ export const ShoppingCart = () => {
                     </div>
                     <div className='container-cart-section'>
                         <span className='cart-section-title'>Cantidad:</span>
-                        <input type="number" className='form-control'value='1' />
+                        <input type="number" className='form-control' />
                     </div>
                     <div className='container-cart-section'>
                         <span className='cart-section-title'>Subtotal:</span>

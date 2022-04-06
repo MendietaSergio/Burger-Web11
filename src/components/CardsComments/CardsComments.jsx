@@ -10,11 +10,11 @@ export const CardsComments = () => {
                             "Muy ricas las Burgers y buena la atención en el local."
                         </span>
                         <span className='text-left'>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
                         </span>
                         <div className='box-img'>
                             <img className='float-left' src="https://parisburger.com.ar/wp-content/uploads/2021/07/client02-free-img.jpg" alt="foto perfil" />
@@ -28,11 +28,11 @@ export const CardsComments = () => {
                             "Muy ricas las Burgers y buena la atención en el local."
                         </span>
                         <span className='text-left'>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
                         </span>
                         <div className='box-img'>
                             <img className='float-left' src="https://parisburger.com.ar/wp-content/uploads/2021/07/client02-free-img.jpg" alt="foto perfil" />
@@ -46,11 +46,11 @@ export const CardsComments = () => {
                             "Muy ricas las Burgers y buena la atención en el local."
                         </span>
                         <span className='text-left'>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
                         </span>
                         <div className='box-img'>
                             <img className='float-left' src="https://parisburger.com.ar/wp-content/uploads/2021/07/client02-free-img.jpg" alt="foto perfil" />
