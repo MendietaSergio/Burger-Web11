@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './OptionsSelection.css'
 export const OptionsSelection = () => {
     return (
@@ -11,7 +12,7 @@ export const OptionsSelection = () => {
                             <div className='container-titleOptions'>
                                 <h1 className='titleOptions'>Las mejores burgers</h1>
                                 <div className='container-optionsLink'>
-                                    <a className='optionsLink' href="#">Ver más <i className="fas fa-hamburger"></i></a>
+                                    <Link className='optionsLink' to="/productos/burger">Ver más <i className="fas fa-hamburger"></i></Link>
                                 </div>
                             </div>
                         </div>
@@ -22,7 +23,7 @@ export const OptionsSelection = () => {
                             <div className='container-titleOptions'>
                                 <h1 className='titleOptions'>acompaña tus papas con tu salsa favorita</h1>
                                 <div className='container-optionsLink'>
-                                    <a className='optionsLink' href="#">Ver más <i className="fas fa-utensils"></i></a>
+                                    <Link className='optionsLink' to="/productos/papasysalsas">Ver más <i className="fas fa-utensils"></i></Link>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +34,7 @@ export const OptionsSelection = () => {
                             <div className='container-titleOptions'>
                                 <h1 className='titleOptions'>bebidas para acompañar</h1>
                                 <div className='container-optionsLink'>
-                                    <a className='optionsLink' href="#">Ver más <i className="fas fa-glass-whiskey"></i></a>
+                                    <Link className='optionsLink' to="/productos/bebidas">Ver más <i className="fas fa-glass-whiskey"></i></Link>
                                 </div>
                             </div>
                         </div>
