@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Footer.css'
+
 export const Footer = () => {
     return (
         <footer className='container-fluid'>
@@ -34,34 +36,27 @@ export const Footer = () => {
                         <h5 className='my-3'>Enlaces rápidos</h5>
                         <ul className='social-list list-inline mb-0'>
                             <li className='list-block-item py-1'>
-                                <a
-                                    href="/productos"
-                                    rel="noopener noreferrer"
-                                    target="_blank"
+                                <Link
+                                    to="/productos"
                                     className=''
-                                >Todos los productos</a>
+                                >Todos los productos</Link>
                             </li>
                             <li className='list-block-item py-1'>
-                            <a
-                                    href="/carrito"
-                                    rel="noopener noreferrer"
-                                    target="_blank"
+                            <Link
+                                    to="/micarrito"
                                     className=''
-                                >Carrito</a>
+                                >Carrito</Link>
                             </li>
                             <li className='list-block-item py-1'>
-                            <a
-                                    href="/terminosycondiciones"
-                                    rel="noopener noreferrer"
-                                    target="_blank"
+                            <Link
+                                    to="/#"
                                     className=''
-                                >Términos y condiciones</a>
+                                >Términos y condiciones</Link>
                             </li>
                             <li className='list-block-item py-1'>
                             <a
                                     href="#"
-                                    rel="noopener noreferrer"
-                                    target="_blank"
+                                    
                                     className=''
                                 >Llámanos</a>
                             </li>
