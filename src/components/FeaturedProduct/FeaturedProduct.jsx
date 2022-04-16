@@ -1,7 +1,19 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { Link } from 'react-router-dom'
 import { Title } from '../Title/Title'
 import './featuredProduct.css'
 export const FeaturedProduct = () => {
+    const [showCart,setShowCart ] = useState(false)
+    const [loading, setLoading] = useState (false)
+    //FALTA FILTRAR POR LAS 'VISTAS' HASTA 4 ART.
+    //DESPUES DE MODIFICAR LAS VISTAS DESDE EL DETALLE DEL PRODUCTO.
+    const addCart = ( ) =>{
+        setLoading(true)
+        setTimeout(() =>{
+            setShowCart(true)
+            setLoading(false)
+        },3000)
+    }
     return (
         <>
             <Title title="Productos Destacados"/>
@@ -20,9 +32,12 @@ export const FeaturedProduct = () => {
                                 <span className='title-categorie'>New York</span>
                                 <h5 className=''>Burger WHOPBURGER</h5>
                                 <span className='price'>$890,00</span>
-                                <div className='btn-link'>
-                                    <a className='optionsLink' href="#">Pedime Ahora <i className="fas fa-angle-right"></i></a>
+                                <div className='btn-link' onClick={() => addCart()}>
+                                    <a className='optionsLink' >Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>):(<i className="fas fa-angle-right"></i>)}</a>
                                 </div>
+                                    {showCart ? (
+                                        <Link className='text-danger ' to="/micarrito">Ver carrito</Link>
+                                    ):(null)}
                             </div>
                         </div>
                     </div>
