@@ -12,7 +12,6 @@ export const Header = () => {
         const getCategories = async () => {
             await axios.get('http://localhost:3001/api/products/categories')
                 .then((res) => {
-                    console.log("RES => ", res);
                     setMenuCategorie(res.data)
                 })
                 .catch((error) => console.log(error))
