@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { ItemListProducts } from '../components/Container/ItemListProducts/ItemListProducts'
 import { Pagination } from '../components/Container/Pagination/Pagination'
 import { Navigation } from '../components/Navigation/Navigation'
@@ -12,24 +13,51 @@ export const Productos = () => {
     const [currentPage, setCurrentPage] = useState(0)
     const [productsPage] = useState(12)
     const [filter, setFilter] = useState('')
-
+    const { idCategoria } = useParams()
+    const { idSubcategoria } = useParams()
     useEffect(() => {
         const getProducts = async () => {
             setLoading(true)
-            await axios.get(`http://localhost:3001/api/products`)
-                .then(res => {
-                    console.log(res.data);
-                    setProducts(res.data)
-                    setTotal(res.data.length)
-                })
-                .catch(error => console.log(error))
-                .finally(() => {
-                    setLoading(false)
-                    setCurrentPage(1)
-                })
+            if (idCategoria) {
+                let categorie = idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
+                await axios.get(`http://localhost:3001/api/products`)
+                    .then(res => {
+                        setProducts(res.data.filter(idCategorie => idCategorie.nombre_categoria.nombre === categorie))
+                        setTotal(res.data.length)
+                    })
+                    .catch(error => console.log(error))
+                    .finally(() => {
+                        setLoading(false)
+                        setCurrentPage(1)
+                    })
+                if (idSubcategoria) {
+                    await axios.get(`http://localhost:3001/api/products`)
+                        .then(res => {
+                            setProducts(res.data.filter(idSubCategorie => idSubCategorie.nombre_categoria.categoria === idSubcategoria))
+                            setTotal(res.data.length)
+                        })
+                        .catch(error => console.log(error))
+                        .finally(() => {
+                            setLoading(false)
+                            setCurrentPage(1)
+                        })
+                }
+            } else {
+                await axios.get(`http://localhost:3001/api/products`)
+                    .then(res => {
+                        console.log(res.data);
+                        setProducts(res.data)
+                        setTotal(res.data.length)
+                    })
+                    .catch(error => console.log(error))
+                    .finally(() => {
+                        setLoading(false)
+                        setCurrentPage(1)
+                    })
+            }
         }
         getProducts()
-    }, [])
+    }, [idCategoria,idSubcategoria])
 
     //FILTROS
     useEffect(() => {
@@ -39,9 +67,9 @@ export const Productos = () => {
     }, [filter])
 
 
-
+    //PAGINACION
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+    //FUNCION PARA DEFITIR TIPO DE FILTRO
     const TopToLow = (filter) => {
         setLoading(true)
         if (filter === 'Ordenar por precios altos') {
@@ -79,7 +107,7 @@ export const Productos = () => {
     return (
         <div className='container'>
 
-            <Navigation to="/" title="" />
+            <Navigation />
             <Title title="Productos" />
             <div className="row result-filter">
                 <div className="col-12 col-md-6">
@@ -96,7 +124,9 @@ export const Productos = () => {
                 </div>
             </div>
             <div className="row">
-                <ItemListProducts products={currentProducts} loading={loading} />
+                {currentProducts === undefined ? (null) : (
+                    <ItemListProducts products={currentProducts} loading={loading} />
+                )}
             </div>
             <div className="row">
                 <div className="col-12 d-flex justify-content-center">
