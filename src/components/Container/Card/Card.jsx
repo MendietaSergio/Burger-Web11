@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Card = ({product}) => {
-    const {nombre, precio, nombre_categoria, img_art } = product
+    const {_id, nombre, precio, nombre_categoria, img_art } = product
     return (
         <div className='container-featuredProduct my-3'>
             <div className='container-img-featuredProduct'>
                 <img className='img-featuredProduct' src={img_art} alt="Burger" height='255' />
                 <div className='container-img-detail'>
-                    <h5 className='viewDetail'>Ver Detalle</h5>
+                    <Link className='viewDetail' to={`/productos/detalle/${_id}`}>Ver Detalle</Link>
                 </div>
             </div>
             <div className='container-info'>
