@@ -47,6 +47,7 @@
     position: relative;
     overflow: hidden;
     width   : auto;
+    cursor: pointer;
 }
 .detail-warning{
     padding: 20px;
