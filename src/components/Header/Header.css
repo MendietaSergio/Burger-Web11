@@ -22,7 +22,9 @@
 .navbar-toggler-icon {
     background-color: white;
 }
-
+.dropdown-item:focus, .dropdown-item:hover{
+    background-color: #ff5151 !important;
+}
 @media(min-width: 992px) {
     .navbar-collapse {
         display        : flex;
