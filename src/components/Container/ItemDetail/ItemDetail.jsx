@@ -1,21 +1,36 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { Link } from 'react-router-dom'
 import './ItemDetail.css'
 import { Navigation } from '../../Navigation/Navigation'
 import { Title } from '../../Title/Title'
-export const ItemDetail = () => {
+export const ItemDetail = ({productDetail}) => {
+    const {nombre, img_art, precio, descripcion, nombre_categoria, _id} = productDetail;
+    const [ loading, setLoading ] = useState(false)
+    const [cant,setCant] = useState(1);
+
+    const handleAddCart = ( ) =>{
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 2500);
+    }
     return (
         <div className='my-5'>
             <div className='row'>
 
                 <div className="col-12 col-md-6">
-                    <img className='img-detail' src="https://res.cloudinary.com/freelance01/image/upload/v1648526368/burger_web/burgers_option_jlzycs.jpg" title="producto" />
+                    <img className='img-detail' src={img_art} title={nombre} />
                 </div>
                 <div className="col-12 col-md-6">
                     <div className='detail-info'>
 
-                        <Navigation />
-                        <h5 className=''>Burger WHOPBURGER</h5>
-                        <span className='price'>$890,00</span>
+                        <Navigation 
+                        categoria={nombre_categoria.nombre}
+                        tipo={nombre_categoria.tipo}
+                        />
+                        <h5 className=''>{nombre}</h5>
+                        <span className='price'>${precio},00</span>
+                        {/* FALTA MOSTRAR LA DESCRIPCION, SACANDO LA INFO Y PASANDOLA COMO ARRAY PARA IR MOSTRANDO UNA LISTA */}
                         <div className='detail-list'>
                             <ul>
                                 <li>mac cheese</li>
@@ -25,16 +40,31 @@ export const ItemDetail = () => {
                                 <li>deep fried</li>
                             </ul>
                         </div>
-                        <span className='detail-categorie'>papas rusticas caseras incluidas</span>
+                        <span className='detail-categorie'>{descripcion}</span>
                         <div className='d-flex justify-content-center'>
-                            <input type="number" className='form-control' />
+                            <input 
+                                type="number"
+                                className='form-control'
+                                onChange={(e) =>setCant(e.target.value)}
+                                defaultValue={cant}
+                                min="1"
+                                max="10"
+                            />
                             <div className='btn-link'>
-                                <a className='optionsLink' href="#">Pedime Ahora <i className="fas fa-angle-right"></i></a>
+                                {/* SE PODRÍA AGREGAR ALGUN TIPO DE MENSAJE CON TIMEOUT, ART. AGREGADO AL CARRITO */}
+                                <a 
+                                    className='optionsLink'
+                                    onClick={() =>handleAddCart(_id)}
+                                >Pedime Ahora {loading ? (
+                                    <i className="fas fa-spinner fa-pulse"></i>
+                                    ):(
+                                    <i className="fas fa-angle-right"></i>
+                                    )}</a>
                             </div>
                         </div>
                     </div>
                     <hr />
-                    <span>Categoría: <span className='detail-subItem'>Sin Alcohol</span></span>
+                    <span>Categoría: <Link to={`/productos/${nombre_categoria.nombre}/${nombre_categoria.categoria}`} className='detail-subItem'>{nombre_categoria.categoria}</Link></span>
                 </div>
             </div>
         </div>
