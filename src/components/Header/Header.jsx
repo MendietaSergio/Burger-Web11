@@ -42,7 +42,7 @@ export const Header = () => {
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav d-flex justify-content-end">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/">Inicio <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/">Inicio </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/productos">Productos</Link>
@@ -54,19 +54,31 @@ export const Header = () => {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {loading ? (
                                         menuCategorie.filter(categories => categories.nombre === 'Burger').map(categorie => (
-                                            <Link key={categorie.id} className="dropdown-item" to={`/productos/burger/${categorie.categoria}`}>{categorie.categoria}</Link>
+                                            <Link key={categorie._id} className="dropdown-item" to={`/productos/burger/${categorie.categoria}`}>{categorie.categoria}</Link>
                                         ))
                                     ) : (null)}
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to="#">Ver todas</Link>
+                                    <Link className="dropdown-item" to="/productos/burger">Ver todas</Link>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/productos/papasysalsas">Papas y salsas</Link>
                             </li>
 
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/productos/bebida">Bebidas</Link>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Bebidas
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {loading ? (
+                                        menuCategorie.filter(categories => categories.nombre === 'Bebidas').map(categorie => (
+                                            <Link key={categorie._id} className="dropdown-item" to={`/productos/bebidas/${categorie.categoria}`}>{categorie.categoria}</Link>
+                                        ))
+                                    ) : (null)}
+                                    <div className="dropdown-divider"></div>
+                                    <Link className="dropdown-item" to="/productos/bebidas">Ver todas</Link>
+                                </div>
+
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
