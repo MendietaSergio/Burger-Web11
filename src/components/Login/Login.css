@@ -46,7 +46,11 @@ label small {
     color      : #FF515C;
     font-weight: 400;
 }
-
+.info-register{
+    cursor: pointer;
+    color      : #FF515C;
+    font-weight: 400;
+}
 @media(min-width: 768px) {
     .form-login {
         width: 40%;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Title } from '../Title/Title'
 import './Login.css'
-export const Login = () => {
+export const Login = ({setViewRegister}) => {
     return (
         <div className='container-form'>
             <div className='container-form-body'>
@@ -23,6 +23,9 @@ export const Login = () => {
                     </div>
                     <div>
                         <small className='info-password'>¿Olvidaste tu contraseña?</small>
+                    </div>
+                    <div>
+                        <small >¿Sos nuevo? <span className='info-register' onClick={() =>setViewRegister(false)} >¡Registrate!</span></small>
                     </div>
                 </form>
             </div>
