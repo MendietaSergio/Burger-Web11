@@ -1,7 +1,8 @@
 .container-form {
     width : 90%;
-    height: 600px;
+    height: auto;
     margin: 0 auto;
+    padding-bottom: 50px;
 }
 
 .container-form-body {
