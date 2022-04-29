@@ -1,14 +1,7 @@
-import React,{useState} from 'react'
-import { Login } from '../components/Login/Login'
-import { Register } from '../components/Register/Register'
+import React from 'react'
 
-export const MyAccount = () => {
-    const [viewRegister, setViewRegister] = useState('pepe')
-    return (
-        <div className='container'>
-            {viewRegister ? (
-            <Login setViewRegister={setViewRegister} />
-            ):(<Register setViewRegister={setViewRegister}/>)}
-        </div>
-    )
+export const Myaccount = () => {
+  return (
+    <div>Perfil</div>
+  )
 }
