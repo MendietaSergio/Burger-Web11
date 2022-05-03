@@ -1,0 +1,10 @@
+.form-personalUpdate{
+    width: 100%;
+}
+.btn-toUpdate{
+    width           : 100px;
+    height          : 50px;
+    background-color: rgb(4, 92, 41);
+    color           : white;
+    border          : none;
+}

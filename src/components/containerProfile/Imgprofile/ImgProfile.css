@@ -1,0 +1,33 @@
+.container-profile{
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-profile img{
+    width: 100px;
+    height: 100px;
+}
+.container-profile span{
+    color: darkgray;
+}
+
+.container-optionsprofile{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: rgb(179, 179, 179);
+    margin: 0 10px;
+    
+}
+.container-optionsprofile li{
+    cursor: pointer;
+    padding: 0 10px;
+    color: white;
+    font-size: larger;
+}
+.container-optionsprofile li:hover{
+    color: #ff5151;
+}
