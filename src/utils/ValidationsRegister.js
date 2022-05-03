@@ -30,5 +30,21 @@ export const validations = {
             value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/,
             message: "El mail debe contener mayusculas, menisculas, números y simbolos."
         }
-    }
+    },
+    domicilio:{
+        required:{
+            value: true,
+            message:"El nombre es requerido"
+        }
+    },
+    description:{
+        minLength:{
+            value:20,
+            message: "Debe tener al menos 5 carácteres."
+        },
+        maxLength:{
+            value:50,
+            message: "El máximo son 20 carácteres."
+        },
+    },
 }
