@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { ItemListProducts } from '../components/Container/ItemListProducts/ItemListProducts'
 import { Pagination } from '../components/Container/Pagination/Pagination'
 import { Navigation } from '../components/Navigation/Navigation'
+import { SkeletonCard } from '../components/Skeleton/SkeletonCard'
 import { Title } from '../components/Title/Title'
 import './Filter.css'
 export const Productos = () => {
@@ -14,8 +15,11 @@ export const Productos = () => {
     const [productsPage] = useState(12)
     const [filter, setFilter] = useState('')
     const { idCategoria } = useParams()
+    const [viewProduct,setViewProduct] = useState(true)
     const { idSubcategoria } = useParams()
     useEffect(() => {
+        setViewProduct(false)
+
         const getProducts = async () => {
             setLoading(true)
             if (idCategoria) {
@@ -57,6 +61,9 @@ export const Productos = () => {
             }
         }
         getProducts()
+        setTimeout(() => {
+            setViewProduct(true)
+        }, 3000);
     }, [idCategoria,idSubcategoria])
 
     //FILTROS
@@ -124,8 +131,10 @@ export const Productos = () => {
                 </div>
             </div>
             <div className="row">
-                {currentProducts === undefined ? (null) : (
+                {viewProduct ? (
                     <ItemListProducts products={currentProducts} loading={loading} />
+                    ) : (
+                    <SkeletonCard />
                 )}
             </div>
             <div className="row">
