@@ -8,7 +8,7 @@ import { PersonalInformation } from '../PersonalInformation/PersonalInformation'
 import { PurchaseHistory } from '../PurchaseHistory/PurchaseHistory'
 import { PurchaseOrder } from '../PurchaseOrder/PurchaseOrder'
 
-export const OptionProfile = () => {
+export const OptionProfile = ({user, dispatch}) => {
     const [viewInformation, setViewInformation] = useState(true)
     const [viewOrder, setViewOrder] = useState(false)
     const [viewHistory, setViewHistory] = useState(false)
@@ -95,7 +95,7 @@ export const OptionProfile = () => {
                     </div>
                 </div>
             </div>
-            <PersonalInformation viewInformation={viewInformation} />
+            <PersonalInformation viewInformation={viewInformation} user={user} dispatch={dispatch} />
             <PurchaseOrder viewOrder={viewOrder} />
             <PurchaseHistory viewHistory={viewHistory} />
             <ListClients viewClients={viewClients} />
