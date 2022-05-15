@@ -1,10 +1,7 @@
 import React from 'react'
 import { Card } from '../Card/Card'
 
-export const ItemListProducts = ({ products, loading}) => {
-    if (loading) {
-        return <i className="fas fa-spinner fa-pulse"></i>
-    }
+export const ItemListProducts = ({ products}) => {
 
     return (
         <>
