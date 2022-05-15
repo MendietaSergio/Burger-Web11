@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Title } from '../Title/Title'
 import { useForm } from 'react-hook-form'
 import './Login.css'
@@ -6,8 +6,11 @@ import { validations } from '../../utils/ValidationsLogin'
 import axios from 'axios'
 import { Link, Navigate } from 'react-router-dom'
 import { Message } from '../Message/Message'
+import { AuthContext } from '../../Auth/AuthContext'
+import { types } from '../../Types/Types'
 
 export const Login = () => {
+    const {dispatch} = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [succes, setSucces] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -22,6 +25,9 @@ export const Login = () => {
         })
             .then(res => {
                 if (res.data.ok) {
+                    console.log(res.data);
+                    localStorage.setItem('userBurger', JSON.stringify(res.data.logeado,null))
+                    handleLogin(res.data.logeado)
                     setTimeout(() => {
                         setSucces(true)
                         setLoading(false)
@@ -35,7 +41,14 @@ export const Login = () => {
                 }
             })
     }
-
+    const handleLogin = (data) =>{
+        dispatch({
+            type: types.login,
+            payload: {
+                ...data
+            }
+        })
+    }
     return (
         <>
             {succes && <Navigate to='/' />}
