@@ -90,7 +90,7 @@ export const OptionProfile = ({user, dispatch}) => {
                 <div className='row'>
                     <div className='d-flex justify-content-center'>
                         <ViewOptions 
-                        widthImg={widthImg} admin={admin} view={view}
+                        widthImg={widthImg} admin={user.rol} view={view}
                         />
                     </div>
                 </div>
