@@ -1,14 +1,16 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
+import { AuthContext } from '../../Auth/AuthContext'
+import { types } from '../../Types/Types'
 import { validations } from '../../utils/ValidationsRegister'
 import { Message } from '../Message/Message'
 import { Title } from '../Title/Title'
 import './Register.css'
 
 export const Register = () => {
-
+  const {dispatch} = useContext(AuthContext)
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const [viewMessage, setViewMessage] = useState(false)
   const [message, setMessage] = useState('')
@@ -27,6 +29,8 @@ export const Register = () => {
       .then(res => {
         setLoading(!loading)
         if (res.data.ok) {
+          // localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
+          handleLogin(res.data.logeado)
           setTimeout(() => {
             setSucces(true)
             setLoading(false)
@@ -42,7 +46,14 @@ export const Register = () => {
         }
       })
   }
-
+  const handleLogin = (data) => {
+    dispatch({
+      type: types.login,
+      payload: {
+        ...data
+      }
+    })
+  }
   return (
     <>
       {succes && <Navigate to="/micuenta" />}
