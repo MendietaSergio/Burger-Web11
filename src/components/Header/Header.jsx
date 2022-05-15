@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { CartModal } from '../Cart/CartModal/CartModal'
 import './Header.css'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../Auth/AuthContext'
+import { types } from '../../Types/Types'
 export const Header = () => {
     const [showCartList, setShowCartList] = useState(false)
     const [menuCategorie, setMenuCategorie] = useState({})
     const [loading, setLoading] = useState(false)
+    const { user, dispatch } = useContext(AuthContext)
+    const { nombre } = user;
 
     useEffect(() => {
         const getCategories = async () => {
@@ -22,6 +26,12 @@ export const Header = () => {
         }
         getCategories()
     }, [])
+    const handleLogout = () => {
+        dispatch({
+            type: types.logout,
+            payload: null
+        })
+    }
     return (
         <div className='row row-header'>
             <div className='container'>
@@ -82,11 +92,25 @@ export const Header = () => {
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Cuenta
+                                    {user.logueado ? ( nombre ) : ('Cuentas')}
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <Link className="dropdown-item" to="/ingresar">Mi cuenta</Link>
+                                    {user.logueado ? (
+                                        <Link className="dropdown-item" to="/micuenta">
+                                            Mi perfil
+                                        </Link>
+                                    ) : (
+                                        <Link className="dropdown-item" to="/ingresar">Ingresar</Link>
+
+                                    )}
                                     <Link className="dropdown-item" to="/micarrito">Carrito</Link>
+                                    {user.logueado ?
+                                        (
+                                            <Link className="dropdown-item" to="/" onClick={handleLogout}>Cerrar sesión</Link>
+                                        )
+                                        :
+                                        (null)
+                                    }
                                 </div>
                             </li>
                         </ul>
