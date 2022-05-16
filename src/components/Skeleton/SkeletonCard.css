@@ -1,6 +1,6 @@
 .card {
     width           : 100%;
-    background-color: white;
+    /* background-color: white; */
     border-radius   : 6px;
     overflow        : hidden;
     box-shadow      : 0px 4px 6px rgba(0, 0, 0, .12);
@@ -10,7 +10,10 @@
 .image {
     height: 200px;
 }
-
+.image-detail{
+    width: 100%;
+    height: 350px;
+}
 .content {
     padding: 2rem 1.8rem;
 }
@@ -21,7 +24,11 @@
 }
 
 .loading .image,
+.loading .image-detail,
 .loading h4,
+.loading h1,
+.loading .price,
+.loading .list,
 .loading .details {
     background-color: #ededed;
     background-image: linear-gradient(110deg,
@@ -33,14 +40,34 @@
     animation            : 1.5s loading ease-in-out infinite;
 }
 
-.loading h4 {
+.loading h1 {
+    min-height     : 1.1rem;
+    border-radius  : 4px;
+    animation-delay: .08s;
+    margin-left: 35px;
+}
+.loading h4{
     min-height     : 1.6rem;
+    width: 40%;
+    border-radius  : 4px;
+    animation-delay: .08s;
+}
+.loading .price {
+    min-height     : 1.6rem;
+    width: 25%;
     border-radius  : 4px;
     animation-delay: .08s;
 }
 
 .loading .details {
     min-height     : 4rem;
+    border-radius  : 4px;
+    animation-delay: .1s;
+}
+.loading .list {
+    min-height     : 1.5rem;
+    margin: 15px;
+    width: 80%;
     border-radius  : 4px;
     animation-delay: .1s;
 }
@@ -54,7 +81,9 @@
     font-size: 26px;
     color    : #fefefe;
 }
-
+/* .margin{
+        margin: 50px 0;
+    } */
 @keyframes loading {
     to {
         background-position-x: -60%;
@@ -66,4 +95,5 @@
         width: 80%;
         margin: 10%;
     }
+    
 }
