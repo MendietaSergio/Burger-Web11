@@ -1,0 +1,23 @@
+.container-listClients{
+    height: 250px;
+    overflow: auto;
+    margin-bottom: 50px;
+
+}
+.container-listClients table tr{
+    cursor: pointer;
+}
+.container-listClients table tr:hover{
+    background-color: red;
+}
+@media(min-width:768px){
+    .container-listClients{
+        display: flex;
+        justify-content: center;
+        height: 450px;
+
+    }
+    .container-listClients table{
+        width: 80%;
+    }
+}
