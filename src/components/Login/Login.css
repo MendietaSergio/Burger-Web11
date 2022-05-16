@@ -23,7 +23,7 @@
 .form-login {
     background-color: white;
     height          : auto;
-    width           : 80%;
+    /* width           : 80%; */
     margin          : 0 auto;
     border          : 1px solid #c1c1c1;
     border-radius   : 2%;
@@ -54,7 +54,7 @@ label small {
 }
 @media(min-width: 768px) {
     .form-login {
-        width: 40%;
+        width: 550px;
     }
 
     .form-subTitle {
