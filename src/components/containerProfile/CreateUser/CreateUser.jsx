@@ -1,10 +1,14 @@
 import React from 'react'
+import { Register } from '../../Register/Register'
 
-export const CreateUser = ({ viewNewUser }) => {
+export const CreateUser = ({ viewNewUser,admin }) => {
 
   if (viewNewUser) {
     return (
-      <div>CreateUser</div>
+      <Register
+        title='Registrar empleado'
+        admin={admin}
+        />
     )
   }else{
     return null
