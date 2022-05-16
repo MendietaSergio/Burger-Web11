@@ -100,7 +100,7 @@ export const OptionProfile = ({user, dispatch}) => {
             <PurchaseHistory viewHistory={viewHistory} />
             <ListClients viewClients={viewClients} />
             <AddProduct viewAddProducts={viewAddProducts} />
-            <CreateUser viewNewUser={viewNewUser} />
+            <CreateUser viewNewUser={viewNewUser} admin={true} />
 
         </div>
     )
