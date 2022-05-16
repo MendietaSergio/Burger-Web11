@@ -9,9 +9,9 @@ import { Message } from '../Message/Message'
 import { Title } from '../Title/Title'
 import './Register.css'
 
-export const Register = () => {
-  const {dispatch} = useContext(AuthContext)
-  const { register, handleSubmit, reset, formState: { errors } } = useForm()
+export const Register = ({ title = "Registrarse", admin = false }) => {
+  const { dispatch } = useContext(AuthContext)
+  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm()
   const [viewMessage, setViewMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -19,18 +19,21 @@ export const Register = () => {
   const submit = async (data) => {
     setViewMessage(false)
     setMessage('')
-    const { nombre, usuario, email, password } = data;
+    const { nombre, usuario, email, password, roles } = data;
+    console.log("data ", data);
     await axios.post('http://localhost:3001/api/auth/signup', {
       nombre,
       usuario,
       email,
-      password
+      password,
+      roles
     })
       .then(res => {
         setLoading(!loading)
         if (res.data.ok) {
-          // localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
-          handleLogin(res.data.logeado)
+          if (!admin) {
+            handleLogin(res.data.logeado)
+          }
           setTimeout(() => {
             setSucces(true)
             setLoading(false)
@@ -47,6 +50,7 @@ export const Register = () => {
       })
   }
   const handleLogin = (data) => {
+    console.log("dispatch");
     dispatch({
       type: types.login,
       payload: {
@@ -54,12 +58,24 @@ export const Register = () => {
       }
     })
   }
+  const handleRol = (rol) => {
+    if (rol === 'user') {
+      console.log("rol usuario ", rol);
+      setValue('rol', rol)
+    } else {
+      console.log("rol admin ", rol);
+
+      setValue('rol', rol)
+    }
+  }
   return (
     <>
-      {succes && <Navigate to="/micuenta" />}
+      {admin ? (null) : (
+        succes && <Navigate to="/micuenta" />
+      )}
       <div className="container-form">
         <div className="container-form-body">
-          <Title title={"Registro"} bar={false} />
+          <Title title={title} bar={false} />
           {viewMessage ?
             (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
           }
@@ -89,10 +105,26 @@ export const Register = () => {
               {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
             </div>
           </div>
-          <div className='d-flex justify-content-start align-items-baseline'>
-            <input name="rememberMe" type="checkbox" />
-            <label htmlFor='rememberMe' name="rememberMe" className='px-2'>Acepto termino y condiciones</label>
-          </div>
+          {admin ? (
+            <div className='col-12 col-md-6 mb-5'>
+              <label name="roles">Rol <small>*</small></label>
+              <select name="roles" className={errors.roles ? ('form-select form-control is-invalid') : ('form-select form-control')}
+                {...register('roles', validations.roles)}
+                // onChange={(e) => handleRol(e.target.value)}
+              >
+                <option value="" >Seleccione el rol</option>
+                <option value="admin" >Admin</option>
+                <option value="user">Usuario</option>
+              </select>
+              {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
+
+            </div>
+          ) : (
+            <div className='d-flex justify-content-start align-items-baseline'>
+              <input name="rememberMe" type="checkbox" />
+              <label htmlFor='rememberMe' name="rememberMe" className='px-2'>Acepto termino y condiciones</label>
+            </div>
+          )}
           <div className='d-flex flex-row justify-content-around'>
             <div>
               <button type='submit' className='btn-toRegister' >Registarme
