@@ -4,13 +4,13 @@ export const PurchaseOrder = ({ viewOrder }) => {
   const [orderList, setOrderList] = useState({ id: "asd" })
   if (viewOrder) {
     return (
-      <div>
+      <>
         {orderList !== undefined ? (
-          <div className='d-flex justify-content-center'>
-            <h4 className='text-ce nter'>No se encontró alguna orden de compra</h4>
+          <div className='d-flex justify-content-center my-5'>
+            <h4 className='text-center'>No se encontró alguna orden de compra</h4>
           </div>
         ) : (<span>false</span>)}
-      </div>
+      </>
     )
   }else{
     return null

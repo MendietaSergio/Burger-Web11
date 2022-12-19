@@ -23,11 +23,11 @@ export const ListClients = ({ viewClients }) => {
 
     getListClient()
   }, [])
-  
+
   if (viewClients) {
     return (
       <>
-        <h1 className='text-center'>Lista de clientes</h1>
+            <h1 className='text-center'>Lista de clientes</h1>
         {loading ? (<i>Cargando...</i>) : (
           <div className='container-listClients w-100'>
             <table class="table-striped table-hover ">
@@ -39,9 +39,9 @@ export const ListClients = ({ viewClients }) => {
                 </tr>
               </thead>
               <tbody>
-                {clientsList.map((list,index) => (
-                  <tr key={list._id} onClick={() =>console.log('click')}>
-                    <th>{index+1}</th>
+                {clientsList.map((list, index) => (
+                  <tr key={list._id} onClick={() => console.log('click')}>
+                    <th>{index + 1}</th>
                     <td className='px-2'>{list.usuario}</td>
                     <td>{list.nombre}</td>
                   </tr>

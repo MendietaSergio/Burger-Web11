@@ -64,6 +64,8 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                             (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
                         }
                     </div>
+                    <h1 className='text-center my-4'>Datos personales</h1>
+
                     <form onSubmit={handleSubmit(submit)} className="form-personalUpdate">
                         <div className='row'>
                             <div className='col-12  col-md-6'>

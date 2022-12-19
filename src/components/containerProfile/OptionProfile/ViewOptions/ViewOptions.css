@@ -1,5 +1,15 @@
-.select-option-account{
-    width: 100% !important;
-    border: aliceblue;
+.select-option-account {
+    appearance      : none;
+    outline         : 0;
+    border          : 0;
+    box-shadow      : none;
+    border-radius   : 10px;
+    flex            : 1;
+    padding         : 0 1em;
+    color           : #fff;
+    background-color: gray;
+    background-image: none;
+    cursor          : pointer;
+    height          : 40px;
+    width           : 100%;
 }
-

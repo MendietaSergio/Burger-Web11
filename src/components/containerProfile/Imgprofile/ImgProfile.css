@@ -1,9 +1,8 @@
 .container-profile {
-    background-color: red;
-    display         : flex;
-    justify-content : center;
-    align-items     : center;
-    flex-direction  : column;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    flex-direction : column;
 }
 
 .container-profile img {
@@ -16,28 +15,62 @@
 }
 
 .container-optionsprofile {
-    display         : flex;
-    justify-content : center;
-    align-items     : center;
-    margin          : 0 10px;
-    background-color: #FF5151 !important;
+    display            : flex;
+    justify-content    : center;
+    align-items        : center;
+    margin             : 0 10px;
 }
 
 .container-optionsprofile li {
     cursor   : pointer;
     padding  : 0 10px;
-    color    : white;
+    color    : rgb(0, 0, 0);
     font-size: larger;
+    width    : 200px;
 }
 
 .container-optionsprofile li:hover {
     color: #ff5151;
 }
 
-@media(min-width: 550px) {
-    .container-optionsprofile {
-        background-color: rgb(179, 179, 179) !important;
-        justify-content : start;
+.option_select {
+    background-color: #b9b9b9;
+    color           : white !important;
+}
 
+@media(min-width: 768px) {
+    .container-optionsprofile {
+        /* background-color: rgb(179, 179, 179) !important; */
+        justify-content: center;
+        padding        : 0 !important;
+    }
+
+    .container-optionsprofile ul {
+        border: 1px solid #b9b9b9;
+    }
+
+    .container-optionsprofile li {
+        height         : 50px;
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+    }
+
+    .container-optionsprofile li i {
+        font-size  : 15px;
+        padding-top: 6px;
+    }
+
+    .container-optionsprofile li:nth-child(-n+4) {
+        border-bottom: 1px solid #b9b9b9;
+        width        : 100%;
+    }
+
+    .container_data_user {
+        padding        : 60px 0;
+        /* display        : flex; */
+        justify-content: center;
+        align-items    : center;
+        height: 700px;
     }
 }
