@@ -12,58 +12,73 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
     const [succes, setSucces] = useState(false)
-    const { nombre, email, _id, usuario, domicilio, description } = user;
+
+    const { nombre, email, _id, usuario, domicilio, descripcion } = user;
     const submit = async (data) => {
         console.log(data);
         setViewMessage(false)
         setMessage('')
-        const { nombre, usuario, email, domicilio, description } = data;
+        const { nombre, usuario, email, domicilio, descripcion } = data;
         await axios.put(`http://localhost:3001/api/user/${_id}`, {
             nombre,
             usuario,
             email,
             domicilio,
-            description
+            descripcion
         })
             .then(res => {
-                setLoading(!loading)
+                setLoading(true)
                 if (res.data.ok) {
                     localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
                     handleLogin(res.data.logeado)
+                    setMessage('Datos actualizados..!')
+                    setSucces(true)
                     setTimeout(() => {
-                        setSucces(true)
                         setLoading(false)
+                        setViewMessage(true)
                     }, 2000)
 
                 } else {
                     setLoading(!loading)
                     setMessage(res.data.message)
+                    setMessage('Error al actualizar datos!')
+                    setSucces(false)
+
                     setTimeout(() => {
                         setViewMessage(true)
                         setLoading(false)
                     }, 2000)
                 }
             })
+            .finally(() => {
+                setTimeout(() => {
+                    setViewMessage(false)
+                }, 5000)
+            })
     }
     const handleLogin = (data) => {
         dispatch({
-          type: types.login,
-          payload: {
-            ...data
-          }
+            type: types.login,
+            payload: {
+                ...data
+            }
         })
-      }
+    }
     if (viewInformation) {
 
         return (
             <>
 
+                <div className="container-message">
+                    {viewMessage ?
+                        (<Message
+                            message={message}
+                            viewMessage={viewMessage}
+                            setViewMessage={setViewMessage}
+                            className={succes ? 'alert-success' : 'alert-danger'} />) : (null)
+                    }
+                </div>
                 <div className="container-form">
-                    <div className="container-form-body">
-                        {viewMessage ?
-                            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
-                        }
-                    </div>
                     <h1 className='text-center my-4'>Datos personales</h1>
 
                     <form onSubmit={handleSubmit(submit)} className="form-personalUpdate">
@@ -126,22 +141,22 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                                 {errors.domicilio ? <small className='text-danger'>{errors.domicilio.message}</small> : null}
                             </div>
                             <div className='col-12 col-md-12'>
-                                <label name="description">Description</label>
+                                <label name="descripcion">Descripcion</label>
                                 <textarea
-                                    name="description"
-                                    className={errors.description ? ("form-control is-invalid") : ("form-control")} type="text"
+                                    name="descripcion"
+                                    className={errors.descripcion ? ("form-control is-invalid") : ("form-control")} type="text"
                                     maxLength="500"
                                     minLength="20"
                                     placeholder='Deje detalles del domicilio...'
-                                    {...register('description', validations.description)}
-                                    defaultValue={description ? description : null}
+                                    {...register('description', validations.descripcion)}
+                                    defaultValue={descripcion}
                                 />
-                                {errors.description ? <small className='text-danger'>{errors.description.message}</small> : null}
+                                {errors.description ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
                             </div>
                         </div>
                         <div className='d-flex flex-row justify-content-around my-3'>
                             <div>
-                                <button type='submit' className='btn-toUpdate' >Actualizar
+                                <button type='submit' className='btn-toUpdate' >Actualizar{" "}
                                     {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : null}
                                 </button>
                             </div>
