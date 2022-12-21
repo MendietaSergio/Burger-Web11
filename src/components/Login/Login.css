@@ -55,9 +55,7 @@ label small {
     font-weight: 400;
 }
 
-.alert-danger {
-    color: #FF515C;
-}
+
 
 .form-info-changePass {
     margin: 20px auto;
@@ -69,11 +67,7 @@ label small {
         width: 450px;
     }
 
-    .alert-danger {
-        width : 450px;
-        margin: 0 auto;
-    }
-
+  
     .form-info-changePass {
         width: 50%;
     }

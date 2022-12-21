@@ -15,6 +15,7 @@ export const Login = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [succes, setSucces] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [changeClassName, setChangeClassName] = useState(false)
     const [viewMessage, setViewMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [viewChangePass, setViewChangePass] = useState(false)
@@ -27,20 +28,30 @@ export const Login = () => {
         })
             .then(res => {
                 if (res.data.ok) {
-                    console.log(res.data);
                     localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
                     handleLogin(res.data.logeado)
+                    setMessage("Logeando...")
+                    setChangeClassName(true)
                     setTimeout(() => {
-                        setSucces(true)
                         setLoading(false)
+                        setViewMessage(true)
+
                     }, 2000)
+                    setTimeout(() => setSucces(true), 5000)
                 } else {
                     setMessage(res.data.message)
+                    setChangeClassName(false)
                     setTimeout(() => {
-                        setViewMessage(true)
                         setLoading(false)
+                        setViewMessage(true)
                     }, 2000)
                 }
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setViewMessage(false)
+                    setMessage('')
+                }, 5000)
             })
     }
     const handleLogin = (data) => {
@@ -51,16 +62,24 @@ export const Login = () => {
             }
         })
     }
-    
+
     return (
         <>
             {succes && <Navigate to='/' />}
+            <div className="container-message-login">
+
+                {viewMessage ?
+                    (<Message
+                        message={message}
+                        viewMessage={viewMessage}
+                        setViewMessage={setViewMessage}
+                        className={changeClassName ? 'alert-success' : 'alert-danger'}
+                    />) : (null)
+                }
+            </div>
             <div className='container-form'>
                 <div className='container-form-body'>
                     <Title title="Mi cuenta" bar={false} />
-                    {viewMessage ?
-                        (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
-                    }
                     {viewChangePass ? (
                         <ChangePassword
                             setViewChangePass={setViewChangePass}
