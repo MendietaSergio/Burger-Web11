@@ -37,7 +37,7 @@ export const validations = {
             message:"El nombre es requerido"
         }
     },
-    description:{
+    descripcion:{
         minLength:{
             value:20,
             message: "Debe tener al menos 5 carácteres."

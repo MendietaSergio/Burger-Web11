@@ -16,7 +16,7 @@ export const validations = {
         },
         pattern: {
             value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/,
-            message: "El mail debe contener mayusculas, menisculas, números y simbolos."
+            message: "La contraseña debe contener mayusculas, menisculas, números y simbolos."
         }
     }
 }
