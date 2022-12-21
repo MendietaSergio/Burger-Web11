@@ -1,7 +1,7 @@
 .container-form {
-    width : 90%;
-    height: auto;
-    margin: 0 auto;
+    width         : 90%;
+    height        : auto;
+    margin        : 0 auto;
     padding-bottom: 50px;
 }
 
@@ -21,13 +21,13 @@
 }
 
 .form-login {
-    background-color: white;
-    height          : auto;
+    background-color   : white;
+    height             : auto;
     /* width           : 80%; */
-    margin          : 0 auto;
-    border          : 1px solid #c1c1c1;
-    border-radius   : 2%;
-    padding         : 20px;
+    margin             : 0 auto;
+    border             : 1px solid #c1c1c1;
+    border-radius      : 2%;
+    padding            : 20px;
 }
 
 label small {
@@ -46,15 +46,36 @@ label small {
 .info-password {
     color      : #FF515C;
     font-weight: 400;
+    cursor     : pointer;
 }
-.info-register{
-    cursor: pointer;
+
+.info-register {
+    cursor     : pointer;
     color      : #FF515C;
     font-weight: 400;
 }
+
+.alert-danger {
+    color: #FF515C;
+}
+
+.form-info-changePass {
+    margin: 20px auto;
+    width : 90%;
+}
+
 @media(min-width: 768px) {
     .form-login {
-        width: 550px;
+        width: 450px;
+    }
+
+    .alert-danger {
+        width : 450px;
+        margin: 0 auto;
+    }
+
+    .form-info-changePass {
+        width: 50%;
     }
 
     .form-subTitle {
