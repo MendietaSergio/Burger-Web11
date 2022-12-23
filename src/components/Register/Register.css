@@ -11,7 +11,8 @@
     border          : none;
 }
 
-.btn-toRegister{
+.btn-toRegister,
+.btn-toSend {
     width           : 100px;
     height          : 50px;
     background-color: #FF515C;
@@ -19,8 +20,50 @@
     border          : none;
 }
 
+.link-toCancel,
+.link-toCancel:hover {
+    color          : white;
+    text-decoration: none;
+}
+
+.container_info_register {
+    background-color: rgb(232, 232, 232);
+    display         : flex;
+    justify-content : center;
+    margin          : 30px 0;
+}
+
+.container_info_register div {
+    flex-direction: column;
+}
+
+.container_info_register li {
+    list-style: inside;
+    padding   : 0 15px;
+}
+
+.container_info_register div span {
+    text-decoration: underline;
+    margin-bottom  : 20px;
+}
+
+.btn-toReset {
+    align-items    : center;
+    display        : flex;
+    justify-content: center;
+}
+
+.btn-toReset:hover {
+    text-decoration: none;
+    color          : white;
+}
+
 @media(min-width: 768px) {
-    .btn-toRegister,.btn-toCancel {
+
+    .btn-toRegister,
+    .btn-toSend,
+    .btn-toCancel {
         width: 150px;
     }
+
 }

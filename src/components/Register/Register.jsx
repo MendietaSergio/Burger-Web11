@@ -26,31 +26,34 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
       usuario,
       email,
       password,
-      roles
+      roles,
+      admin
     })
       .then(res => {
-        setLoading(!loading)
+        setLoading(true)
+        console.log(res.data);
         if (res.data.ok) {
           if (!admin) {
             handleLogin(res.data.logeado)
+            setTimeout(() => {
+              setSucces(true)
+              setLoading(false)
+            }, 2000)
+          } else {
+            console.log("admin> ", admin);
+            console.log("res.data> ", res.data);
+            setLoading(true)
+            setMessage(res.data.msg)
+            setTimeout(() => {
+              setViewMessage(true)
+              setLoading(false)
+            }, 2000)
           }
-          setTimeout(() => {
-            setSucces(true)
-            setLoading(false)
-          }, 2000)
-
-        } else {
-          setLoading(!loading)
-          setMessage(res.data.message)
-          setTimeout(() => {
-            setViewMessage(true)
-            setLoading(false)
-          }, 2000)
         }
       })
   }
   const handleLogin = (data) => {
-    console.log("dispatch");
+
     dispatch({
       type: types.login,
       payload: {
@@ -104,22 +107,23 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
               <input name="password" className={errors.password ? ("form-control is-invalid") : ("form-control")} type="password" {...register('password', validations.password)} />
               {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
             </div>
-          </div>
-          {admin ? (
-            <div className='col-12 col-md-6 mb-5'>
-              <label name="roles">Rol <small>*</small></label>
-              <select name="roles" className={errors.roles ? ('form-select form-control is-invalid') : ('form-select form-control')}
-                {...register('roles', validations.roles)}
+            {admin ? (
+              <div className='col-12 col-md-6 mb-5'>
+                <label name="roles">Rol <small>*</small></label>
+                <select name="roles" className={errors.roles ? ('form-select form-control is-invalid') : ('form-select form-control')}
+                  {...register('roles', validations.roles)}
                 // onChange={(e) => handleRol(e.target.value)}
-              >
-                <option value="" >Seleccione el rol</option>
-                <option value="admin" >Admin</option>
-                <option value="user">Usuario</option>
-              </select>
-              {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
+                >
+                  <option value="" >Seleccione el rol</option>
+                  <option value="admin" >Admin</option>
+                  <option value="user">Usuario</option>
+                </select>
+                {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
 
-            </div>
-          ) : (
+              </div>
+            ) : null}
+          </div>
+          {admin ? null : (
             <div className='d-flex justify-content-start align-items-baseline'>
               <input name="rememberMe" type="checkbox" />
               <label htmlFor='rememberMe' name="rememberMe" className='px-2'>Acepto termino y condiciones</label>
@@ -132,13 +136,38 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
               </button>
             </div>
             <div>
-              <button type='submit' className='btn-toCancel' >Cancelar</button>
+              {admin ? (
+                <a className='btn-toCancel btn-toReset' type='submit' onClick={() => reset()} >Reiniciar</a>
+              ) : (
+
+                <button type='submit' className='btn-toCancel' ><Link className='link-toCancel' to={"/ingresar"}>
+                  Cancelar
+                </Link>
+                </button>
+              )}
             </div>
           </div>
-          <div>
-            <small >¿Tenes una cuenta? <Link className='info-register' to='/ingresar'>¡Logeate!</Link></small>
-          </div>
+          {admin ? null : (
+
+            <div>
+              <small >¿Tenes una cuenta? <Link className='info-register' to='/ingresar'>¡Logeate!</Link></small>
+            </div>
+          )}
         </form>
+        <div className='container_info_register'>
+
+          <div className='d-flex justify-content-center'>
+
+            <span>La contraseña debe complir con la siguiente forma:</span>
+            <ul>
+              <li>Debe tener mas de 8 caracteres</li>
+              <li>Debe contener al menos un numero</li>
+              <li>Debe contener al menos un simbolo</li>
+              <li>Debe contener al menos un miniscula</li>
+              <li>Debe contener al menos una mayuscula</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </>
   )
