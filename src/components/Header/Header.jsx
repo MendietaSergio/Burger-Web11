@@ -84,7 +84,7 @@ export const Header = () => {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/productos/papasysalsas" data-toggle="collapse"
+                                <Link className="nav-link" to="/productos/papas y salsas" data-toggle="collapse"
                                     data-target="#navbarSupportedContent"
                                     aria-controls="navbarSupportedContent"
                                     aria-expanded="false" aria-label="Toggle navigation">Papas y salsas</Link>
