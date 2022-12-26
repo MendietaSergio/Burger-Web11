@@ -4,28 +4,29 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { ValidationAddProduct } from '../../../utils/ValidationAddProduct'
 import { Message } from '../../Message/Message'
-import { Navigation } from '../../Navigation/Navigation'
 import { Title } from '../../Title/Title'
-
+// FALTA AGREGAR DISPONIBLE, DESCUENTO
 export const AddProduct = ({ viewAddProducts }) => {
   if (viewAddProducts) {
-    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm()
+    const { register, handleSubmit, reset, formState: { errors }, watch } = useForm()
 
     const [viewMessage, setViewMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const [succes, setSucces] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [categoria, setCategoria] = useState([])
-    const [subCategoria, setSubCategoria] = useState([])
     const [totalCategoria, setTotalCategoria] = useState([])
-    const [selectCategoria, setSelectCategoria] = useState('')
-    const [cateError, setCateError] = useState(false)
-    const [subcateError, setSubCateError] = useState(false)
+    const [showDiscount, setShowDiscount] = useState('si');
+
+    const config = {
+      headaers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
     useEffect(() => {
       const getCategoria = async () => {
         await axios.get('http://localhost:3001/api/products/categories')
           .then(resp => {
-            console.log(resp.data);
             let hash = {}
             setTotalCategoria(resp.data)
             setCategoria(resp.data.filter((current => {
@@ -39,84 +40,72 @@ export const AddProduct = ({ viewAddProducts }) => {
       }
       getCategoria()
     }, [])
-    useEffect(() =>{
-      console.log("select categoria => ", selectCategoria);
-      console.log(totalCategoria);
-    },[selectCategoria])
+    const sendProducto = async (data) => {
+      await axios.post('http://localhost:3001/api/products/new', { data, config })
+        .then(resp => {
+          if (resp.data.ok) {
+            setMessage(resp.data.msg)
+            setTimeout(() => {
+              reset()
+            }, 3000);
+
+          } else {
+            setMessage(resp.data.msg)
+          }
+        })
+        .finally(() => {
+          setViewMessage(true)
+          setSuccess(true)
+        })
+    }
+    const uploadImage = async (newData, img) => {
+      await axios
+        .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
+        .then((resp) => {
+          if (resp.status === 200) {
+            newData = {
+              ...newData,
+              img: resp.data.url
+            }
+            sendProducto(newData)
+          } else {
+            console.log(resp);
+          }
+        });
+    };
     const submit = async (data) => {
-      setViewMessage(false)
-      setMessage('')
-      const { nombre, categoria,  } = data;
-      if (categoria === '') {
-        console.log(categoria);
+      console.log(data);
+      setLoading(true)
+      let newData = {
+        ...data
       }
-      console.log("data ", data);
-      console.log("categoria send ", categoria);
-      // await axios.post('http://localhost:3001/api/auth/signup', {
-      //   nombre,
-      //   usuario,
-      //   email,
-      //   password,
-      //   roles
-      // })
-      //   .then(res => {
-      //     setLoading(!loading)
-      //     if (res.data.ok) {
-      //       if (!admin) {
-      //         handleLogin(res.data.logeado)
-      //       }
-      //       setTimeout(() => {
-      //         setSucces(true)
-      //         setLoading(false)
-      //       }, 2000)
-
-      //     } else {
-      //       setLoading(!loading)
-      //       setMessage(res.data.message)
-      //       setTimeout(() => {
-      //         setViewMessage(true)
-      //         setLoading(false)
-      //       }, 2000)
-      //     }
-      //   })
+      const img = new FormData();
+      img.append("file", data.img[0]);
+      img.append("api_key", "349254229288134");
+      img.append("upload_preset", "burger_web");
+      uploadImage(newData, img)
+      setTimeout(() => {
+        setViewMessage(false)
+        setSuccess(false)
+        setMessage('')
+        setLoading(false)
+      }, 5000);
     }
-    const handleCategoria = (e, option) => {
-      console.log("option 1 ", option);
 
-      if (e.target.value !== '') {
-        console.log("value !== ' ' =>> ", option);
-
-        if (option === 'categoria') {
-          console.log("option ", option);
-          setSelectCategoria(e.target.value)
-          setCateError(false)
-          console.log("categoria seleccionada =>> ",e.target.value);
-        }
-        console.log("value subcate !== ' ' =>> ", option);
-
-        if (option === 'subcategoria') {
-          console.log("option subcate ", option);
-          setSelectCategoria(e.target.value)
-          setCateError(false)
-          setSubCateError(false)
-          console.log("subcategoria seleccionada =>> ",e.target.value);
-          setValue('categoria',e.target.value)
-
-        }
-      }
-      else {
-        setSubCateError(true)
-        setCateError(true)
-      }
-    }
     return (
       <>
 
         <div className="container-form">
-          <div className="container-form-body">
-            <Title title={'Nuevo producto'} bar={false} />
+          <Title title={'Nuevo producto'} bar={false} />
+          <div className="container-message-addProduct">
             {viewMessage ?
-              (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
+              (<Message
+                message={message}
+                viewMessage={viewMessage}
+                setViewMessage={setViewMessage}
+                className={success ? 'alert-success' : 'alert-danger'}
+              />
+              ) : (null)
             }
           </div>
           <form onSubmit={handleSubmit(submit)} className="form-login">
@@ -131,8 +120,45 @@ export const AddProduct = ({ viewAddProducts }) => {
                 <input name="precio" type="number" className={errors.precio ? ("form-control is-invalid") : ("form-control")}  {...register('precio', ValidationAddProduct.precio)} />
                 {errors.precio ? <small className='text-danger'>{errors.precio.message}</small> : null}
               </div>
+              <div className="col-12 col-md-6">
+                <label htmlFor="oferta">Oferta</label>
+                <select
+                  name="oferta"
+                  className={
+                    errors.oferta ? "form-control is-invalid" : "form-control"
+                  }
+                  id="oferta"
+                  {...register("oferta", ValidationAddProduct.oferta)}
+                >
+                  <option value="">Seleccione si tiene oferta</option>
+                  <option Value="si">Si</option>
+                  <option value="no">No</option>
+                </select>
+                {errors.oferta ? (
+                  <p className="text-danger">{errors.oferta.message}</p>
+                ) : null}
+              </div>
+              {showDiscount === watch('oferta') ? (
+                <div className="col-12 col-md-6">
+                  <label htmlFor="descuento">Descuento</label>
+                  <input
+                    type="number"
+                    className={
+                      errors.descuento ? "form-control is-invalid" : "form-control"
+                    }
+                    id="descuento"
+                    name="descuento"
+                    min="0"
+                    placeholder="Descuento"
+                    {...register("descuento", ValidationAddProduct.descuento)}
+                  />
+                  {errors.descuento ? (
+                    <p className="text-danger">{errors.descuento.message}</p>
+                  ) : null}
+                </div>
+              ) : null}
               <div className='col-12'>
-                <label name="ingredientes">Ingredientes <small>*</small> </label>
+                <label name="ingredientes">Ingredientes </label>
                 <input name="ingredientes" className={errors.ingredientes ? ("form-control is-invalid") : ("form-control")} type="text" {...register('ingredientes', ValidationAddProduct.ingredientes)} />
                 {errors.ingredientes ? <small className='text-danger'>{errors.ingredientes.message}</small> : null}
               </div>
@@ -142,71 +168,97 @@ export const AddProduct = ({ viewAddProducts }) => {
               <div className='col-12 col-md-6 '>
                 <label name="categoria">Categoria <small>*</small></label>
                 <select
-                  onChange={(e) => handleCategoria(e, 'categoria')}
-                  // onChange={(e) => setSelectCategoria(e.target.value)}
                   name="categoria"
-                  className={cateError ? ('form-select form-control is-invalid') : ('form-select form-control')}
-                  // {...register('categoria', ValidationAddProduct.categoria)}
+                  className={errors.categoria ? ('form-select form-control is-invalid') : ('form-select form-control')}
+
+                  {...register('categoria', ValidationAddProduct.categoria)}
                 >
                   <option value="" >Seleccione la categoria</option>
                   {categoria.map(categorie => (
                     <option
                       key={categorie._id}
                       value={categorie.nombre}
-                    // onChange={(e) => handleCategoria(e)}
-
                     >{categorie.nombre}</option>
                   ))}
                 </select>
-                {/* {errors.categoria ? <small className='text-danger'>{errors.categoria.message}</small> : null} */}
+                {errors.categoria ? <small className='text-danger'>{errors.categoria.message}</small> : null}
 
               </div>
               <div className='col-12 col-md-6 '>
                 <label name="subcategoria">Subcategoria <small>*</small></label>
                 <select
                   name="subcategoria"
-                  // onChange={(e) => setValue("id_categoria", e.target.value)}
-                  onChange={(e) => handleCategoria(e, 'subcategoria')}
-
-                  className={subcateError ? ('form-select form-control is-invalid') : ('form-select form-control')}
-
+                  className={errors.subcategoria ? ('form-select form-control is-invalid') : ('form-select form-control')}
                   {...register('subcategoria', ValidationAddProduct.subcategoria)}
                 >
                   <option value="" >Seleccione a subcategoria</option>
-                  {totalCategoria.filter(subCategoria => subCategoria.nombre === selectCategoria).map(subcategoria => (
+                  {totalCategoria.filter(subCategoria => subCategoria.nombre === watch('categoria')).map(subcategoria => (
                     <option
                       key={subcategoria._id}
-                      value={subcategoria._id}
+                      value={subcategoria.categoria}
                     >
                       {subcategoria.categoria}
                     </option>
                   ))}
                 </select>
-                {/* {errors.subcategoria ? <small className='text-danger'>{errors.subcategoria.message}</small> : null} */}
+                {errors.subcategoria ? <small className='text-danger'>{errors.subcategoria.message}</small> : null}
 
               </div>
             </div>
             <div className='col-12 col-md-12'>
-              <label name="description">Description</label>
+              <label htmlFor="img">Subir imagen</label>
+              <div>
+                <input
+                  {...register("img", ValidationAddProduct.img)}
+                  type="file"
+                  name="img"
+                  accept=".png , .jpg, .jpeg"
+                  className="form-control-file"
+                  id="img"
+                />
+              </div>
+              {errors.img ? (
+                <small className="text-danger">{errors.img.message}</small>
+              ) : null}
+
+            </div>
+            <div className='col-12 col-md-12'>
+              <label name="descripcion">Description</label>
               <textarea
-                name="description"
-                className={errors.description ? ("form-control is-invalid") : ("form-control")} type="text"
+                name="descripcion"
+                className={errors.descripcion ? ("form-control is-invalid") : ("form-control")} type="text"
                 maxLength="500"
                 minLength="20"
                 placeholder='Deje detalles del producto...'
-                {...register('description', ValidationAddProduct.description)}
+                {...register('descripcion', ValidationAddProduct.descripcion)}
               />
-              {errors.description ? <small className='text-danger'>{errors.description.message}</small> : null}
+              {errors.descripcion ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
             </div>
-
+            <div className="form-group">
+              <div className="form-check m-3">
+                <input
+                  className={
+                    errors.disponible
+                      ? "form-check-input is-invalid"
+                      : "form-check-input"
+                  }
+                  type="checkbox"
+                  name="disponible"
+                  id="disponible"
+                  defaultChecked={true}
+                  {...register("disponible", ValidationAddProduct.disponible)}
+                />
+                <label htmlFor="disponible">Producto disponible</label>
+              </div>
+            </div>
             <div className='d-flex flex-row justify-content-around my-4'>
               <div>
-                <button type='submit' className='btn-toRegister' >Agregar
+                <button type='submit' className='btn-toRegister' >Agregar {" "}
                   {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : null}
                 </button>
               </div>
               <div>
-                <button type='submit' className='btn-toCancel' >Cancelar</button>
+                <a type='submit' className='btn-toCancel btn-toReset' onClick={() => reset()} >Reiniciar</a>
               </div>
             </div>
           </form>
