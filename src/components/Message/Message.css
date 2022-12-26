@@ -20,6 +20,13 @@
     width   : 200px;
 }
 
+.container-message-addProduct {
+    position: absolute;
+    top     : -115px;
+    right   : 10px;
+    width   : 200px;
+}
+
 @media(min-width: 768px) {
     .container-message {
         top  : 40px;
@@ -29,6 +36,12 @@
 
     .container-message-login {
         top: 100px;
+    }
+
+    .container-message-addProduct {
+        top  : 30px;
+        right: 10px;
+        width: 200px;
     }
 
     .alert {
