@@ -1,0 +1,42 @@
+.img-modal {
+    width : 150px;
+    height: 150px;
+}
+
+.back_icon {
+    position : absolute;
+    font-size: 30px;
+    cursor   : pointer;
+    top      : -43px;
+    right    : 30px;
+}
+
+.container-lodear-update {
+    height: 400px;
+}
+
+.container-lodear-update i {
+    font-size: 40px;
+}
+
+.container_img_update {
+    height         : 200px;
+    justify-content: center;
+}
+
+.clearImg {
+    width           : 25px;
+    height          : 25px;
+    position        : absolute;
+    right           : 30px;
+    top             : 30px;
+    background-color: #878787de;
+    border-radius   : 17px;
+    cursor          : pointer;
+}
+
+@media(min-width: 768px) {
+    .back_icon {
+        top: 40px;
+    }
+}
