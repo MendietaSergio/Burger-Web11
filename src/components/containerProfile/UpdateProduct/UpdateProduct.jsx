@@ -7,6 +7,7 @@ import { Message } from '../../Message/Message'
 import { Title } from '../../Title/Title'
 import './UpdateProduct.css'
 import clearImg from '../../../Img/closed.png'
+import imgDefault from '../../../Img/imgDefault.png'
 // FALTA AGREGAR DISPONIBLE, DESCUENTO
 export const UpdateProduct = ({ _id, view, setView }) => {
     const { register, handleSubmit, reset, formState: { errors }, watch, setValue, getValues } = useForm()
@@ -21,6 +22,20 @@ export const UpdateProduct = ({ _id, view, setView }) => {
     const [valueOfert, setValueOfert] = useState()
     const [product, setProduct] = useState({})
     const [showImgViewLoad, setShowImgViewLoad] = useState(true)
+    const [newImg, setNewImg] = useState(
+        "http://localhost:3000/src/img/imgDefault.png"
+    );
+    const [imgChange, setImgChange] = useState(false)
+    const changeImg = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImgChange(true)
+                setNewImg(reader.result);
+            }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
     const config = {
         headaers: {
             "Content-Type": "multipart/form-data",
@@ -119,6 +134,15 @@ export const UpdateProduct = ({ _id, view, setView }) => {
         // img.append("api_key", "349254229288134");
         // img.append("upload_preset", "burger_web");
         // uploadImage(newData, img)
+
+        // if (imgChange) {
+        //     img.append("file", data.image[0]);
+        //     img.append("api_key", "349254229288134");
+        //     img.append("upload_preset", "menu_web");
+        //     uploadImage(newData, img);
+        //   } else {
+        //     sendProduct(newData);
+        //   }
         setTimeout(() => {
             setViewMessage(false)
             setSuccess(false)
@@ -127,7 +151,16 @@ export const UpdateProduct = ({ _id, view, setView }) => {
         }, 5000);
     }
     console.log(getValues('nombre'));
+    const DeleteImage = () => {
+        if (showImgViewLoad) {
+            setNewImg("http://localhost:3000/src/img/imgDefault.png")
+            setShowImgViewLoad(false);
+        } else {
+            setNewImg(product.img_art)
+            setShowImgViewLoad(true);
+        }
 
+    }
     return (
         <>
             {loadingView ? (
@@ -197,29 +230,24 @@ export const UpdateProduct = ({ _id, view, setView }) => {
                         </div>
                     </div>
                     <div className='row my-2'>
-                        <div className='col-12 col-md-6 d-flex align-items-center container_img_update'>
-                            {/* <label htmlFor="img">Subir imagen</label>
-                        <div>
-                            <input
-                                {...register("img", ValidationAddProduct.img)}
-                                type="file"
-                                name="img"
-                                accept=".png , .jpg, .jpeg"
-                                className="form-control-file"
-                                id="img"
-                            />
-                        </div> */}
+                        <div className={`col-12 col-md-6 d-flex align-items-center container_img_update ${showImgViewLoad ? null : 'flex-column'}`}>
                             {showImgViewLoad ? (<>
-                                <img className="img-modal" src={product.img_art} name='img' />
-                                <img src={clearImg} alt="Borrar imagen" className='clearImg'/>
-                                {/* <AiOutlineCloseCircle
-                                className="iconClose-img"
-                                onClick={() => DeleteImage()}
-                            /> */}
+                                <div className="prueba">
+
+                                    <img className="img-modal" src={product.img_art} name='img' />
+                                    <img src={clearImg} alt="Borrar imagen"
+                                        onClick={() => DeleteImage()}
+                                        className='clearImg' />
+                                </div>
                             </>
                             ) : (
-                                <div className="form-group my-3">
-                                    <img src={newImg} alt="NewImg" className="img-modal" />
+                                <>
+                                    <div className='prueba'>
+                                        <img src={newImg} alt="NewImg" className="img-modal" />
+                                        <img src={clearImg} alt="Borrar imagen"
+                                            onClick={() => DeleteImage()}
+                                            className='clearImg' />
+                                    </div>
                                     <label htmlFor="img">Subir imagen</label>
                                     <div>
                                         <input
@@ -229,13 +257,13 @@ export const UpdateProduct = ({ _id, view, setView }) => {
                                             accept=".png , .jpg, .jpeg"
                                             className="form-control-file"
                                             id="img"
-                                        // onChange={(e) => changeImg(e)}
+                                            onChange={(e) => changeImg(e)}
                                         />
                                     </div>
                                     {errors.image ? (
                                         <p className="text-danger">{errors.image.message}</p>
                                     ) : null}
-                                </div>
+                                </>
                             )}
                             {errors.img ? (
                                 <small className="text-danger">{errors.img.message}</small>
