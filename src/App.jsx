@@ -35,9 +35,9 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/productos' element={<Productos />} />
-            <Route path='/productos/:idCategoria' element={<Productos />} />
-            <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
+            <Route path='/productos' element={<Productos  />} />
+            <Route path='/productos/:idCategoria' element={<Productos  />} />
+            <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos  />} />
             <Route path='/productos/detalle/:idDetail' element={<Detail />} />
             <Route path='/ingresar' element={<LoginPages />} />
             <Route path='/registrarse' element={<RegisterPages />} />
