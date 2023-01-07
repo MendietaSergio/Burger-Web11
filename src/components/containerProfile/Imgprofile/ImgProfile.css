@@ -61,7 +61,7 @@
         padding-top: 6px;
     }
 
-    .container-optionsprofile li:nth-child(-n+4) {
+    .container-optionsprofile li:nth-child(-n+5) {
         border-bottom: 1px solid #b9b9b9;
         width        : 100%;
     }
