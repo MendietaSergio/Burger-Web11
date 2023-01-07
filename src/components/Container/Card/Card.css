@@ -1,0 +1,31 @@
+.image-parent {
+    width : 100px;
+    height: 100px;
+
+}
+
+.contianer_optonIcon {
+    display       : flex;
+    flex-direction: column;
+}
+
+.optionIcon {
+    width : 20px;
+    height: 20px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* .list-group-item:hover {
+    background-color: #dbdbdb;
+} */
+
+.page-item {
+    cursor: pointer;
+}
+.list-group-item-action:focus, .list-group-item-action:hover{
+    z-index: auto !important;
+}
+.modal{
+    z-index: 9999999999999 !important;
+}

@@ -17,6 +17,7 @@ export const ViewOptions = ({ widthImg, admin, view }) => {
                             <option value="order">Ord. de compras</option>
                             <option value="usuario">Nuevo usuario</option>
                             <option value="articulo">Nuevo articulo</option>
+                            <option value="listaarticulo">Lista articulo</option>
                             <option value="clientes">Lista de clientes</option>
                         </>
                     ) : (
@@ -37,6 +38,7 @@ export const ViewOptions = ({ widthImg, admin, view }) => {
                         <li className={`${selectClic === "order" && 'option_select'} list-inline-item  `} onClick={(e) => changeSelect("order")}>Ord. de compras <i className="fas fa-chevron-right"></i></li>
                         <li className={`${selectClic === "usuario" && 'option_select'} list-inline-item  `} onClick={(e) => changeSelect('usuario')}>Nuevo usuario <i className="fas fa-chevron-right"></i></li>
                         <li className={`${selectClic === "articulo" && 'option_select'} list-inline-item  `} onClick={(e) => changeSelect('articulo')}>Nuevo articulo <i className="fas fa-chevron-right"></i></li>
+                        <li className={`${selectClic === "listaarticulo" && 'option_select'} list-inline-item  `} onClick={(e) => changeSelect('listaarticulo')}>Lista articulos <i className="fas fa-chevron-right"></i></li>
                         <li className={`${selectClic === "clientes" && 'option_select'} list-inline-item  `} onClick={(e) => changeSelect('clientes')}>Lista de clientes<i className="fas fa-chevron-right"></i></li>
                     </>
                 ) : (

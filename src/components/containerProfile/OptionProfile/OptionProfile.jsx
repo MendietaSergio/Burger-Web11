@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Productos } from '../../../pages/Productos'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
 import '../Imgprofile/ImgProfile.css'
@@ -16,6 +17,7 @@ export const OptionProfile = ({
     viewInformation,
     viewNewUser,
     viewOrder,
+    viewListProducts
 }) => {
     return (
         <div className="col-12 col-md-8 container_data_user">
@@ -26,7 +28,7 @@ export const OptionProfile = ({
             <ListClients viewClients={viewClients} />
             <AddProduct viewAddProducts={viewAddProducts} />
             <CreateUser viewNewUser={viewNewUser} admin={true} />
-
+            <Productos viewListProducts={viewListProducts} admin={true} cantPages={true} />
         </div>
     )
 }

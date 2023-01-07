@@ -3,20 +3,27 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ItemListProducts } from '../components/Container/ItemListProducts/ItemListProducts'
 import { Pagination } from '../components/Container/Pagination/Pagination'
+import { UpdateProduct } from '../components/containerProfile/UpdateProduct/UpdateProduct'
 import { Navigation } from '../components/Navigation/Navigation'
 import { SkeletonCard } from '../components/Skeleton/SkeletonCard'
 import { Title } from '../components/Title/Title'
 import './Filter.css'
-export const Productos = () => {
+export const Productos = ({
+    viewListProducts = false,
+    admin = false,
+    cantPages
+}) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
     const [total, setTotal] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
-    const [productsPage] = useState(12)
+    const [productsPage] = useState(cantPages ? 8 : 12)
     const [filter, setFilter] = useState('')
     const { idCategoria } = useParams()
-    const [viewProduct,setViewProduct] = useState(true)
+    const [viewProduct, setViewProduct] = useState(true)
     const { idSubcategoria } = useParams()
+    const [view, setView] = useState(false)
+    const [idProduct, setIdProduct] = useState(null)
     useEffect(() => {
         setViewProduct(false)
 
@@ -64,7 +71,7 @@ export const Productos = () => {
         setTimeout(() => {
             setViewProduct(true)
         }, 3000);
-    }, [idCategoria,idSubcategoria])
+    }, [idCategoria, idSubcategoria])
 
     //FILTROS
     useEffect(() => {
@@ -111,42 +118,82 @@ export const Productos = () => {
     let indexOfFirstPost = indexOfLastPost - productsPage;
     let currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-    return (
-        <div className='container'>
+    if (!viewListProducts && !admin) {
+        return (
+            <div className='container'>
 
-            <Navigation />
-            <Title title="Productos" />
-            <div className="row result-filter">
-                <div className="col-12 col-md-6">
-                    {loading ? (null) : (<span >Mostrando 1 - {currentProducts === undefined ? (null) : (<span>{currentProducts.length}</span>)} de {total} resultados</span>)}
+                <Navigation />
+                <Title title="Productos" />
+                <div className="row result-filter">
+                    <div className="col-12 col-md-6">
+                        {loading ? (null) : (<span >Mostrando 1 - {currentProducts === undefined ? (null) : (<span>{currentProducts.length}</span>)} de {total} resultados</span>)}
+                    </div>
+                    <div className="col-12 col-md-6 ">
+                        <select name="filter" className='form-select' onChange={(e) => setFilter(e.target.value)} >
+                            <option>Ordenar por popularidad</option>
+                            <option>Ordenar por calificaion media</option>
+                            <option>Ordenar por los últimos</option>
+                            <option>Ordenar por precios bajos</option>
+                            <option>Ordenar por precios altos</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="col-12 col-md-6 ">
-                    <select name="filter" className='form-select' onChange={(e) => setFilter(e.target.value)} >
-                        <option>Ordenar por popularidad</option>
-                        <option>Ordenar por calificaion media</option>
-                        <option>Ordenar por los últimos</option>
-                        <option>Ordenar por precios bajos</option>
-                        <option>Ordenar por precios altos</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row">
-                {viewProduct ? (
-                    <ItemListProducts products={currentProducts} loading={loading} />
+                <div className="row">
+                    {viewProduct ? (
+                        <ItemListProducts products={currentProducts} loading={loading} />
                     ) : (
-                    <SkeletonCard />
-                )}
-            </div>
-            <div className="row">
-                <div className="col-12 d-flex justify-content-center">
-                    <Pagination
-                        loading={loading}
-                        productsPage={productsPage}
-                        totalProducts={products.length}
-                        paginate={paginate}
-                    />
+                        <SkeletonCard product={true} />
+                    )}
+                </div>
+                <div className="row">
+                    <div className="col-12 d-flex justify-content-center my-2">
+                        <Pagination
+                            loading={loading}
+                            productsPage={productsPage}
+                            totalProducts={products.length}
+                            paginate={paginate}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+    if (viewListProducts && admin) {
+        return (<div className='container'>
+            {/* <Navigation /> */}
+            <Title title={view ? 'Actualizar producto' : 'Productos'} />
+            {view ? (
+                <>
+                    <div className='back_icon' onClick={() => setView(false)}>
+                        <i className="fas fa-arrow-left "></i>
+                    </div>
+                    <UpdateProduct _id={idProduct} setView={setView} />
+                </>
+            ) : (
+                <>
+                    <div className="row">
+                        {viewProduct ? (
+                            <ItemListProducts products={currentProducts} loading={loading} admin={true} viewListProducts={viewListProducts} setView={setView} setIdProduct={setIdProduct} />
+                        ) : (
+                            <SkeletonCard product={true} />
+                        )}
+                    </div>
+                    <div className="row">
+                        <div className="col-12 d-flex justify-content-center my-2">
+                            <Pagination
+                                loading={loading}
+                                productsPage={productsPage}
+                                totalProducts={products.length}
+                                paginate={paginate}
+                            />
+                        </div>
+                    </div>
+                </>
+            )}
+
+        </div>)
+    }
+    else {
+        return null
+    }
 }

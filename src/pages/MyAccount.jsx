@@ -9,6 +9,7 @@ export const Myaccount = () => {
   const [viewHistory, setViewHistory] = useState(false)
   const [viewClients, setViewClients] = useState(false)
   const [viewAddProducts, setViewAddProducts] = useState(false)
+  const [viewListProducts, setViewListProducts] = useState(false)
   const [viewNewUser, setViewNewUser] = useState(false)
   const { user, dispatch } = useContext(AuthContext)
   const { nombre, usuario, avatar } = user;
@@ -34,12 +35,14 @@ export const Myaccount = () => {
       setViewClients(false)
       setViewAddProducts(false)
       setViewHistory(false)
+      setViewListProducts(false)
     }
     if (select === "order") {
       setViewOrder(true)
       setViewInformation(false)
       setViewNewUser(false)
       setViewClients(false)
+      setViewListProducts(false)
       setViewAddProducts(false)
       setViewHistory(false)
     }
@@ -47,6 +50,7 @@ export const Myaccount = () => {
       setViewHistory(true)
       setViewInformation(false)
       setViewNewUser(false)
+      setViewListProducts(false)
       setViewOrder(false)
       setViewClients(false)
       setViewAddProducts(false)
@@ -56,6 +60,7 @@ export const Myaccount = () => {
       setViewNewUser(true)
       setViewInformation(false)
       setViewHistory(false)
+      setViewListProducts(false)
       setViewOrder(false)
       setViewClients(false)
       setViewAddProducts(false)
@@ -65,11 +70,22 @@ export const Myaccount = () => {
       setViewInformation(false)
       setViewHistory(false)
       setViewOrder(false)
+      setViewListProducts(false)
       setViewClients(false)
       setViewNewUser(false)
     }
     if (select === "clientes") {
       setViewClients(true)
+      setViewInformation(false)
+      setViewHistory(false)
+      setViewListProducts(false)
+      setViewOrder(false)
+      setViewAddProducts(false)
+      setViewNewUser(false)
+    }
+    if (select === "listaarticulo") {
+      setViewListProducts(true)
+      setViewClients(false)
       setViewInformation(false)
       setViewHistory(false)
       setViewOrder(false)
@@ -99,6 +115,7 @@ export const Myaccount = () => {
             dispatch={dispatch}
             viewClients={viewClients}
             viewAddProducts={viewAddProducts}
+            viewListProducts={viewListProducts}
             viewHistory={viewHistory}
             viewInformation={viewInformation}
             viewNewUser={viewNewUser}
