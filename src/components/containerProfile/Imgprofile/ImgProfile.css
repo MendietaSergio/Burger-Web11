@@ -15,10 +15,10 @@
 }
 
 .container-optionsprofile {
-    display            : flex;
-    justify-content    : center;
-    align-items        : center;
-    margin             : 0 10px;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    margin         : 0 10px;
 }
 
 .container-optionsprofile li {
@@ -71,6 +71,6 @@
         /* display        : flex; */
         justify-content: center;
         align-items    : center;
-        height: auto;
+        /* height         : 500px; */
     }
 }

@@ -58,6 +58,10 @@
     color          : white;
 }
 
+.container-errors {
+    height: 25px;
+}
+
 @media(min-width: 768px) {
 
     .btn-toRegister,

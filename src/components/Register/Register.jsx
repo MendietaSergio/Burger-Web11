@@ -9,13 +9,14 @@ import { Message } from '../Message/Message'
 import { Title } from '../Title/Title'
 import './Register.css'
 
-export const Register = ({ title = "Registrarse", admin = false }) => {
+export const Register = ({ title = "Registrarse", admin = false, setNewRegister }) => {
   const { dispatch } = useContext(AuthContext)
   const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm()
   const [viewMessage, setViewMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [succes, setSucces] = useState(false)
+  const [changeClassName, setChangeClassName] = useState(false)
   const submit = async (data) => {
     setViewMessage(false)
     setMessage('')
@@ -33,6 +34,7 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
         setLoading(true)
         console.log(res.data);
         if (res.data.ok) {
+          setChangeClassName(true)
           if (!admin) {
             handleLogin(res.data.logeado)
             setTimeout(() => {
@@ -42,13 +44,21 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
           } else {
             console.log("admin> ", admin);
             console.log("res.data> ", res.data);
+            setNewRegister(true)
             setLoading(true)
             setMessage(res.data.msg)
             setTimeout(() => {
+              setNewRegister(false)
               setViewMessage(true)
               setLoading(false)
             }, 2000)
           }
+        } else {
+          setChangeClassName(false)
+
+          setViewMessage(true)
+          setMessage(res.data.msg)
+          setLoading(false)
         }
       })
   }
@@ -80,7 +90,7 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
         <div className="container-form-body">
           <Title title={title} bar={false} />
           {viewMessage ?
-            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} />) : (null)
+            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} className={`container-message-login ${changeClassName ? 'alert-success' : 'alert-danger'}`} />) : (null)
           }
         </div>
         <form onSubmit={handleSubmit(submit)} className="form-login">
@@ -88,37 +98,46 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
             <div className='col-12  col-md-6'>
               <label name="nombre">Nombre completo <small>*</small> </label>
               <input name="nombre" className={errors.nombre ? ("form-control is-invalid") : ("form-control")} type="text" {...register('nombre', validations.nombre)} />
-              {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+              <div className={`container-errors`}>
+                {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+              </div>
             </div>
             <div className='col-12  col-md-6'>
               <label name="usuario">Usuario <small>*</small> </label>
               <input name="usuario" className={errors.usuario ? ("form-control is-invalid") : ("form-control")} type="text" {...register('usuario', validations.usuario)} />
-              {errors.usuario ? <small className='text-danger'>{errors.usuario.message}</small> : null}
+              <div className={`container-errors`}>
+                {errors.usuario ? <small className='text-danger'>{errors.usuario.message}</small> : null}
+              </div>
             </div>
             <div className='col-12'>
               <label name="email">Email <small>*</small> </label>
               <input name="email" className={errors.email ? ("form-control is-invalid") : ("form-control")} type="email" {...register('email', validations.email)} />
-              {errors.email ? <small className='text-danger'>{errors.email.message}</small> : null}
+              <div className={`container-errors`}>
+                {errors.email ? <small className='text-danger'>{errors.email.message}</small> : null}
+              </div>
             </div>
           </div>
           <div className='row'>
             <div className='col-12 col-md-6'>
               <label name="password">Contraseña <small>*</small></label>
               <input name="password" className={errors.password ? ("form-control is-invalid") : ("form-control")} type="password" {...register('password', validations.password)} />
-              {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
+              <div className={`container-errors`}>
+                {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
+              </div>
             </div>
             {admin ? (
               <div className='col-12 col-md-6 mb-5'>
                 <label name="roles">Rol <small>*</small></label>
                 <select name="roles" className={errors.roles ? ('form-select form-control is-invalid') : ('form-select form-control')}
                   {...register('roles', validations.roles)}
-                // onChange={(e) => handleRol(e.target.value)}
                 >
                   <option value="" >Seleccione el rol</option>
                   <option value="admin" >Admin</option>
                   <option value="user">Usuario</option>
                 </select>
-                {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
+                <div className={`container-errors`}>
+                  {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
+                </div>
 
               </div>
             ) : null}
@@ -131,7 +150,7 @@ export const Register = ({ title = "Registrarse", admin = false }) => {
           )}
           <div className='d-flex flex-row justify-content-around'>
             <div>
-              <button type='submit' className='btn-toRegister' >Registarme
+              <button type='submit' className='btn-toRegister' >{title}
                 {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : null}
               </button>
             </div>

@@ -1,19 +1,21 @@
 .card {
-    width           : 100%;
+    width              : 100%;
     /* background-color: white; */
-    border-radius   : 6px;
-    overflow        : hidden;
-    box-shadow      : 0px 4px 6px rgba(0, 0, 0, .12);
+    border-radius      : 6px;
+    overflow           : hidden;
+    box-shadow         : 0px 4px 6px rgba(0, 0, 0, .12);
 }
 
 
 .image {
     height: 200px;
 }
-.image-detail{
-    width: 100%;
+
+.image-detail {
+    width : 100%;
     height: 350px;
 }
+
 .content {
     padding: 2rem 1.8rem;
 }
@@ -44,17 +46,19 @@
     min-height     : 1.1rem;
     border-radius  : 4px;
     animation-delay: .08s;
-    margin-left: 35px;
+    margin-left    : 35px;
 }
-.loading h4{
+
+.loading h4 {
     min-height     : 1.6rem;
-    width: 40%;
+    width          : 40%;
     border-radius  : 4px;
     animation-delay: .08s;
 }
+
 .loading .price {
     min-height     : 1.6rem;
-    width: 25%;
+    width          : 25%;
     border-radius  : 4px;
     animation-delay: .08s;
 }
@@ -64,10 +68,11 @@
     border-radius  : 4px;
     animation-delay: .1s;
 }
+
 .loading .list {
     min-height     : 1.5rem;
-    margin: 15px;
-    width: 80%;
+    margin         : 15px;
+    width          : 80%;
     border-radius  : 4px;
     animation-delay: .1s;
 }
@@ -81,9 +86,18 @@
     font-size: 26px;
     color    : #fefefe;
 }
-/* .margin{
-        margin: 50px 0;
-    } */
+
+.skeleton-clients:nth-child(2n+1) {
+    background-color: #ededed;
+    background-image: linear-gradient(110deg,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, 1.5) 50%,
+            rgba(255, 255, 255, 0) 80%);
+    background-size      : 200% 100%;
+    background-position-x: 160%;
+    animation            : 1.8s loading ease-in-out infinite;
+}
+
 @keyframes loading {
     to {
         background-position-x: -60%;
@@ -91,9 +105,11 @@
 }
 
 @media(max-width:768px) {
-    .card,.container-featuredProduct{
-        width: 80%;
+
+    .card,
+    .container-featuredProduct {
+        width : 80%;
         margin: 10%;
     }
-    
+
 }

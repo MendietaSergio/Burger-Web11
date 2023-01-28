@@ -1,23 +1,77 @@
-.container-listClients{
-    height: 250px;
-    overflow: auto;
-    margin-bottom: 50px;
-
+.container-listClients {
+    height         : 400px;
+    flex-direction : column;
+    display        : flex;
+    justify-content: space-between;
 }
-.container-listClients table tr{
+
+.container-listClients table tr:hover {
+    background-color: #b3b3b3;
+    color           : white;
+}
+
+.container-title-client {
+    display        : flex;
+    justify-content: end;
+    align-items    : center;
+    width          : 80%;
+}
+
+.container-title-client {
+    font-size  : 16px;
+    font-weight: bold;
+}
+
+.container-listClients table {
+    width: 100%;
+}
+
+.contianer-clients {
+    height: 10px;
+}
+
+.columnId {
+    width     : 40px;
+    text-align: center;
+}
+
+.columnOptions {
+    text-align: center;
+}
+
+.columnUser,
+.columnName {
+    font-weight : 600;
+    padding-left: 20px;
+    text-align  : start;
+}
+
+.columnName:last-child {
+    padding: 0;
+}
+
+.containerIconClients {
+    height         : 100%;
+    display        : flex;
+    justify-content: space-evenly;
+}
+
+.optionIconClient {
+    width : 20px;
+    height: 20px;
+    margin: 15px 0;
     cursor: pointer;
 }
-.container-listClients table tr:hover{
-    background-color: red;
-}
-@media(min-width:768px){
-    .container-listClients{
-        display: flex;
-        justify-content: center;
-        height: 450px;
 
+@media(min-width:768px) {
+    .container-listClients {
+
+        height: 450px;
     }
-    .container-listClients table{
-        width: 80%;
-    }
+}
+
+.container-message-client {
+    position: absolute;
+    height  : 50px;
+    right   : 0 !important;
 }
