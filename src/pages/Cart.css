@@ -10,7 +10,6 @@
     width           : 100%;
     margin-bottom   : 80px;
     padding         : 5px;
-
 }
 
 .container-textInfo {
@@ -48,6 +47,10 @@
     background-color: #FF515C;
     color           : white;
     border          : none;
+    padding: 20px;
+}
+.btn-toProducts:hover  {
+    color: black;
 }
 
 @media(min-width:768px) {

@@ -1,7 +1,8 @@
+
 @media(min-width: 768px) {
-   .result-filter div:last-child {
+    .result-filter div:last-child {
         display        : flex;
         justify-content: end;
-
     }
+
 }
