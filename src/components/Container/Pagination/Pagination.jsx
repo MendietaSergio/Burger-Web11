@@ -1,10 +1,24 @@
 import React from 'react'
 
-export const Pagination = ({ paginate, totalProducts, productsPage }) => {
+export const Pagination = ({
+    paginate,
+    totalClients,
+    clientsPage,
+    totalProducts,
+    productsPage,
+    viewProducts,
+    viewClients }) => {
     const pageNumbers = [];
+    if (viewProducts) {
 
-    for (let i = 1; i <= Math.ceil(totalProducts / productsPage); i++) {
-        pageNumbers.push(i)
+        for (let i = 1; i <= Math.ceil(totalProducts / productsPage); i++) {
+            pageNumbers.push(i)
+        }
+    }
+    if (viewClients) {
+        for (let i = 1; i <= Math.ceil(totalClients / clientsPage); i++) {
+            pageNumbers.push(i)
+        }
     }
 
     return (
