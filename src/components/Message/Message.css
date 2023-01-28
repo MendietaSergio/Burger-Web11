@@ -4,6 +4,9 @@
 
 .alert {
     margin-top: 1rem !important;
+    padding   : 0 20px;
+    height    : 50px;
+    width     : 200px;
 }
 
 .container-message {
