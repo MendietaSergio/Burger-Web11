@@ -5,14 +5,14 @@ import { HappyCustomers } from '../components/HappyCustomers/HappyCustomers'
 import { OptionsSelection } from '../components/OptionsSelection/OptionsSelection'
 import { PortBurger } from '../components/PortBurger/PortBurger'
 
-export const Home = () => {
+export const Home = ({ widthImg, setWidthImg }) => {
   return (
     <div>
-      <PortBurger/>
-      <OptionsSelection/>
-      <FeaturedProduct/>
-      <Banner/>
-      <HappyCustomers/>
+      <PortBurger setWidthImg={setWidthImg} widthImg={widthImg} />
+      <OptionsSelection />
+      <FeaturedProduct />
+      <Banner />
+      <HappyCustomers />
     </div>
   )
 }

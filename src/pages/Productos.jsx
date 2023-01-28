@@ -11,12 +11,14 @@ import './Filter.css'
 export const Productos = ({
     viewListProducts = false,
     admin = false,
-    cantPages
+    cantPages,
+    success,
+    setSuccess
 }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
     const [total, setTotal] = useState(0)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
     const [productsPage] = useState(cantPages ? 8 : 12)
     const [filter, setFilter] = useState('')
     const { idCategoria } = useParams()
@@ -24,6 +26,7 @@ export const Productos = ({
     const { idSubcategoria } = useParams()
     const [view, setView] = useState(false)
     const [idProduct, setIdProduct] = useState(null)
+
     useEffect(() => {
         setViewProduct(false)
 
@@ -56,7 +59,6 @@ export const Productos = ({
             } else {
                 await axios.get(`http://localhost:3001/api/products`)
                     .then(res => {
-                        console.log(res.data);
                         setProducts(res.data)
                         setTotal(res.data.length)
                     })
@@ -71,7 +73,7 @@ export const Productos = ({
         setTimeout(() => {
             setViewProduct(true)
         }, 3000);
-    }, [idCategoria, idSubcategoria])
+    }, [idCategoria, idSubcategoria, success])
 
     //FILTROS
     useEffect(() => {
@@ -152,6 +154,7 @@ export const Productos = ({
                             productsPage={productsPage}
                             totalProducts={products.length}
                             paginate={paginate}
+                            viewProducts={true}
                         />
                     </div>
                 </div>
@@ -167,13 +170,22 @@ export const Productos = ({
                     <div className='back_icon' onClick={() => setView(false)}>
                         <i className="fas fa-arrow-left "></i>
                     </div>
-                    <UpdateProduct _id={idProduct} setView={setView} />
+                    <UpdateProduct _id={idProduct} setView={setView}
+                        setSuccess={setSuccess} success={success}
+                    />
                 </>
             ) : (
                 <>
                     <div className="row">
                         {viewProduct ? (
-                            <ItemListProducts products={currentProducts} loading={loading} admin={true} viewListProducts={viewListProducts} setView={setView} setIdProduct={setIdProduct} />
+                            <ItemListProducts
+                                products={currentProducts}
+                                loading={loading}
+                                admin={true}
+                                viewListProducts={viewListProducts}
+                                setView={setView}
+                                setIdProduct={setIdProduct}
+                                setSuccess={setSuccess} />
                         ) : (
                             <SkeletonCard product={true} />
                         )}
@@ -183,6 +195,7 @@ export const Productos = ({
                             <Pagination
                                 loading={loading}
                                 productsPage={productsPage}
+                                viewProducts={true}
                                 totalProducts={products.length}
                                 paginate={paginate}
                             />
