@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
 import { types } from '../../Types/Types'
-export const Header = () => {
+export const Header = ({ widthImg }) => {
     const [showCartList, setShowCartList] = useState(false)
     const [menuCategorie, setMenuCategorie] = useState({})
     const [loading, setLoading] = useState(false)
@@ -31,6 +31,9 @@ export const Header = () => {
             type: types.logout,
             payload: null
         })
+        JSON.parse(localStorage.getItem('userBurger')) || {
+            logueado: false
+        }
     }
     return (
         <div className='row row-header'>
@@ -52,16 +55,29 @@ export const Header = () => {
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav d-flex justify-content-end">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">Inicio </Link>
+                                {widthImg > 992 ? (
+                                    <Link className="nav-link" to="/" data-toggle="collapse"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Inicio </Link>
+                                ) : (
+                                    <Link className="nav-link" to="/" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Inicio </Link>
+                                )}
+
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/productos" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">Productos</Link>
+                                {widthImg > 992 ? (
+                                    <Link className="nav-link" to="/productos" data-toggle="collapse"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Productos</Link>
+                                ) : (
+                                    <Link className="nav-link" to="/productos" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Productos</Link>
+                                )}
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,24 +86,42 @@ export const Header = () => {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {loading ? (
                                         menuCategorie.filter(categories => categories.nombre === 'Burger').map(categorie => (
-                                            <Link key={categorie._id} className="dropdown-item" to={`/productos/burger/${categorie.categoria}`} data-toggle="collapse"
-                                                data-target="#navbarSupportedContent"
-                                                aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            widthImg > 992 ? (
+                                                <Link key={categorie._id} className="dropdown-item" to={`/productos/burger/${categorie.categoria}`} data-toggle="collapse"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            ) : (
+                                                <Link key={categorie._id} className="dropdown-item" to={`/productos/burger/${categorie.categoria}`} data-toggle="collapse"
+                                                    data-target="#navbarSupportedContent"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            )
                                         ))
                                     ) : (null)}
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to="/productos/burger" data-toggle="collapse"
-                                        data-target="#navbarSupportedContent"
-                                        aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    {widthImg > 992 ? (
+                                        <Link className="dropdown-item" to="/productos/burger" data-toggle="collapse"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    ) : (
+                                        <Link className="dropdown-item" to="/productos/burger" data-toggle="collapse"
+                                            data-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    )}
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/productos/papas y salsas" data-toggle="collapse"
-                                    data-target="#navbarSupportedContent"
-                                    aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">Papas y salsas</Link>
+                                {widthImg > 992 ? (
+                                    <Link className="nav-link" to="/productos/papas y salsas" data-toggle="collapse"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Papas y salsas</Link>
+                                ) : (
+                                    <Link className="nav-link" to="/productos/papas y salsas" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent"
+                                        aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Papas y salsas</Link>
+                                )}
                             </li>
 
                             <li className="nav-item dropdown">
@@ -97,17 +131,29 @@ export const Header = () => {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {loading ? (
                                         menuCategorie.filter(categories => categories.nombre === 'Bebidas').map(categorie => (
-                                            <Link key={categorie._id} className="dropdown-item" to={`/productos/bebidas/${categorie.categoria}`} data-toggle="collapse"
-                                                data-target="#navbarSupportedContent"
-                                                aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            widthImg > 992 ? (
+                                                <Link key={categorie._id} className="dropdown-item" to={`/productos/bebidas/${categorie.categoria}`} data-toggle="collapse"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            ) : (
+                                                <Link key={categorie._id} className="dropdown-item" to={`/productos/bebidas/${categorie.categoria}`} data-toggle="collapse"
+                                                    data-target="#navbarSupportedContent"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">{categorie.categoria}</Link>
+                                            )
                                         ))
                                     ) : (null)}
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to="/productos/bebidas" data-toggle="collapse"
-                                        data-target="#navbarSupportedContent"
-                                        aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    {widthImg > 992 ? (
+                                        <Link className="dropdown-item" to="/productos/bebidas" data-toggle="collapse"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    ) : (
+                                        <Link className="dropdown-item" to="/productos/bebidas" data-toggle="collapse"
+                                            data-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Ver todas</Link>
+                                    )}
                                 </div>
 
                             </li>
@@ -117,29 +163,66 @@ export const Header = () => {
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {user.logueado ? (
-                                        <Link className="dropdown-item" to="/micuenta" data-toggle="collapse"
-                                            data-target="#navbarSupportedContent"
-                                            aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">
-                                            Mi perfil
-                                        </Link>
-                                    ) : (
-                                        <Link className="dropdown-item" to="/ingresar" data-toggle="collapse"
-                                            data-target="#navbarSupportedContent"
-                                            aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Ingresar</Link>
-
-                                    )}
-                                    <Link className="dropdown-item" to="/micarrito" data-toggle="collapse"
-                                        data-target="#navbarSupportedContent"
-                                        aria-controls="navbarSupportedContent"
-                                        aria-expanded="false" aria-label="Toggle navigation">Carrito</Link>
-                                    {user.logueado ?
-                                        (
-                                            <Link className="dropdown-item" to="/" onClick={handleLogout} data-toggle="collapse"
+                                        widthImg > 992 ? (
+                                            <Link className="dropdown-item" to="/micuenta" data-toggle="collapse"
+                                                aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                                                Mi perfil
+                                            </Link>
+                                        ) : (
+                                            <Link className="dropdown-item" to="/micuenta" data-toggle="collapse"
                                                 data-target="#navbarSupportedContent"
                                                 aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation">Cerrar sesión</Link>
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                                                Mi perfil
+                                            </Link>
+                                        )
+                                    ) : (
+                                        widthImg > 992 ? (
+                                            <Link className="dropdown-item" to="/ingresar" data-toggle="collapse"
+                                                aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">Ingresar</Link>
+                                        ) : (
+                                            <Link className="dropdown-item" to="/ingresar" data-toggle="collapse"
+                                                data-target="#navbarSupportedContent"
+                                                aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">Ingresar</Link>
+                                        )
+
+                                    )}
+                                    {user.logueado ? (user.rol[0].name === "admin" ? null : (
+                                        widthImg > 992 ? (
+                                            <Link className="dropdown-item" to="/micarrito" data-toggle="collapse"
+                                                aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">Carrito</Link>
+                                        ) : (
+                                            <Link className="dropdown-item" to="/micarrito" data-toggle="collapse"
+                                                data-target="#navbarSupportedContent"
+                                                aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">Carrito</Link>
+                                        )
+                                    )) : (widthImg > 922 ? (
+                                        <Link className="dropdown-item" to="/micarrito" data-toggle="collapse"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Carrito</Link>
+                                    ) : (
+                                        <Link className="dropdown-item" to="/micarrito" data-toggle="collapse"
+                                            data-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Carrito</Link>
+                                    ))}
+                                    {user.logueado ?
+                                        (
+                                            widthImg > 992 ? (
+                                                <Link className="dropdown-item" to="/" onClick={handleLogout} data-toggle="collapse"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">Cerrar sesión</Link>
+                                            ) : (
+                                                <Link className="dropdown-item" to="/" onClick={handleLogout} data-toggle="collapse"
+                                                    data-target="#navbarSupportedContent"
+                                                    aria-controls="navbarSupportedContent"
+                                                    aria-expanded="false" aria-label="Toggle navigation">Cerrar sesión</Link>
+                                            )
                                         )
                                         :
                                         (null)
