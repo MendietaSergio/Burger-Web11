@@ -5,15 +5,16 @@ import { Link } from 'react-router-dom'
 import { ValidationAddProduct } from '../../../utils/ValidationAddProduct'
 import { Message } from '../../Message/Message'
 import { Title } from '../../Title/Title'
+import './AddProduct.css'
 // FALTA AGREGAR DISPONIBLE, DESCUENTO
-export const AddProduct = ({ viewAddProducts }) => {
+export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
   if (viewAddProducts) {
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm()
 
     const [viewMessage, setViewMessage] = useState(false)
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const [success, setSuccess] = useState(false)
+    // const [success, setSuccess] = useState(false)
     const [categoria, setCategoria] = useState([])
     const [totalCategoria, setTotalCategoria] = useState([])
     const [showDiscount, setShowDiscount] = useState('si');
@@ -63,9 +64,15 @@ export const AddProduct = ({ viewAddProducts }) => {
         .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
         .then((resp) => {
           if (resp.status === 200) {
+            console.log(resp.data);
             newData = {
               ...newData,
-              img: resp.data.url
+              img: resp.data.url,//despues sacarlo
+              images: {
+                img: resp.data.url,
+                public_id: resp.data.public_id,
+                public_id_old: ''
+              }
             }
             sendProducto(newData)
           } else {
@@ -108,17 +115,22 @@ export const AddProduct = ({ viewAddProducts }) => {
               ) : (null)
             }
           </div>
-          <form onSubmit={handleSubmit(submit)} className="form-login">
+          <form onSubmit={handleSubmit(submit)} className="form-addProduct">
             <div className='row'>
               <div className='col-12  col-md-6'>
                 <label name="nombre">Nombre del producto <small>*</small> </label>
                 <input name="nombre" className={errors.nombre ? ("form-control is-invalid") : ("form-control")} type="text" {...register('nombre', ValidationAddProduct.nombre)} />
-                {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+                <div className={`container-errors`}>
+                  {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+
+                </div>
               </div>
               <div className='col-12  col-md-6'>
                 <label name="precio">Precio <small>*</small> </label>
                 <input name="precio" type="number" className={errors.precio ? ("form-control is-invalid") : ("form-control")}  {...register('precio', ValidationAddProduct.precio)} />
-                {errors.precio ? <small className='text-danger'>{errors.precio.message}</small> : null}
+                <div className={`container-errors`}>
+                  {errors.precio ? <small className='text-danger'>{errors.precio.message}</small> : null}
+                </div>
               </div>
               <div className="col-12 col-md-6">
                 <label htmlFor="oferta">Oferta</label>
@@ -134,9 +146,12 @@ export const AddProduct = ({ viewAddProducts }) => {
                   <option Value="si">Si</option>
                   <option value="no">No</option>
                 </select>
-                {errors.oferta ? (
-                  <p className="text-danger">{errors.oferta.message}</p>
-                ) : null}
+                <div className={`container-errors`}>
+                  {errors.oferta ? (
+                    <p className="text-danger">{errors.oferta.message}</p>
+                  ) : null}
+
+                </div>
               </div>
               {showDiscount === watch('oferta') ? (
                 <div className="col-12 col-md-6">
@@ -152,9 +167,11 @@ export const AddProduct = ({ viewAddProducts }) => {
                     placeholder="Descuento"
                     {...register("descuento", ValidationAddProduct.descuento)}
                   />
-                  {errors.descuento ? (
-                    <p className="text-danger">{errors.descuento.message}</p>
-                  ) : null}
+                  <div className={`container-errors`}>
+                    {errors.descuento ? (
+                      <p className="text-danger">{errors.descuento.message}</p>
+                    ) : null}
+                  </div>
                 </div>
               ) : null}
               <div className='col-12'>
@@ -181,8 +198,9 @@ export const AddProduct = ({ viewAddProducts }) => {
                     >{categorie.nombre}</option>
                   ))}
                 </select>
-                {errors.categoria ? <small className='text-danger'>{errors.categoria.message}</small> : null}
-
+                <div className={`container-errors`}>
+                  {errors.categoria ? <small className='text-danger'>{errors.categoria.message}</small> : null}
+                </div>
               </div>
               <div className='col-12 col-md-6 '>
                 <label name="subcategoria">Subcategoria <small>*</small></label>
@@ -201,8 +219,9 @@ export const AddProduct = ({ viewAddProducts }) => {
                     </option>
                   ))}
                 </select>
-                {errors.subcategoria ? <small className='text-danger'>{errors.subcategoria.message}</small> : null}
-
+                <div className={`container-errors`}>
+                  {errors.subcategoria ? <small className='text-danger'>{errors.subcategoria.message}</small> : null}
+                </div>
               </div>
             </div>
             <div className='col-12 col-md-12'>
@@ -217,10 +236,11 @@ export const AddProduct = ({ viewAddProducts }) => {
                   id="img"
                 />
               </div>
-              {errors.img ? (
-                <small className="text-danger">{errors.img.message}</small>
-              ) : null}
-
+              <div className={`container-errors`}>
+                {errors.img ? (
+                  <small className="text-danger">{errors.img.message}</small>
+                ) : null}
+              </div>
             </div>
             <div className='col-12 col-md-12'>
               <label name="descripcion">Description</label>
@@ -232,7 +252,9 @@ export const AddProduct = ({ viewAddProducts }) => {
                 placeholder='Deje detalles del producto...'
                 {...register('descripcion', ValidationAddProduct.descripcion)}
               />
-              {errors.descripcion ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
+              <div className={`container-errors`}>
+                {errors.descripcion ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
+              </div>
             </div>
             <div className="form-group">
               <div className="form-check m-3">

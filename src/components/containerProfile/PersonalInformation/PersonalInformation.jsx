@@ -92,7 +92,9 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                                     {...register('nombre', validations.nombre)}
                                     defaultValue={nombre}
                                 />
-                                {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+                                <div className={`container-errors`}>
+                                    {errors.nombre ? <small className='text-danger'>{errors.nombre.message}</small> : null}
+                                </div>
                             </div>
                             <div className='col-12  col-md-6'>
                                 <label name="usuario">Usuario <small>*</small> </label>
@@ -114,17 +116,6 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                                     disabled='true'
                                 />
                             </div>
-                            {/* <div className='col-12 col-md-6'>
-                                <label name="password">Contraseña <small>*</small>
-                                </label>
-                                <input
-                                    name="password"
-                                    className={errors.password ? ("form-control is-invalid") : ("form-control")} type="password"
-                                    {value.length>0 ? }
-                                    // {...register('password', validations.password)}
-                                />
-                                {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
-                            </div> */}
                         </div>
                         <div className='row'>
                             <div className='col-12 col-md-8'>
@@ -138,7 +129,9 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                                     defaultValue={domicilio}
                                     {...register('domicilio', validations.domicilio)}
                                 />
-                                {errors.domicilio ? <small className='text-danger'>{errors.domicilio.message}</small> : null}
+                                <div className={`container-errors`}>
+                                    {errors.domicilio ? <small className='text-danger'>{errors.domicilio.message}</small> : null}
+                                </div>
                             </div>
                             <div className='col-12 col-md-12'>
                                 <label name="descripcion">Descripcion</label>
@@ -151,7 +144,9 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
                                     {...register('description', validations.descripcion)}
                                     defaultValue={descripcion}
                                 />
-                                {errors.description ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
+                                <div className={`container-errors`}>
+                                    {errors.description ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
+                                </div>
                             </div>
                         </div>
                         <div className='d-flex flex-row justify-content-around my-3'>
