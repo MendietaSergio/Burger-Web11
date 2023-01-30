@@ -5,13 +5,17 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
 import { types } from '../../Types/Types'
+import { CartContextUse } from '../../Context/CartContextProvider'
+
 export const Header = ({ widthImg }) => {
     const [showCartList, setShowCartList] = useState(false)
     const [menuCategorie, setMenuCategorie] = useState({})
     const [loading, setLoading] = useState(false)
     const { user, dispatch } = useContext(AuthContext)
+    const [cantCart, setCantCart] = useState(0)
     const { nombre } = user;
-
+    const { cart } = CartContextUse()
+    console.log("largo ", cart);
     useEffect(() => {
         const getCategories = async () => {
             await axios.get('http://localhost:3001/api/products/categories')
@@ -26,6 +30,9 @@ export const Header = ({ widthImg }) => {
         }
         getCategories()
     }, [])
+    useEffect(() => {
+        setCantCart(cart.length)
+    }, [cart])
     const handleLogout = () => {
         dispatch({
             type: types.logout,
@@ -34,6 +41,7 @@ export const Header = ({ widthImg }) => {
         JSON.parse(localStorage.getItem('userBurger')) || {
             logueado: false
         }
+
     }
     return (
         <div className='row row-header'>
@@ -42,7 +50,7 @@ export const Header = ({ widthImg }) => {
                     <Link className="navbar-brand" to="/">Burger</Link>
 
                     <div className="cart-icon-movil ml-4 my-2 my-lg-0">
-                        0<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                        {cantCart}<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
                         {
                             showCartList ? (
                                 <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />
@@ -231,7 +239,7 @@ export const Header = ({ widthImg }) => {
                             </li>
                         </ul>
                         <div className="cart-icon ml-4 my-2 my-lg-0">
-                            0<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
+                            {cantCart}<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
                             {
                                 showCartList ? (
                                     <CartModal setShowCartList={setShowCartList} showCartList={showCartList} />

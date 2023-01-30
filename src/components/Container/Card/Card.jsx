@@ -4,7 +4,7 @@ import './Card.css'
 import deleteIcon from '../../../Img/delete.png'
 import editIcon from '../../../Img/edit.png'
 import axios from 'axios'
-import { UpdateProduct } from '../../containerProfile/UpdateProduct/UpdateProduct'
+import { CartContextUse } from '../../../Context/CartContextProvider'
 
 export const Card = ({
     product,
@@ -14,6 +14,8 @@ export const Card = ({
     setIdProduct
 }) => {
     const { _id, nombre, precio, nombre_categoria, img_art } = product
+    const [loading, setLoading] = useState(false)
+    const { addItem } = CartContextUse()
     const deleteProduct = async (_id) => {
         console.log(_id);
         // await axios
@@ -25,15 +27,15 @@ export const Card = ({
     const viewData = (e) => {
         setView(true)
         setIdProduct(product._id)
-        // console.log(e.target)
-        // console.log(document.getElementById(`id${product._id}`));
-        // if (document.getElementById(`id${product._id}`).classList.contains("modal")) {
-        //     // document.write(input.classList + " " + "<br>" + "<b>Si posee la clase2</b>")]
-        //     console.log("si");
-        // }
-        // else {
-        //     console.log("no posee");
-        // }
+    }
+
+    const AddCart = (product) => {
+        console.log("producto añadido => ", product);
+        setLoading(true)
+        addItem(product, 1)
+        setTimeout(() => {
+            setLoading(false)
+        }, 2500)
     }
     if (viewListProducts && admin) {
         return (
@@ -57,11 +59,9 @@ export const Card = ({
                 </div>
                 <div className='contianer_optonIcon'>
                     <img src={editIcon} alt="editIcon" className='optionIcon'
-                        // data-toggle="modal" data-target={`#id${product._id}`}
                         onClick={() => viewData()} />
                     <img src={deleteIcon} alt="deleteIcon" className='optionIcon' onClick={() => deleteProduct(product._id)} />
                 </div>
-                {/* <UpdateProduct product={product} view={view} setView={setView} /> */}
             </div>
         )
     } else {
@@ -81,7 +81,7 @@ export const Card = ({
                     </div>
                     <span className='price'>${precio},00</span>
                     <div className='btn-link'>
-                        <a className='optionsLink' href="#">Pedime Ahora <i className="fas fa-angle-right"></i></a>
+                        <a className='optionsLink' href="#" onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</a>
                     </div>
                 </div>
             </div>
