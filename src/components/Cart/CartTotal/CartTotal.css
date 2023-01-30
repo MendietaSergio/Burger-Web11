@@ -8,14 +8,14 @@
 }
 
 .container-cartTotal-section {
-    height       : auto;
-    padding      : 10px;
+    height          : auto;
+    padding         : 10px;
     background-color: #FBFBFB;
-    border-bottom: 1px solid #a9a9a9;
+    border-bottom   : 1px solid #a9a9a9;
 }
 
 .container-cartTotal-section h5 {
-    
+
     margin: 0 !important;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .container-cartTotal-section:first-child {
-    padding         : 10;
+    padding: 10;
 }
 
 .container-cartTotal-info div:nth-last-child(2),
@@ -43,6 +43,10 @@
     justify-content: end;
     border         : none;
     padding        : 12px;
+}
+
+.btn-viewCart:hover {
+    text-decoration: none;
 }
 
 @media(min-width: 768px) {

@@ -1,45 +1,78 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { CartContextUse } from '../../../Context/CartContextProvider'
+import { CartTotal } from '../CartTotal/CartTotal'
 import './CartModal.css'
 export const CartModal = ({ showCartList, setShowCartList }) => {
-  const [preview, setPreview] = useState(false)
+  const { cart, removeItem, clear, addItem } = CartContextUse()
+  const [priceTotal, setPriceTotal] = useState(0)
+  const handleCant = (product, e) => {
+    let { item } = product;
+    addItem(item, Number(e.target.value))
+  }
+  useEffect(() => {
+    let sumTotal = 0;
 
-  return (
-    <div className='container-cart-widget'>
+    cart.map((element) => (sumTotal += element.item.precio * element.cantidad));
+    setPriceTotal(sumTotal);
+  }, [cart]);
+  const hiddenCart = (select) => {
+    if (select === "background") {
+      setShowCartList(false);
+    }
+  }
+  return (<>
+    <div className='container-cart-widget' onClick={() => hiddenCart("none")}>
+
       <div className='container-cartTitle-movil my-3'>
         <h5 className='text-center'>Carrito de compras</h5>
-        <i className="far fa-times-circle" onClick={() => setShowCartList(!showCartList)}></i>
+        <i className="far fa-times-circle clear-itemCart-modal" onClick={() => setShowCartList(false)}></i>
       </div>
-      {preview ? (
+      {cart.length === 0 ? (
         <>
-          <div className='d-flex justify-content-center'>
+          <div className='container_cart_empty'>
             <span className='text-emptycart'>No hay productos en el carrito</span>
           </div>
         </>
       ) : (
         <>
           <div className='row row-itemCart-modal'>
-            <div className='col-12 d-flex justify-content-around'>
-              <div className='container-cartImg-modal'>
-                <img className='cart-img-modal' src="https://res.cloudinary.com/freelance01/image/upload/v1648984024/burger_web/img-prueba_lqluh4.png" alt="Producto" />
+            {cart.map((item, index) => (
+              <div key={index} className='col-12 d-flex justify-content-between'>
+                <div className='container-cartImg-modal'>
+                  <img className='cart-img-modal' src={item.item.img_art} alt="Producto" />
+                </div>
+                <div className='flex-column d-flex container_cant_cart_widget_price'>
+                  <span className='itemTitle-modal'>{item.item.nombre}</span>
+                  <div className='container_cant_cart_widget'>
+                    <input type="number" className='form-control input-cart-widget' max={15} min={1} defaultValue={item.cantidad} onChange={(e) => handleCant(item, e)} />
+                    <div className='flex-column d-flex justify-content-center align-items-center'>
+                      <span>Precio</span>
+                      <span className=''> x ${item.item.precio},00</span>
+                    </div>
+                  </div>
+                </div>
+                <div className='container_subtotal_cart_widget'>
+                  <div>
+                    <i className="clear-itemCart-modal far fa-times-circle" onClick={() => removeItem(item.item._id)}></i>
+                  </div>
+                  <div className='flex-column d-flex justify-content-center align-items-end'>
+                    <span>Subtotal</span>
+                    <span className=''>${item.cantidad * item.item.precio},00</span>
+                  </div>
+                </div>
+                <hr />
               </div>
-              <div className='flex-column d-flex'>
-                <span className='itemTitle-modal'>Burger WHOPBURGER</span>
-                <span className=''>1 x $890,00</span>
-              </div>
-              <div>
-                <i className="clear-itemCart-modal far fa-times-circle"></i>
-              </div>
-            </div>
-            <div className="col-12 container-itemcart-modal">
-              <span>Subtotal: $6.230,00</span>
-            </div>
-            <div className="col-12 container-btncart-modal">
-              <button type='submit' className='btn-toAccess my-2' >Ver carrito</button>
-              <button type='submit' className='btn-toAccess my-2' >Finalizar compra</button>
-            </div>
+            ))}
+
+            <CartTotal clear={clear} priceTotal={priceTotal} viewCartModal={true} setShowCartList={setShowCartList} />
           </div>
         </>
       )}
+    </div >
+    <div className={showCartList && 'container-shadow-cart'} onClick={() => hiddenCart("background")} >
+
     </div>
+  </>
+
   )
 }

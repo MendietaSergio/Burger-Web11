@@ -1,7 +1,16 @@
 import React from 'react'
+import { CartContextUse } from '../../../Context/CartContextProvider';
 import './ShoppingCart.css'
-export const ShoppingCart = () => {
+export const ShoppingCart = ({ cart }) => {
+
+    console.log("container cart ", cart);
+    const { addItem, removeItem } = CartContextUse()
+    const handleCant = (product, e) => {
+        let { item } = product;
+        addItem(item, Number(e.target.value))
+    }
     return (
+
         <>
             <div className="col-12">
                 <div className='row-cart-title'>
@@ -12,34 +21,38 @@ export const ShoppingCart = () => {
                     <span className='cart-section-title'>Cantidad</span>
                     <span className='cart-section-title'>Subtotal</span>
                 </div>
-
             </div>
-            <div className='col-12'>
-                <div className="container-item-cart">
-                    <div className='container-cart-section'>
-                        <i className="far fa-times-circle"></i>
-                    </div>
-                    <div className='container-cart-section'>
-                        <img className='cart-img' src="https://res.cloudinary.com/freelance01/image/upload/v1648984024/burger_web/img-prueba_lqluh4.png" alt="Producto" />
-                    </div>
-                    <div className='container-cart-section'>
-                        <span className='cart-section-title'>Producto:</span>
-                        <span>agua con gas</span>
-                    </div>
-                    <div className='container-cart-section'>
-                        <span className='cart-section-title'>Precio:</span>
-                        <span>180,00</span>
-                    </div>
-                    <div className='container-cart-section'>
-                        <span className='cart-section-title'>Cantidad:</span>
-                        <input type="number" className='form-control' />
-                    </div>
-                    <div className='container-cart-section'>
-                        <span className='cart-section-title'>Subtotal:</span>
-                        <span>$180,00</span>
+            {cart.map((item, index) => (
+                <div key={index}>
+                    <div className='col-12'>
+                        <div className="container-item-cart">
+                            <div className='container-cart-section'>
+                                <i className="far fa-times-circle" onClick={() => removeItem(item.item._id)}></i>
+                            </div>
+                            <div className='container-cart-section'>
+                                <img className='cart-img' src={item.item.img_art} alt="Producto" />
+                            </div>
+                            <div className='container-cart-section'>
+                                <span className='cart-section-title'>Producto:</span>
+                                <span>{item.item.nombre}</span>
+                            </div>
+                            <div className='container-cart-section'>
+                                <span className='cart-section-title'>Precio:</span>
+                                <span>{item.item.precio},00</span>
+                            </div>
+                            <div className='container-cart-section'>
+                                <span className='cart-section-title'>Cantidad:</span>
+                                <input type="number" className='form-control' max={15} min={1} defaultValue={item.cantidad} onChange={(e) => handleCant(item, e)} />
+                            </div>
+                            <div className='container-cart-section'>
+                                <span className='cart-section-title'>Subtotal:</span>
+                                <span>${item.item.precio * item.cantidad},00</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ))}
+
         </>
     )
 }
