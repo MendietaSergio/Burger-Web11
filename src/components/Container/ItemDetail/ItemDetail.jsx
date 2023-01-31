@@ -1,19 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './ItemDetail.css'
 import { Navigation } from '../../Navigation/Navigation'
-import { Title } from '../../Title/Title'
 import { SkeletonCard } from '../../Skeleton/SkeletonCard'
+import { CartContextUse } from '../../../Context/CartContextProvider'
 export const ItemDetail = ({ productDetail, loading }) => {
+    const { addItem, cart } = CartContextUse()
     const { nombre, img_art, precio, descripcion, nombre_categoria, _id } = productDetail;
     const [loadingCart, setLoadingCart] = useState(false)
-    const [cant, setCant] = useState(1);
-
-    const handleAddCart = () => {
-        setLoadingCart(true)
+    const [cant, setCant] = useState(0);
+    const [loadingNumber, setLoadingNumber] = useState(true)
+    useEffect(() => {
+        if (productDetail != undefined) {
+            let product = cart.find(element => element.item._id === productDetail._id)
+            if (product) {
+                setCant(product.cantidad)
+            } else {
+                setCant(1)
+            }
+        }
         setTimeout(() => {
-            setLoadingCart(false)
-        }, 2500);
+            setLoadingNumber(false)
+        }, 5000)
+    }, [productDetail, cart])
+    const AddCart = (productDetail) => {
+        if (!loadingNumber) {
+            setLoadingCart(true)
+            addItem(productDetail, Number(cant))
+            setTimeout(() => {
+                setLoadingCart(false)
+            }, 2500)
+        }
     }
     return (
         <div className='container my-5'>
@@ -28,7 +45,7 @@ export const ItemDetail = ({ productDetail, loading }) => {
                 </div>
                 <div className="col-12 col-md-6">
                     {loading ? (
-                        <SkeletonCard skeletonDetail={true}  />
+                        <SkeletonCard skeletonDetail={true} />
                     ) : (
                         <>
 
@@ -52,19 +69,24 @@ export const ItemDetail = ({ productDetail, loading }) => {
                                 </div>
                                 <span className='detail-categorie'>{descripcion}</span>
                                 <div className='d-flex justify-content-center'>
-                                    <input
-                                        type="number"
-                                        className='form-control'
-                                        onChange={(e) => setCant(e.target.value)}
-                                        defaultValue={cant}
-                                        min="1"
-                                        max="10"
-                                    />
+                                    {loadingNumber ? (
+                                        <div className='container_detail-spiner'>
+                                            <i class="fas fa-circle-notch fa-spin"></i>
+                                        </div>
+                                    ) : (
+                                        <input
+                                            type="number"
+                                            className='form-control'
+                                            onChange={(e) => setCant(e.target.value)}
+                                            defaultValue={cant}
+                                            min="1"
+                                            max="10"
+                                        />
+                                    )}
                                     <div className='btn-link'>
-                                        {/* SE PODRÍA AGREGAR ALGUN TIPO DE MENSAJE CON TIMEOUT, ART. AGREGADO AL CARRITO */}
                                         <a
                                             className='optionsLink'
-                                            onClick={() => handleAddCart(_id)}
+                                            onClick={() => AddCart(productDetail)}
                                         >Pedime Ahora {loadingCart ? (
                                             <i className="fas fa-spinner fa-pulse"></i>
                                         ) : (
