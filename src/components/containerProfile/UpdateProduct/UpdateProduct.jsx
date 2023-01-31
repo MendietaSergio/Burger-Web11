@@ -131,6 +131,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
         setValueOfert(watch('oferta'))
     }, [watch('oferta')])
     const submit = async (data) => {
+        console.log("data >= ", data);
         setLoading(true)
         let newData = {
             ...data
@@ -367,7 +368,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
 
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className="d-flex justify-content-around form-group flex-row align-center">
                         <div className="form-check m-3">
                             <input
                                 className={
@@ -382,6 +383,16 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                                 {...register("disponible", ValidationAddProduct.disponible)}
                             />
                             <label htmlFor="disponible">Producto disponible</label>
+                        </div>
+                        <div className="form-check m-3">
+                            <input
+                                type="checkbox"
+                                name="destacado"
+                                id="destacado"
+                                {...register("destacado", ValidationAddProduct.destacado)}
+                                defaultChecked={product.destacado}
+                            />
+                            <label htmlFor="destacado">Producto destacado</label>
                         </div>
                     </div>
                     <div className='d-flex flex-row justify-content-around my-4'>

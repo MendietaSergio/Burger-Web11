@@ -81,7 +81,6 @@ export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
         });
     };
     const submit = async (data) => {
-      console.log(data);
       setLoading(true)
       let newData = {
         ...data
@@ -256,7 +255,7 @@ export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
                 {errors.descripcion ? <small className='text-danger'>{errors.descripcion.message}</small> : null}
               </div>
             </div>
-            <div className="form-group">
+            <div className="d-flex justify-content-around form-group flex-row align-center">
               <div className="form-check m-3">
                 <input
                   className={
@@ -271,6 +270,21 @@ export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
                   {...register("disponible", ValidationAddProduct.disponible)}
                 />
                 <label htmlFor="disponible">Producto disponible</label>
+              </div>
+              <div className="form-check m-3">
+                <input
+                  className={
+                    errors.disponible
+                      ? "form-check-input is-invalid"
+                      : "form-check-input"
+                  }
+                  type="checkbox"
+                  name="destacado"
+                  id="destacado"
+                  {...register("destacado", ValidationAddProduct.destacado)}
+                  defaultChecked={false}
+                />
+                <label htmlFor="destacado">Producto destacado</label>
               </div>
             </div>
             <div className='d-flex flex-row justify-content-around my-4'>
