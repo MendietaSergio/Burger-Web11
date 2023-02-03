@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-export const PurchaseOrder = ({ viewOrder }) => {
+export const PurchaseOrder = ({ estados, viewOrder }) => {
   const [orderList, setOrderList] = useState({ id: "asd" })
-  if (viewOrder) {
+  if (estados[1].option) {
     return (
       <>
         {orderList !== undefined ? (
@@ -12,7 +12,7 @@ export const PurchaseOrder = ({ viewOrder }) => {
         ) : (<span>false</span>)}
       </>
     )
-  }else{
+  } else {
     return null
-}
+  }
 }

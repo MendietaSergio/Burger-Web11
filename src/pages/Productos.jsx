@@ -9,11 +9,11 @@ import { SkeletonCard } from '../components/Skeleton/SkeletonCard'
 import { Title } from '../components/Title/Title'
 import './Filter.css'
 export const Productos = ({
-    viewListProducts = false,
     admin = false,
     cantPages,
     success,
-    setSuccess
+    setSuccess,
+    estados
 }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
@@ -26,40 +26,24 @@ export const Productos = ({
     const { idSubcategoria } = useParams()
     const [view, setView] = useState(false)
     const [idProduct, setIdProduct] = useState(null)
-
-    useEffect(() => {
-        setViewProduct(false)
-
-        const getProducts = async () => {
-            setLoading(true)
-            if (idCategoria) {
-                let categorie = idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
+    const getProducts = async () => {
+        setLoading(true)
+        if (idCategoria) {
+            let categorie = idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1)
+            await axios.get(`http://localhost:3001/api/products`)
+                .then(res => {
+                    setProducts(res.data.filter(idCategorie => idCategorie.nombre_categoria.nombre === categorie))
+                    setTotal(res.data.length)
+                })
+                .catch(error => console.log(error))
+                .finally(() => {
+                    setLoading(false)
+                    setCurrentPage(1)
+                })
+            if (idSubcategoria) {
                 await axios.get(`http://localhost:3001/api/products`)
                     .then(res => {
-                        setProducts(res.data.filter(idCategorie => idCategorie.nombre_categoria.nombre === categorie))
-                        setTotal(res.data.length)
-                    })
-                    .catch(error => console.log(error))
-                    .finally(() => {
-                        setLoading(false)
-                        setCurrentPage(1)
-                    })
-                if (idSubcategoria) {
-                    await axios.get(`http://localhost:3001/api/products`)
-                        .then(res => {
-                            setProducts(res.data.filter(idSubCategorie => idSubCategorie.nombre_categoria.categoria === idSubcategoria))
-                            setTotal(res.data.length)
-                        })
-                        .catch(error => console.log(error))
-                        .finally(() => {
-                            setLoading(false)
-                            setCurrentPage(1)
-                        })
-                }
-            } else {
-                await axios.get(`http://localhost:3001/api/products`)
-                    .then(res => {
-                        setProducts(res.data)
+                        setProducts(res.data.filter(idSubCategorie => idSubCategorie.nombre_categoria.categoria === idSubcategoria))
                         setTotal(res.data.length)
                     })
                     .catch(error => console.log(error))
@@ -68,12 +52,31 @@ export const Productos = ({
                         setCurrentPage(1)
                     })
             }
+        } else {
+            await axios.get(`http://localhost:3001/api/products`)
+                .then(res => {
+                    setProducts(res.data)
+                    setTotal(res.data.length)
+                })
+                .catch(error => console.log(error))
+                .finally(() => {
+                    setLoading(false)
+                    setCurrentPage(1)
+                })
         }
+    }
+    useEffect(() => {
+
+        setViewProduct(false)
+
         getProducts()
         setTimeout(() => {
             setViewProduct(true)
         }, 3000);
-    }, [idCategoria, idSubcategoria, success])
+    }, [idCategoria, idSubcategoria])
+    useEffect(() => {
+        getProducts()
+    }, [success])
 
     //FILTROS
     useEffect(() => {
@@ -120,7 +123,7 @@ export const Productos = ({
     let indexOfFirstPost = indexOfLastPost - productsPage;
     let currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-    if (!viewListProducts && !admin) {
+    if (estados === undefined && !admin) {
         return (
             <div className='container'>
 
@@ -161,9 +164,8 @@ export const Productos = ({
             </div>
         )
     }
-    if (viewListProducts && admin) {
+    if (estados[5].option && admin) {
         return (<div className='container'>
-            {/* <Navigation /> */}
             <Title title={view ? 'Actualizar producto' : 'Productos'} />
             {view ? (
                 <>
@@ -181,8 +183,8 @@ export const Productos = ({
                             <ItemListProducts
                                 products={currentProducts}
                                 loading={loading}
+                                estados={estados}
                                 admin={true}
-                                viewListProducts={viewListProducts}
                                 setView={setView}
                                 setIdProduct={setIdProduct}
                                 setSuccess={setSuccess} />

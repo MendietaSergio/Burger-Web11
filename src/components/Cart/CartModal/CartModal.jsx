@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { CartContextUse } from '../../../Context/CartContextProvider'
 import { CartTotal } from '../CartTotal/CartTotal'
 import './CartModal.css'
@@ -31,6 +32,9 @@ export const CartModal = ({ showCartList, setShowCartList }) => {
         <>
           <div className='container_cart_empty'>
             <span className='text-emptycart'>No hay productos en el carrito</span>
+            <div className="container-btncart-modal">
+              <button type='submit' className='btn-toAccess my-2' ><Link className='btn-viewCart' to="/productos" onClick={() => setShowCartList(false)}>Ver productos</Link></button>
+            </div>
           </div>
         </>
       ) : (

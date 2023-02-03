@@ -8,9 +8,6 @@ import { Title } from '../../Title/Title'
 import './UpdateProduct.css'
 import clearImg from '../../../Img/closed.png'
 import imgDefault from '../../../Img/imgDefault.png'
-import { Cloudinary } from '@cloudinary/url-gen'
-
-// import cloudinary from "cloudinary/lib/cloudinary";
 
 // FALTA AGREGAR DISPONIBLE, DESCUENTO
 export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
@@ -47,7 +44,6 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
         await axios.get(`http://localhost:3001/api/products/detail/${_id}`)
             .then(res => {
                 setProduct(res.data.productDetail)
-                console.log(res.data.productDetail);
                 setLoadingView(false)
                 if (res.data.productDetail.nombre_categoria.tipo !== '') {
                     setValue('categoria', 'Bebidas')
@@ -55,7 +51,6 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
             })
     }
     useEffect(() => {
-        console.log("entra");
         getProductDetail()
     }, [_id, success])
     useEffect(() => {
@@ -76,7 +71,6 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
         getCategoria()
     }, [])
     const updateProducto = async (data) => {
-        console.log("data antes del axios.post=> ", data);
         // ACTUALIZAR PRODUCTO
         await axios.put(`http://localhost:3001/api/products/update/${product._id}`, { data, config })
             .then(resp => {
@@ -98,19 +92,10 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
     }
     const uploadImage = async (newData, img) => {
 
-        // Cloudinary.v2.uploader.destoy("burger_web/g7urru3rqxbjr6aymtu2", function (error, result) {
-        //     console.log(result, error);
-        // })
-        //     .then(resp => console.log(resp))
-        // console.log("img uplaodImage=> ", img.get('img'));
-        // console.log("img a eliminar uplaodImage=> ", product.img_art);
-
-
         // CARGAR IMG
         await axios
             .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
             .then((resp) => {
-                console.log(resp);
                 if (resp.status === 200) {
                     newData = {
                         ...newData,
@@ -123,7 +108,15 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                     }
                     updateProducto(newData)
                 } else {
-                    console.log(resp);
+                    newData = {
+                        ...newData,
+                        img: resp.data.url,//despues sacar esto 
+                        images: {
+                            img: imgDefault,
+                            public_id: imgDefault,
+                            public_id_old: product.images.public_id
+                        }
+                    }
                 }
             });
     };
@@ -131,7 +124,6 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
         setValueOfert(watch('oferta'))
     }, [watch('oferta')])
     const submit = async (data) => {
-        console.log("data >= ", data);
         setLoading(true)
         let newData = {
             ...data

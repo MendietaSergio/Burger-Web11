@@ -8,10 +8,11 @@ export const ImgProfile = ({
     usuario,
     widthImg,
     user,
-    view }) => {
+    changeOption,
+    selectClic,
+}) => {
 
     return (
-        // <div className="col-12 col-md-4">
         <>
             <div className='container-profile m-3 py-5 '>
                 <img src={avatar} alt="perfil" />
@@ -22,13 +23,13 @@ export const ImgProfile = ({
                 <div className='row'>
                     <div className={`d-flex justify-content-center`}>
                         <ViewOptions
-                            widthImg={widthImg} admin={user.rol} view={view}
+                            selectClic={selectClic}
+                            changeOption={changeOption}
+                            widthImg={widthImg} admin={user.rol}
                         />
                     </div>
                 </div>
             </div>
         </>
-        // </div>
-
     )
 }

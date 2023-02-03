@@ -8,7 +8,7 @@ import { AuthContext } from '../../../Auth/AuthContext'
 import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { Message } from '../../Message/Message'
 import { DetailClient } from './DetailClient/DetailClient'
-export const ListClients = ({ viewClients, cantPages, newRegister }) => {
+export const ListClients = ({ estados, cantPages, newRegister }) => {
   const [clientsList, setClientsList] = useState([])
   const [total, setTotal] = useState()
   const [loading, setLoading] = useState(true)
@@ -84,7 +84,7 @@ export const ListClients = ({ viewClients, cantPages, newRegister }) => {
     console.log(client);
     setViewClient(client)
   }
-  if (viewClients) {
+  if (estados[6].option) {
     return (
       <>
         <h1 className='text-center'>Lista de clientes</h1>

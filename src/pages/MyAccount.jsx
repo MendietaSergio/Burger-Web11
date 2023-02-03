@@ -2,18 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../Auth/AuthContext'
 import { ImgProfile } from '../components/containerProfile/Imgprofile/ImgProfile'
 import { OptionProfile } from '../components/containerProfile/OptionProfile/OptionProfile'
+import { optionsProfile } from '../utils/OptionsProfile'
 
 export const Myaccount = () => {
-  const [viewInformation, setViewInformation] = useState(true)
-  const [viewOrder, setViewOrder] = useState(false)
-  const [viewHistory, setViewHistory] = useState(false)
-  const [viewClients, setViewClients] = useState(false)
-  const [viewAddProducts, setViewAddProducts] = useState(false)
-  const [viewListProducts, setViewListProducts] = useState(false)
-  const [viewNewUser, setViewNewUser] = useState(false)
   const { user, dispatch } = useContext(AuthContext)
   const { nombre, usuario, avatar } = user;
   const [widthImg, setWidthImg] = useState(window.innerWidth)
+  const [selectClic, setSelectClic] = useState("personal")
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -26,100 +21,41 @@ export const Myaccount = () => {
   const handleResize = () => {
     setWidthImg(window.innerWidth);
   };
-  const view = (select) => {
-    console.log(select);
-    if (select === "personal") {
-      setViewInformation(true)
-      setViewOrder(false)
-      setViewNewUser(false)
-      setViewClients(false)
-      setViewAddProducts(false)
-      setViewHistory(false)
-      setViewListProducts(false)
-    }
-    if (select === "order") {
-      setViewOrder(true)
-      setViewInformation(false)
-      setViewNewUser(false)
-      setViewClients(false)
-      setViewListProducts(false)
-      setViewAddProducts(false)
-      setViewHistory(false)
-    }
-    if (select === "history") {
-      setViewHistory(true)
-      setViewInformation(false)
-      setViewNewUser(false)
-      setViewListProducts(false)
-      setViewOrder(false)
-      setViewClients(false)
-      setViewAddProducts(false)
+  const [estados, setEstados] = useState(optionsProfile);
 
-    }
-    if (select === "usuario") {
-      setViewNewUser(true)
-      setViewInformation(false)
-      setViewHistory(false)
-      setViewListProducts(false)
-      setViewOrder(false)
-      setViewClients(false)
-      setViewAddProducts(false)
-    }
-    if (select === "articulo") {
-      setViewAddProducts(true)
-      setViewInformation(false)
-      setViewHistory(false)
-      setViewOrder(false)
-      setViewListProducts(false)
-      setViewClients(false)
-      setViewNewUser(false)
-    }
-    if (select === "clientes") {
-      setViewClients(true)
-      setViewInformation(false)
-      setViewHistory(false)
-      setViewListProducts(false)
-      setViewOrder(false)
-      setViewAddProducts(false)
-      setViewNewUser(false)
-    }
-    if (select === "listaarticulo") {
-      setViewListProducts(true)
-      setViewClients(false)
-      setViewInformation(false)
-      setViewHistory(false)
-      setViewOrder(false)
-      setViewAddProducts(false)
-      setViewNewUser(false)
-    }
-  }
+  const changeOption = (opcion, estado) => {
+    let updateState = [...estados];
+    updateState.map((item) => {
+      if (item.name === opcion) {
+        item.option = true;
+        setSelectClic(item.name)
+      } else {
+        item.option = false;
+      }
+    });
+    setEstados(updateState);
+  };
   return (
     <div>
       <div className='container'>
         <div className="row">
           <div className="col-12 col-md-4">
-
             <ImgProfile
+              changeOption={changeOption}
               avatar={avatar}
               nombre={nombre}
               usuario={usuario}
               widthImg={widthImg}
               user={user}
               dispatch={dispatch}
-              view={view}
+              selectClic={selectClic}
             />
 
           </div>
           <OptionProfile
+            estados={estados}
             user={user}
             dispatch={dispatch}
-            viewClients={viewClients}
-            viewAddProducts={viewAddProducts}
-            viewListProducts={viewListProducts}
-            viewHistory={viewHistory}
-            viewInformation={viewInformation}
-            viewNewUser={viewNewUser}
-            viewOrder={viewOrder}
           />
         </div>
 

@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
-export const PurchaseHistory = ({ viewHistory }) => {
+export const PurchaseHistory = ({ estados, viewHistory }) => {
   const [orderList, setOrderList] = useState({ id: "asd" })
 
-  if (viewHistory) {
+  if (estados[2].option) {
 
     return (
       <div>

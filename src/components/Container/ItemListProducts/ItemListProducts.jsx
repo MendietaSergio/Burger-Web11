@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { UpdateProduct } from '../../containerProfile/UpdateProduct/UpdateProduct'
+import React from 'react'
 import { Card } from '../Card/Card'
 
-export const ItemListProducts = ({ products, admin, viewListProducts, setView,setIdProduct }) => {
-    
-    if (viewListProducts && admin) {
-        return (
-            <div className='mx-auto my-auto'>
-                <ul className='list-group'>
-                    {
-                        products.map(product => (
-                            <Card product={product} admin={admin}
-                                viewListProducts={viewListProducts}
-                                key={product._id}
-                                setView={setView}
-                                setIdProduct={setIdProduct}
-                            />
-                        ))
-                    }
-                </ul>
-            </div>
-        )
-    } else { 
+export const ItemListProducts = ({ products, admin, estados, setView, setSuccess, setIdProduct }) => {
+
+    if (estados === undefined) {
         return (
             <>
                 {
@@ -34,4 +16,24 @@ export const ItemListProducts = ({ products, admin, viewListProducts, setView,se
             </>
         )
     }
+    if (estados[5].option && admin) {
+        return (
+            <div className='mx-auto my-auto'>
+                <ul className='list-group'>
+                    {
+                        products.map(product => (
+                            <Card product={product} admin={admin}
+                                key={product._id}
+                                estados={estados}
+                                setView={setView}
+                                setSuccess={setSuccess}
+                                setIdProduct={setIdProduct}
+                            />
+                        ))
+                    }
+                </ul>
+            </div>
+        )
+    }
+
 }

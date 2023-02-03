@@ -1,14 +1,13 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
 import { ValidationAddProduct } from '../../../utils/ValidationAddProduct'
 import { Message } from '../../Message/Message'
 import { Title } from '../../Title/Title'
 import './AddProduct.css'
 // FALTA AGREGAR DISPONIBLE, DESCUENTO
-export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
-  if (viewAddProducts) {
+export const AddProduct = ({ estados, viewAddProducts, setSuccess, success }) => {
+  if (estados[4].option) {
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm()
 
     const [viewMessage, setViewMessage] = useState(false)
@@ -64,7 +63,6 @@ export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
         .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
         .then((resp) => {
           if (resp.status === 200) {
-            console.log(resp.data);
             newData = {
               ...newData,
               img: resp.data.url,//despues sacarlo
@@ -75,10 +73,13 @@ export const AddProduct = ({ viewAddProducts, setSuccess, success }) => {
               }
             }
             sendProducto(newData)
-          } else {
-            console.log(resp);
           }
-        });
+
+
+        })
+        .catch(error => {
+          console.log(error)
+          })
     };
     const submit = async (data) => {
       setLoading(true)

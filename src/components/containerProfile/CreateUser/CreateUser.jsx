@@ -1,9 +1,9 @@
 import React from 'react'
 import { Register } from '../../Register/Register'
 
-export const CreateUser = ({ viewNewUser, admin, setNewRegister }) => {
+export const CreateUser = ({ estados, viewNewUser, admin, setNewRegister }) => {
 
-  if (viewNewUser) {
+  if (estados[3].option) {
     return (
       <Register
         setNewRegister={setNewRegister}

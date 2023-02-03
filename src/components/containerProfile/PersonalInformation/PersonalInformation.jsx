@@ -6,7 +6,7 @@ import { validations } from '../../../utils/ValidationsRegister'
 import { Message } from '../../Message/Message'
 
 import './PersonalInformation.css'
-export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
+export const PersonalInformation = ({ estados, user, dispatch }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [viewMessage, setViewMessage] = useState(false)
     const [message, setMessage] = useState('')
@@ -15,7 +15,6 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
 
     const { nombre, email, _id, usuario, domicilio, descripcion } = user;
     const submit = async (data) => {
-        console.log(data);
         setViewMessage(false)
         setMessage('')
         const { nombre, usuario, email, domicilio, descripcion } = data;
@@ -64,7 +63,7 @@ export const PersonalInformation = ({ viewInformation, user, dispatch }) => {
             }
         })
     }
-    if (viewInformation) {
+    if (estados[0].option) {
 
         return (
             <>

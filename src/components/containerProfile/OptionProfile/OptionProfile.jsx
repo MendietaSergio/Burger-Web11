@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Productos } from '../../../pages/Productos'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
@@ -11,30 +11,23 @@ import { PurchaseOrder } from '../PurchaseOrder/PurchaseOrder'
 export const OptionProfile = ({
     user,
     dispatch,
-    viewAddProducts,
-    viewClients,
-    viewHistory,
-    viewInformation,
-    viewNewUser,
-    viewOrder,
-    viewListProducts
+    estados
 }) => {
     const [success, setSuccess] = useState(false)
     const [newRegister, setNewRegister] = useState(false)
     return (
         <div className="col-12 col-md-8 container_data_user">
 
-            <PersonalInformation viewInformation={viewInformation} user={user} dispatch={dispatch} />
-            <PurchaseOrder viewOrder={viewOrder} />
-            <PurchaseHistory viewHistory={viewHistory} />
-            <ListClients viewClients={viewClients} newRegister={newRegister} />
-            <AddProduct viewAddProducts={viewAddProducts}
+            <PersonalInformation estados={estados} user={user} dispatch={dispatch} />
+            <PurchaseOrder estados={estados} />
+            <PurchaseHistory estados={estados} />
+            <CreateUser estados={estados} admin={true} setNewRegister={setNewRegister} />
+            <AddProduct estados={estados} setSuccess={setSuccess} success={success}
+            />
+            <Productos estados={estados} admin={true} cantPages={true}
                 setSuccess={setSuccess} success={success}
             />
-            <CreateUser viewNewUser={viewNewUser} admin={true} setNewRegister={setNewRegister} />
-            <Productos viewListProducts={viewListProducts} admin={true} cantPages={true}
-                setSuccess={setSuccess} success={success} 
-            />
+            <ListClients estados={estados} newRegister={newRegister} />
         </div>
     )
 }
