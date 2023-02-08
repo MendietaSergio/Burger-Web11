@@ -83,7 +83,8 @@
 /* } */
 
 */ .title-categorie {
-    color: rgb(92, 92, 92);
+    color     : rgb(92, 92, 92);
+    text-align: center;
 }
 
 .price {
@@ -111,4 +112,24 @@
 
 .btn-link i {
     font-size: 18px;
+}
+
+.title-productCard {
+    white-space  : nowrap;
+    text-overflow: ellipsis;
+    width        : 90%;
+    overflow     : hidden;
+    text-align   : center;
+}
+
+.featuredProduct-slider {
+    display       : flex;
+    flex-direction: row;
+    overflow-x    : scroll;
+}
+
+.input-featured {
+    right   : 20px;
+    position: absolute;
+    z-index : 9999;
 }

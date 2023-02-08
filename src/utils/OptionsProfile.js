@@ -27,4 +27,8 @@ export const optionsProfile = [
         name: 'clientes',
         option: false,
     },
+    {
+        name: 'destacados',
+        option: false,
+    }
 ]

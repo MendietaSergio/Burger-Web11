@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Productos } from '../../../pages/Productos'
+import { FeaturedProduct } from '../../FeaturedProduct/FeaturedProduct'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
 import '../Imgprofile/ImgProfile.css'
@@ -27,6 +28,7 @@ export const OptionProfile = ({
             <Productos estados={estados} admin={true} cantPages={true}
                 setSuccess={setSuccess} success={success}
             />
+            <FeaturedProduct estados={estados} viewAdmin={true} user={user} setSuccess={setSuccess} success={success} />
             <ListClients estados={estados} newRegister={newRegister} />
         </div>
     )
