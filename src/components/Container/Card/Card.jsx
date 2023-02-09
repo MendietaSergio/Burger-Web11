@@ -9,7 +9,6 @@ import { CartContextUse } from '../../../Context/CartContextProvider'
 export const Card = ({
     product,
     admin = false,
-    estados,
     setView,
     setSuccess,
     setIdProduct
@@ -63,7 +62,7 @@ export const Card = ({
             setLoading(false)
         }, 2500)
     }
-    if (estados === undefined) {
+    if (!admin) {
         return (
             <div className='container-featuredProduct my-3'>
                 <div className='container-img-featuredProduct'>
@@ -84,7 +83,7 @@ export const Card = ({
             </div>
         )
     }
-    if (estados[5].option && admin) {
+    if (admin) {
         return (
             <div className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                 <div className="image-parent">

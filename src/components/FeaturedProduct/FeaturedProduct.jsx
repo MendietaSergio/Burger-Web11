@@ -1,11 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Title } from '../Title/Title'
 import './featuredProduct.css'
 export const FeaturedProduct = ({
     viewAdmin = false,
-    estados,
     success,
     setSuccess
 }) => {
@@ -26,10 +25,11 @@ export const FeaturedProduct = ({
     }
     useEffect(() => {
         getProducts()
+        setUpdateProduct([])
     }, [success])
     useEffect(() => {
         setUpdateProduct([])
-    }, [estados])
+    }, [])
     const addCart = (e) => {
         setLoading(true)
         setTimeout(() => {
@@ -89,7 +89,7 @@ export const FeaturedProduct = ({
             Swal.fire('No realizaste ningun cambio')
         }
     }
-    if (viewAdmin && estados[7].option) {
+    if (viewAdmin) {
         return (
             <>
                 <div className='container my-5'>
@@ -98,26 +98,28 @@ export const FeaturedProduct = ({
                             <Title title="Productos Destacados" />
                             <form onSubmit={handleSubmit}>
                                 <div className='row'>
-                                    {feacturedProducts.map((element, index) => (
-                                        <div className="col-6 col-md-3" key={index}>
-                                            <label htmlFor={element._id} className="d-block"
-                                                onChange={(e) => changeFeatured(element._id, e)}
-                                            >
-                                                <div className='container-featuredProduct my-3 form-check-label' htmlFor={element._id}>
-                                                    <input class="form-check-input input-featured" name={element._id} type="checkbox" defaultChecked={element.destacado} id={element._id} />
-                                                    <div className='container-img-featuredProduct'>
-                                                        <img className='img-featuredProduct' src={element.img_art} alt="Burger" />
+                                    {loading ? (<span>Cargando...</span>) : (
+                                        feacturedProducts.map((element, index) => (
+                                            <div className="col-6 col-md-3" key={index}>
+                                                <label htmlFor={element._id} className="d-block"
+                                                    onChange={(e) => changeFeatured(element._id, e)}
+                                                >
+                                                    <div className='container-featuredProduct my-3 form-check-label' htmlFor={element._id}>
+                                                        <input class="form-check-input input-featured" name={element._id} type="checkbox" defaultChecked={element.destacado} id={element._id} />
+                                                        <div className='container-img-featuredProduct'>
+                                                            <img className='img-featuredProduct' src={element.img_art} alt="Burger" />
+                                                        </div>
+                                                        <div className='container-info'>
+                                                            <span className='title-categorie'>{element.nombre_categoria.categoria}</span>
+                                                            <h5 className='title-productCard'>{element.nombre}</h5>
+                                                            <span className='price'>${element.precio},00</span>
+                                                        </div>
                                                     </div>
-                                                    <div className='container-info'>
-                                                        <span className='title-categorie'>{element.nombre_categoria.categoria}</span>
-                                                        <h5 className='title-productCard'>{element.nombre}</h5>
-                                                        <span className='price'>${element.precio},00</span>
-                                                    </div>
-                                                </div>
-                                            </label>
+                                                </label>
 
-                                        </div>
-                                    ))}
+                                            </div>
+                                        ))
+                                    )}
                                 </div>
                                 <div className='d-flex justify-content-center'>
                                     <button type='submit' className='btn btn-success'>GUARDAR</button>

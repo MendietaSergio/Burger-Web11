@@ -62,7 +62,7 @@ export const Header = ({ widthImg }) => {
 
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav d-flex justify-content-end">
-                            <li className="nav-item active">
+                            <li className="nav-item">
                                 {widthImg > 992 ? (
                                     <Link className="nav-link" to="/" data-toggle="collapse"
                                         aria-controls="navbarSupportedContent"

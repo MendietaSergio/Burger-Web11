@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const PurchaseHistory = ({ estados, viewHistory }) => {
   const [orderList, setOrderList] = useState({ id: "asd" })
-
-  if (estados[2].option) {
+  const { history } = useParams()
+  if (history) {
 
     return (
       <div>

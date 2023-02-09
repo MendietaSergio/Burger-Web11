@@ -3,7 +3,7 @@ import { Card } from '../Card/Card'
 
 export const ItemListProducts = ({ products, admin, estados, setView, setSuccess, setIdProduct }) => {
 
-    if (estados === undefined) {
+    if (!admin) {
         return (
             <>
                 {
@@ -16,7 +16,7 @@ export const ItemListProducts = ({ products, admin, estados, setView, setSuccess
             </>
         )
     }
-    if (estados[5].option && admin) {
+    if (admin) {
         return (
             <div className='mx-auto my-auto'>
                 <ul className='list-group'>

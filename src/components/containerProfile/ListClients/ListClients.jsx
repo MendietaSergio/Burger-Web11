@@ -8,7 +8,7 @@ import { AuthContext } from '../../../Auth/AuthContext'
 import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { Message } from '../../Message/Message'
 import { DetailClient } from './DetailClient/DetailClient'
-export const ListClients = ({ estados, cantPages, newRegister }) => {
+export const ListClients = ({ cantPages, newRegister }) => {
   const [clientsList, setClientsList] = useState([])
   const [total, setTotal] = useState()
   const [loading, setLoading] = useState(true)
@@ -43,7 +43,6 @@ export const ListClients = ({ estados, cantPages, newRegister }) => {
       .then((resp) => {
         setViewMessage(true)
         if (resp.data.ok) {
-          console.log("eliminado");
           setSuccess(true)
           setMessage(resp.data.msg)
           getListClient()
@@ -81,69 +80,64 @@ export const ListClients = ({ estados, cantPages, newRegister }) => {
     })
   }
   const viewModal = (client) => {
-    console.log(client);
     setViewClient(client)
   }
-  if (estados[6].option) {
-    return (
-      <>
-        <h1 className='text-center'>Lista de clientes</h1>
-        <div className={`container-title-client`}>
-          <small>{!loading && `Total: ${total}`}</small>
-        </div>
-        <div className='container-message-client'>
-          {viewMessage && <Message message={message} setViewMessage={setViewMessage}
-            className={success ? 'alert-success' : 'alert-danger'} />}
-        </div>
-        {loading ? (<SkeletonCard viewListClients={true} loading={loading} />) : (
-          <>
-            <div className={`container-listClients w-100 `}>
-              <div className='row'>
+  return (
+    <>
+      <h1 className='text-center'>Lista de clientes</h1>
+      <div className={`container-title-client`}>
+        <small>{!loading && `Total: ${total}`}</small>
+      </div>
+      <div className='container-message-client'>
+        {viewMessage && <Message message={message} setViewMessage={setViewMessage}
+          className={success ? 'alert-success' : 'alert-danger'} />}
+      </div>
+      {loading ? (<SkeletonCard viewListClients={true} loading={loading} />) : (
+        <>
+          <div className={`container-listClients w-100 `}>
+            <div className='row'>
 
-                <table class="table-striped table-hover ">
-                  <thead>
-                    <tr>
-                      <th className='columnId' scope="col">#</th>
-                      <th className='columnUser' scope="col">Usuario</th>
-                      <th className='columnName' scope="col">Nombre</th>
-                      <th className='columnOptions' scope="col">Opciones</th>
+              <table class="table-striped table-hover ">
+                <thead>
+                  <tr>
+                    <th className='columnId' scope="col">#</th>
+                    <th className='columnUser' scope="col">Usuario</th>
+                    <th className='columnName' scope="col">Nombre</th>
+                    <th className='columnOptions' scope="col">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentClients.map((list, index) => (
+                    <tr className='contianer-clients' key={list._id} >
+                      <th className='columnId'>{currentPage > 1 ? (index + 1) + clientsPage : (index + 1)} </th>
+                      <td className='columnUser'>{list.usuario}</td>
+                      <td className='columnName'>{list.nombre}</td>
+                      <td className='columnName'>
+                        <div className='containerIconClients'>
+                          <img src={viewIcon} alt="editIcon" data-toggle="modal" data-target="#exampleModal" className='optionIconClient' onClick={() => viewModal(list)} />
+                          <img src={deleteIcon} alt="deleteIcon" className='optionIconClient' onClick={() => handleDelete(list)} />
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {currentClients.map((list, index) => (
-                      <tr className='contianer-clients' key={list._id} >
-                        <th className='columnId'>{currentPage > 1 ? (index + 1) + clientsPage : (index + 1)} </th>
-                        <td className='columnUser'>{list.usuario}</td>
-                        <td className='columnName'>{list.nombre}</td>
-                        <td className='columnName'>
-                          <div className='containerIconClients'>
-                            <img src={viewIcon} alt="editIcon" data-toggle="modal" data-target="#exampleModal" className='optionIconClient' onClick={() => viewModal(list)} />
-                            <img src={deleteIcon} alt="deleteIcon" className='optionIconClient' onClick={() => handleDelete(list)} />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <DetailClient viewClient={viewClient} />
-              <div className="row">
-                <div className="col-12 d-flex justify-content-center my-2">
-                  <Pagination
-                    loading={loading}
-                    clientsPage={clientsPage}
-                    totalClients={total}
-                    paginate={paginate}
-                    viewClients={true}
-                  />
-                </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <DetailClient viewClient={viewClient} />
+            <div className="row">
+              <div className="col-12 d-flex justify-content-center my-2">
+                <Pagination
+                  loading={loading}
+                  clientsPage={clientsPage}
+                  totalClients={total}
+                  paginate={paginate}
+                  viewClients={true}
+                />
               </div>
             </div>
-          </>
-        )}
-      </>
-    )
-  } else {
-    return null
-  }
+          </div>
+        </>
+      )}
+    </>
+  )
 }

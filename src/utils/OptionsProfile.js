@@ -1,34 +1,34 @@
 export const optionsProfile = [
     {
-        name: 'personal',
+        name: 'datos-personales',
         option: true,
     },
     {
-        name: 'order',
+        name: 'orden-de-compras',
         option: false,
     },
     {
-        name: 'history',
+        name: 'historial-de-pedidos',
         option: false,
     },
     {
-        name: 'usuario',
+        name: 'nuevo-usuario',
         option: false,
     },
     {
-        name: 'articulo',
+        name: 'nuevo-articulo',
         option: false,
     },
     {
-        name: 'listaarticulo',
+        name: 'lista-de-articulos',
         option: false,
     },
     {
-        name: 'clientes',
+        name: 'lista-de-clientes',
         option: false,
     },
     {
-        name: 'destacados',
+        name: 'articulos-destacados',
         option: false,
     }
 ]

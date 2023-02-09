@@ -1,4 +1,4 @@
-import react, { useState, useReducer, useEffect } from 'react'
+import { useState, useReducer, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Header } from './components/Header/Header'
@@ -56,7 +56,7 @@ function App() {
               <Route path='/productos/detalle/:idDetail' element={<Detail />} />
               <Route path='/ingresar' element={<LoginPages />} />
               <Route path='/registrarse' element={<RegisterPages />} />
-              <Route path='/micuenta' element={<Myaccount />} />
+              <Route path='/micuenta/:dataProfile' element={<Myaccount />} />
               <Route path='/micarrito' element={<Cart />} />
               <Route path='*' element={<ErrorFound />} />
             </Routes>

@@ -122,8 +122,50 @@ export const Productos = ({
     let indexOfLastPost = currentPage * productsPage;
     let indexOfFirstPost = indexOfLastPost - productsPage;
     let currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+    if (admin === true) {
+        return (<div className='container'>
+            <Title title={view ? 'Actualizar producto' : 'Productos'} />
+            {view ? (
+                <>
+                    <div className='back_icon' onClick={() => setView(false)}>
+                        <i className="fas fa-arrow-left "></i>
+                    </div>
+                    <UpdateProduct _id={idProduct} setView={setView}
+                        setSuccess={setSuccess} success={success}
+                    />
+                </>
+            ) : (
+                <>
+                    <div className="row">
+                        {viewProduct ? (
+                            <ItemListProducts
+                                products={currentProducts}
+                                loading={loading}
+                                admin={true}
+                                setView={setView}
+                                setIdProduct={setIdProduct}
+                                setSuccess={setSuccess} />
+                        ) : (
+                            <SkeletonCard product={true} />
+                        )}
+                    </div>
+                    <div className="row">
+                        <div className="col-12 d-flex justify-content-center my-2">
+                            <Pagination
+                                loading={loading}
+                                productsPage={productsPage}
+                                viewProducts={true}
+                                totalProducts={products.length}
+                                paginate={paginate}
+                            />
+                        </div>
+                    </div>
+                </>
+            )}
 
-    if (estados === undefined && !admin) {
+        </div>)
+    }
+    if (admin === false) {
         return (
             <div className='container'>
 
@@ -164,50 +206,7 @@ export const Productos = ({
             </div>
         )
     }
-    if (estados[5].option && admin) {
-        return (<div className='container'>
-            <Title title={view ? 'Actualizar producto' : 'Productos'} />
-            {view ? (
-                <>
-                    <div className='back_icon' onClick={() => setView(false)}>
-                        <i className="fas fa-arrow-left "></i>
-                    </div>
-                    <UpdateProduct _id={idProduct} setView={setView}
-                        setSuccess={setSuccess} success={success}
-                    />
-                </>
-            ) : (
-                <>
-                    <div className="row">
-                        {viewProduct ? (
-                            <ItemListProducts
-                                products={currentProducts}
-                                loading={loading}
-                                estados={estados}
-                                admin={true}
-                                setView={setView}
-                                setIdProduct={setIdProduct}
-                                setSuccess={setSuccess} />
-                        ) : (
-                            <SkeletonCard product={true} />
-                        )}
-                    </div>
-                    <div className="row">
-                        <div className="col-12 d-flex justify-content-center my-2">
-                            <Pagination
-                                loading={loading}
-                                productsPage={productsPage}
-                                viewProducts={true}
-                                totalProducts={products.length}
-                                paginate={paginate}
-                            />
-                        </div>
-                    </div>
-                </>
-            )}
 
-        </div>)
-    }
     else {
         return null
     }

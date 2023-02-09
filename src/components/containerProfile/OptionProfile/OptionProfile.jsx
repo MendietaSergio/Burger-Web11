@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Productos } from '../../../pages/Productos'
+import { optionsProfile } from '../../../utils/OptionsProfile'
 import { FeaturedProduct } from '../../FeaturedProduct/FeaturedProduct'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
@@ -11,25 +13,60 @@ import { PurchaseOrder } from '../PurchaseOrder/PurchaseOrder'
 
 export const OptionProfile = ({
     user,
-    dispatch,
-    estados
+    dispatch
 }) => {
     const [success, setSuccess] = useState(false)
     const [newRegister, setNewRegister] = useState(false)
+    const { dataProfile } = useParams()
+    const navigation = useNavigate()
+    useEffect(() => {
+        let found = optionsProfile.find(item => {
+            return item.name === dataProfile
+        })
+        if (found === undefined) {
+            navigation('/micuenta/datos-personales')
+        }
+    }, [dataProfile])
+
+
     return (
         <div className="col-12 col-md-8 container_data_user">
+            {dataProfile === "datos-personales" ? (
+                <PersonalInformation
+                    user={user} dispatch={dispatch} />
+            ) : null}
+            {dataProfile === "orden-de-compras" ? (
+                <PurchaseOrder
+                />
+            ) : null}
+            {dataProfile === "historial-pedidos" ? (
+                <PurchaseHistory
+                />
+            ) : null}
+            {dataProfile === "nuevo-usuario" ? (
+                <CreateUser
+                    admin={true} setNewRegister={setNewRegister} />
+            ) : null}
+            {dataProfile === "nuevo-articulo" ? (
+                <AddProduct
+                    setSuccess={setSuccess} success={success}
+                />
+            ) : null}
+            {dataProfile === "lista-de-articulos" ? (
+                <Productos
+                    admin={true} cantPages={true}
+                    setSuccess={setSuccess} success={success}
+                />
+            ) : null}
+            {dataProfile === "articulos-destacados" ? (
+                <FeaturedProduct
+                    viewAdmin={true} user={user} setSuccess={setSuccess} success={success} />
+            ) : null}
+            {dataProfile === "lista-de-clientes" ? (
+                <ListClients
+                    newRegister={newRegister} />
+            ) : null}
 
-            <PersonalInformation estados={estados} user={user} dispatch={dispatch} />
-            <PurchaseOrder estados={estados} />
-            <PurchaseHistory estados={estados} />
-            <CreateUser estados={estados} admin={true} setNewRegister={setNewRegister} />
-            <AddProduct estados={estados} setSuccess={setSuccess} success={success}
-            />
-            <Productos estados={estados} admin={true} cantPages={true}
-                setSuccess={setSuccess} success={success}
-            />
-            <FeaturedProduct estados={estados} viewAdmin={true} user={user} setSuccess={setSuccess} success={success} />
-            <ListClients estados={estados} newRegister={newRegister} />
         </div>
     )
 }
