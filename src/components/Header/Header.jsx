@@ -172,13 +172,13 @@ export const Header = ({ widthImg }) => {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {user.logueado ? (
                                         widthImg > 992 ? (
-                                            <Link className="dropdown-item" to="/micuenta" data-toggle="collapse"
+                                            <Link className="dropdown-item" to="/micuenta/datos-personales" data-toggle="collapse"
                                                 aria-controls="navbarSupportedContent"
                                                 aria-expanded="false" aria-label="Toggle navigation">
                                                 Mi perfil
                                             </Link>
                                         ) : (
-                                            <Link className="dropdown-item" to="/micuenta" data-toggle="collapse"
+                                            <Link className="dropdown-item" to="/micuenta/datos-personales" data-toggle="collapse"
                                                 data-target="#navbarSupportedContent"
                                                 aria-controls="navbarSupportedContent"
                                                 aria-expanded="false" aria-label="Toggle navigation">
