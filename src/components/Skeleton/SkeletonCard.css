@@ -11,6 +11,10 @@
     height: 200px;
 }
 
+.imageList {
+    height: 80px;
+}
+
 .image-detail {
     width : 100%;
     height: 350px;
@@ -20,9 +24,18 @@
     padding: 2rem 1.8rem;
 }
 
+
+.contentList {
+    padding: 0.1rem 5rem;
+}
+
 .content h4 {
     margin   : 0 0 1rem;
     font-size: 1.5rem;
+}
+
+.container-skeletonList {
+    width: 60%;
 }
 
 .loading .image,
@@ -31,7 +44,8 @@
 .loading h1,
 .loading .price,
 .loading .list,
-.loading .details {
+.loading .details,
+.loading .imageList {
     background-color: #ededed;
     background-image: linear-gradient(110deg,
             rgba(255, 255, 255, 0) 40%,
@@ -52,6 +66,12 @@
 .loading h4 {
     min-height     : 1.6rem;
     width          : 40%;
+    border-radius  : 4px;
+    animation-delay: .08s;
+}
+
+.contentList h4 {
+    min-height     : 1.6rem;
     border-radius  : 4px;
     animation-delay: .08s;
 }
@@ -112,4 +132,7 @@
         margin: 10%;
     }
 
+    .container-skeletonList {
+        width: 90%;
+    }
 }

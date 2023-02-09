@@ -64,7 +64,7 @@ export const SkeletonCard = ({
     return (
       <>
         {cant.map((card, index) => (
-          <div className="col-12 col-md-4 col-lg-3 my-2" key={index}>
+          <div className="col-6 col-md-3 my-2" key={index}>
             <div className='card loading'>
               <div className='image'>
 
@@ -91,29 +91,18 @@ export const SkeletonCard = ({
     }
     return (
       <>
-        <div className='mx-auto my-auto'>
+        <div className='mx-auto my-auto container-skeletonList '>
           <ul className='list-group'>
             {cant.map((card, index) => (
-              <div key={index} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <div className="card loading">
-                </div>
-                <div className="w-100 flex-column container-info">
-                  <>
-                    <h5></h5>
-                    <p>
-                      <small></small>
-                    </p>
-                    <div className="container-cant">
-                      <span></span>
-                    </div>
-                    <div className="container-cant">
+              <div key={index} className="list-group-item list-group-item-action d-flex justify-content-between align-items-center" >
+                <div className='card loading'>
+                  <div className='imageList'>
 
-                    </div>
-                  </>
-                </div>
-                <div className='contianer_optonIcon'>
-                  <img src={editIcon} alt="editIcon" className='optionIcon' />
-                  <img src="la" alt="deleteIcon" className='optionIcon' />
+                  </div>
+                  <div className="contentList">
+                    <h4></h4>
+                    <h4></h4>
+                  </div>
                 </div>
               </div>
             ))}
@@ -167,6 +156,11 @@ export const SkeletonCard = ({
           </div>
         </div>
       </>
+    )
+  }
+  else {
+    return (
+      null
     )
   }
 

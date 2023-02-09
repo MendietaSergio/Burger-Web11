@@ -1,8 +1,14 @@
+.result-filter div {
+    display        : flex;
+    justify-content: center;
+}
 
 @media(min-width: 768px) {
     .result-filter div:last-child {
-        display        : flex;
         justify-content: end;
     }
 
+    .result-filter div:first-child {
+        justify-content: start;
+    }
 }

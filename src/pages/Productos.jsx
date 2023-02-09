@@ -7,7 +7,7 @@ import { UpdateProduct } from '../components/containerProfile/UpdateProduct/Upda
 import { Navigation } from '../components/Navigation/Navigation'
 import { SkeletonCard } from '../components/Skeleton/SkeletonCard'
 import { Title } from '../components/Title/Title'
-import './Filter.css'
+import './filter.css'
 export const Productos = ({
     admin = false,
     cantPages,
@@ -146,7 +146,7 @@ export const Productos = ({
                                 setIdProduct={setIdProduct}
                                 setSuccess={setSuccess} />
                         ) : (
-                            <SkeletonCard product={true} />
+                            <SkeletonCard viewListProduct={true} />
                         )}
                     </div>
                     <div className="row">
