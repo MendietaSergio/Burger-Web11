@@ -24,7 +24,7 @@ export const ViewOptions = ({ widthImg, admin,
                     ) : (
                         <>
                             <option value="datos-personales">Datos personales</option>
-                            <option value="historial-pedidos">Historial</option>
+                            <option value="historial-de-pedidos">Historial</option>
                         </>
                     )}
                 </select>
@@ -47,7 +47,7 @@ export const ViewOptions = ({ widthImg, admin,
                 ) : (
                     <>
                         <NavLink exact to={'/micuenta/datos-personales'} >Datos personales <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/historial-pedidos'} >Historial <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink exact to={'/micuenta/historial-de-pedidos'} >Historial <i className="fas fa-chevron-right"></i></NavLink>
                     </>
                 )}
             </div>

@@ -39,7 +39,7 @@ export const OptionProfile = ({
                 <PurchaseOrder
                 />
             ) : null}
-            {dataProfile === "historial-pedidos" ? (
+            {dataProfile === "historial-de-pedidos" ? (
                 <PurchaseHistory
                 />
             ) : null}

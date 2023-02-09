@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export const PurchaseHistory = ({ estados, viewHistory }) => {
+export const PurchaseHistory = () => {
   const [orderList, setOrderList] = useState({ id: "asd" })
-  const { history } = useParams()
-  if (history) {
+  return (
+    <>
+      {orderList !== undefined ? (
+        <div className='d-flex justify-content-center container-purchase'>
+          <h4 className='text-center'>No se encontró historial</h4>
+        </div>
+      ) : (<span>false</span>)}
+    </>
+  )
 
-    return (
-      <div>
-        {orderList !== undefined ? (
-          <div className='d-flex justify-content-center'>
-            <h4 className='text-ce nter'>No se encontró historial</h4>
-          </div>
-        ) : (<span>false</span>)}
-      </div>
-    )
-  } else {
-    return null
-  }
 }
