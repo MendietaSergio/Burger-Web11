@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Card.css'
 import deleteIcon from '../../../Img/delete.png'
@@ -15,7 +15,10 @@ export const Card = ({
 }) => {
     const { _id, nombre, precio, nombre_categoria, img_art } = product
     const [loading, setLoading] = useState(false)
-    const { addItem } = CartContextUse()
+    const { addItem, cart } = CartContextUse()
+    const [cantView, setCantView] = useState(false)
+    const [cant, setCant] = useState(1)
+    const [update, setUpdate] = useState(false)
     const deleteProduct = async (_id) => {
         Swal.fire({
             title: '¿Eliminarlo?',
@@ -54,14 +57,44 @@ export const Card = ({
         setView(true)
         setIdProduct(product._id)
     }
+    useEffect(() => {
+        if (cart.length > 0) {
+            let foundProduct = cart.find(element => element.item._id === product._id)
+            if (foundProduct) {
+                setCant(foundProduct.cantidad)
+                setCantView(true)
+            }
+        }
+    }, [])
+    useEffect(() => {
+        if (update) {
+            addItem(product, Number(cant))
+            setUpdate(false)
+        }
+    }, [update])
+    const cantSum = () => {
+        setCant(cant + 1)
+        setUpdate(true)
+    }
+    const cantRest = () => {
+        setCant(cant - 1)
+        setUpdate(true)
 
+    }
+    const onChangeValue = (e) => {
+        setCant((cant) => parseInt(e.target.value));
+        setUpdate(true)
+
+    };
     const AddCart = (product) => {
         setLoading(true)
-        addItem(product, 1)
+        addItem(product, Number(cant))
         setTimeout(() => {
             setLoading(false)
+            setCantView(true)
         }, 2500)
     }
+    console.log(cant)
     if (!admin) {
         return (
             <div className='container-featuredProduct my-3'>
@@ -76,9 +109,25 @@ export const Card = ({
                         <h5 className='text-center'>{nombre}</h5>
                     </div>
                     <span className='price'>${precio},00</span>
-                    <div className='btn-link'>
-                        <a className='optionsLink' href="#" onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</a>
-                    </div>
+                    {cantView ? (
+                        <div className='d-flex flex-row justify-content-center w-100'>
+                            <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
+                            <input
+                                type="number"
+                                className='form-control'
+                                onChange={(e) => onChangeValue(e)}
+                                value={cant}
+                                min="1"
+                                max="10"
+                            />
+                            <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+
+                        </div>
+                    ) : (
+                        <div className='btn-link'>
+                            <a className='optionsLink' href="#" onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</a>
+                        </div>
+                    )}
                 </div>
             </div>
         )

@@ -20,9 +20,29 @@
 .page-item {
     cursor: pointer;
 }
-.list-group-item-action:focus, .list-group-item-action:hover{
+
+.list-group-item-action:focus,
+.list-group-item-action:hover {
     z-index: auto !important;
 }
-.modal{
+
+.modal {
     z-index: 9999999999999 !important;
+}
+
+.container-info input {
+    width     : 50px;
+    text-align: center;
+    margin    : 0 10px;
+}
+
+.btnCount {
+    background-color: #FF5151;
+    color           : white;
+    font-weight     : 700;
+    width           : 50px;
+}
+
+.btnCount:hover {
+    background-color: #ff5151bd;
 }
