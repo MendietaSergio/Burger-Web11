@@ -62,7 +62,6 @@ export const Detail = () => {
           <FeaturedProduct relatedView={true} productDetail={productDetail} setSuccess={setSuccess} />
         </div>
       </div>
-      {/* )} */}
     </>
   )
 }

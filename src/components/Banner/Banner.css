@@ -1,14 +1,13 @@
 .img-banner {
-    background-image: url('https://res.cloudinary.com/freelance01/image/upload/v1648605141/burger_web/banner-bg_mhsrj1.jpg');
-    height          : 400px;
-    padding         : 60px 15px 60px 15px;
-    background-size: cover;
+    background-image : url('https://res.cloudinary.com/freelance01/image/upload/v1648605141/burger_web/banner-bg_mhsrj1.jpg');
+    height           : 400px;
+    padding          : 60px 15px 60px 15px;
+    background-size  : cover;
     background-repeat: no-repeat;
 }
 
 .img-banner .container {
-    height             : inherit;
-    /* background-color: #00ffff85; */
+    height: inherit;
 }
 
 .container-banner {
@@ -32,11 +31,11 @@
 }
 
 .linkProducts {
-    color: white;
+    color          : white;
     text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding-right: 8px;
+    text-transform : uppercase;
+    font-weight    : 700;
+    padding-right  : 8px;
 }
 
 .linkProducts i {

@@ -65,6 +65,9 @@ export const Card = ({
                 setCant(foundProduct.cantidad)
                 setCantView(true)
             }
+        } else {
+            setCantView(false)
+            setCant(1)
         }
     }, [cart])
     useEffect(() => {
@@ -120,7 +123,7 @@ export const Card = ({
                                 <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
                                 <input
                                     type="number"
-                                    className='form-control'
+                                    className='form-control input-changeValue'
                                     onChange={(e) => onChangeValue(e)}
                                     value={cant}
                                     min="1"

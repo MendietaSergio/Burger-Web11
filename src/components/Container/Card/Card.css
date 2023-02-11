@@ -30,7 +30,7 @@
     z-index: 9999999999999 !important;
 }
 
-.container-info input {
+.input-changeValue {
     width     : 50px;
     text-align: center;
     margin    : 0 10px;
@@ -43,6 +43,8 @@
     width           : 50px;
 }
 
-.btnCount:hover {
-    background-color: #ff5151bd;
+.btnCount:hover,
+.btnCount:active,
+.btnCount:focus {
+    background-color: #ff5151bd !important;
 }

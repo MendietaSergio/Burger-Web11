@@ -18,8 +18,7 @@
 }
 
 .container-img-featuredProduct {
-    position : relative;
-    /* cursor: pointer; */
+    position: relative;
 }
 
 .img-featuredProduct {
@@ -45,44 +44,28 @@
 }
 
 .container-img-detail .viewDetail {
-    font-weight   : 700;
-    font-size     : 32px;
-    margin        : 0 0 20px;
-    transform     : translateY(30px);
-    /* opacity    : 0;] */
-    transition    : all 0.3s ease-out;
+    font-weight: 700;
+    font-size  : 32px;
+    margin     : 0 0 20px;
+    transform  : translateY(30px);
+    transition : all 0.3s ease-out;
 }
 
 .viewDetail {
-    color             : rgb(255, 255, 255);
-    cursor            : pointer;
-    /* display        : inline-block; */
-    border-radius     : 5px;
-    text-decoration   : none;
-    transform         : translateY(30px);
-    transition        : all 0.3s ease-out 0.4s;
+    color          : rgb(255, 255, 255);
+    cursor         : pointer;
+    border-radius  : 5px;
+    text-decoration: none;
+    transform      : translateY(30px);
+    transition     : all 0.3s ease-out 0.4s;
 }
-
-.container-img-featuredProduct:hover {}
 
 .container-img-featuredProduct:hover .container-img-detail {
-    color       : red;
-    opacity     : 1;
-    /* transform: translateY(30px); */
+    color  : red;
+    opacity: 1;
 }
 
-/* .img-featuredProduct:hover {
-    cursor: pointer;
-    background-color: #000;
-}
-
-.img-featuredProduct:hover .viewDetail {
-    display         : block;
-    color           : red;
-    /* transform    : translateY(0px); */
-/* } */
-
-*/ .title-categorie {
+.title-categorie {
     color     : rgb(92, 92, 92);
     text-align: center;
 }
@@ -97,11 +80,14 @@
     background-color: #FF5151;
     padding         : 8px;
     border          : none;
-
 }
 
 .btn-link:hover {
-    background-color: #ff5151b3;
+    background-color: #ed5555b3 !important;
+}
+
+.optionsLink:hover {
+    background-color: #ff8383b3 !important;
 }
 
 .optionsLink {
@@ -110,7 +96,7 @@
     color           : white;
     padding-right   : 8px;
     text-decoration : none;
-    background-color: #FF5151;
+    background-color: rgba(0, 0, 0, 0);
     border          : none;
 }
 
@@ -118,9 +104,7 @@
     border : none;
     outline: none !important;
 }
-.optionsLink btn:focus{
 
-}
 .btn-link i {
     font-size: 18px;
 }

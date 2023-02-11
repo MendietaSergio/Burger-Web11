@@ -26,7 +26,7 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
         }
         setTimeout(() => {
             setLoadingNumber(false)
-        }, 5000)
+        }, 2000)
     }, [productDetail, cart, success])
     useEffect(() => {
         if (update) {
@@ -35,13 +35,16 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
         }
     }, [update])
     const cantSum = () => {
-        setCant(cant + 1)
-        setUpdate(true)
+        if (cant < 15) {
+            setCant(cant + 1)
+            setUpdate(true)
+        }
     }
     const cantRest = () => {
-        setCant(cant - 1)
-        setUpdate(true)
-
+        if (cant > 1) {
+            setCant(cant - 1)
+            setUpdate(true)
+        }
     }
     const onChangeValue = (e) => {
         setCant((cant) => parseInt(e.target.value));
@@ -100,11 +103,11 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                                             <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
                                             <input
                                                 type="number"
-                                                className='form-control'
+                                                className='form-control input-changeValue'
                                                 onChange={(e) => onChangeValue(e)}
                                                 value={cant}
                                                 min="1"
-                                                max="10"
+                                                max="15"
                                             />
                                             <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
 
