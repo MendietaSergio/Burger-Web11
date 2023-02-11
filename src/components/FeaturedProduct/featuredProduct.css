@@ -96,20 +96,31 @@
     cursor          : pointer;
     background-color: #FF5151;
     padding         : 8px;
+    border          : none;
+
 }
 
 .btn-link:hover {
     background-color: #ff5151b3;
 }
 
-.btn-link a {
-    text-transform : uppercase;
-    font-weight    : 700;
-    color          : white;
-    padding-right  : 8px;
-    text-decoration: none;
+.optionsLink {
+    text-transform  : uppercase;
+    font-weight     : 700;
+    color           : white;
+    padding-right   : 8px;
+    text-decoration : none;
+    background-color: #FF5151;
+    border          : none;
 }
 
+.optionsLink:focus {
+    border : none;
+    outline: none !important;
+}
+.optionsLink btn:focus{
+
+}
 .btn-link i {
     font-size: 18px;
 }

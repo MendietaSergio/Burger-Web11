@@ -9,7 +9,7 @@ export const ItemListProducts = ({ products, admin, estados, setView, setSuccess
                 {
                     products.map(product => (
                         <div className="col-6 col-md-3" key={product._id}>
-                            <Card product={product} />
+                            <Card product={product} relatedView={false} />
                         </div>
                     ))
                 }

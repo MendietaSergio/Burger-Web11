@@ -4,29 +4,32 @@ import { useParams } from 'react-router-dom'
 import { Description } from '../components/Container/Description/Description'
 import { ItemDetail } from '../components/Container/ItemDetail/ItemDetail'
 import { Ratings } from '../components/Container/Ratings/Ratings'
-import { RelatedProducts } from '../components/Container/RelatedProducts/RelatedProducts'
+import { FeaturedProduct } from '../components/FeaturedProduct/FeaturedProduct'
 import { SkeletonCard } from '../components/Skeleton/SkeletonCard'
 export const Detail = () => {
   const [showLine, setShowLine] = useState(true)
   const [loading, setLoading] = useState(true);
   const { idDetail } = useParams()
   const [productDetail, setProductDetail] = useState({})
-  setTimeout(() => setLoading(false), 3000)
+  const [success, setSuccess] = useState(true)
+
+
+  const getProductDetail = async () => {
+    await axios.get(`http://localhost:3001/api/products/detail/${idDetail}`)
+      .then(res => {
+        setProductDetail(res.data.productDetail)
+      }).finally(() => setTimeout(() => setLoading(false), 3000))
+  }
   useEffect(() => {
-    const getProductDetail = async () => {
-      await axios.get(`http://localhost:3001/api/products/detail/${idDetail}`)
-        .then(res => {
-          setProductDetail(res.data.productDetail)
-        })
-    }
+    setLoading(true)
     getProductDetail()
-  }, loading)
+  }, [idDetail])
   return (
     <>
       <div className='container'>
         <div className='container-detail'>
           <div className="row">
-            <ItemDetail productDetail={productDetail} loading={loading} />
+            <ItemDetail productDetail={productDetail} loading={loading} success={success} />
           </div>
           <div className='row'>
             <hr />
@@ -43,10 +46,10 @@ export const Detail = () => {
           </div>
           <div className="row">
             {showLine ? (loading ? (
-              <SkeletonCard 
+              <SkeletonCard
                 skeletonDetail={true}
                 viewDescription={true}
-                />
+              />
             ) : (
               <Description />
             )
@@ -56,7 +59,7 @@ export const Detail = () => {
           </div>
         </div>
         <div className="row">
-          {/* <RelatedProducts /> */}
+          <FeaturedProduct relatedView={true} productDetail={productDetail} setSuccess={setSuccess} />
         </div>
       </div>
       {/* )} */}

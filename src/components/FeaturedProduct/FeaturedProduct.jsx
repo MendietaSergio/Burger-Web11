@@ -1,17 +1,19 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Card } from '../Container/Card/Card'
 import { Title } from '../Title/Title'
 import './featuredProduct.css'
 export const FeaturedProduct = ({
     viewAdmin = false,
     success,
-    setSuccess
+    setSuccess,
+    relatedView = false,
+    productDetail
 }) => {
-    const [showCart, setShowCart] = useState(false)
     const [loading, setLoading] = useState(false)
     const [updateProduct, setUpdateProduct] = useState([])
     const [feacturedProducts, setFeaturedProducts] = useState([])
+    const [relatedProducts, setRelatedProducts] = useState([])
     const getProducts = async () => {
         setLoading(true)
         await axios.get(`http://localhost:3001/api/products`)
@@ -30,13 +32,30 @@ export const FeaturedProduct = ({
     useEffect(() => {
         setUpdateProduct([])
     }, [])
-    const addCart = (e) => {
+    const getFilterProducts = async () => {
         setLoading(true)
-        setTimeout(() => {
-            setShowCart(true)
-            setLoading(false)
-        }, 3000)
+        await axios.get(`http://localhost:3001/api/products`)
+            .then(res => {
+                let object = res.data.filter(item => item.id_categoria === productDetail.id_categoria)
+                setRelatedProducts(object.filter(item => item._id !== productDetail._id))
+            })
+            .catch(error => console.log(error))
+            .finally(() => {
+                setLoading(false)
+            })
     }
+    useEffect(() => {
+        setUpdateProduct([])
+
+        getFilterProducts()
+    }, [productDetail])
+    // const addCart = (e) => {
+    //     setLoading(true)
+    //     setTimeout(() => {
+    //         setShowCart(true)
+    //         setLoading(false)
+    //     }, 3000)
+    // }
     const changeFeatured = (item, e) => {
         if (updateProduct.length === 0) {
             setUpdateProduct([...updateProduct, { _id: item, status: e.target.checked }])
@@ -88,6 +107,28 @@ export const FeaturedProduct = ({
         } else {
             Swal.fire('No realizaste ningun cambio')
         }
+    }
+    if (relatedView) {
+
+        return (
+            <>
+                <div className='container my-5'>
+                    {relatedProducts.length > 0 ? (
+                        <>
+                            <Title title="Productos Relacionados" />
+                            <div className='featuredProduct-slider'>
+                                {relatedProducts.map((element, index) => (
+                                    <div className="col-6 col-md-3" key={index}>
+                                        <Card product={element} admin={false} relatedView={relatedView} setSuccess={setSuccess} />
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    ) : (null)}
+                </div>
+
+            </>
+        )
     }
     if (viewAdmin) {
         return (
@@ -141,25 +182,7 @@ export const FeaturedProduct = ({
                         {feacturedProducts.length > 0 ? (
                             feacturedProducts.map((element, index) => (
                                 <div className="col-6 col-md-3" key={index}>
-                                    <div className='container-featuredProduct my-3'>
-                                        <div className='container-img-featuredProduct'>
-                                            <img className='img-featuredProduct' src={element.img_art} alt="Burger" />
-                                            <div className='container-img-detail'>
-                                                <h5 className='viewDetail'>Ver Detalle</h5>
-                                            </div>
-                                        </div>
-                                        <div className='container-info'>
-                                            <span className='title-categorie'>{element.nombre_categoria.categoria}</span>
-                                            <h5 className='title-productCard'>{element.nombre}</h5>
-                                            <span className='price'>${element.precio},00</span>
-                                            <div className='btn-link' onClick={() => addCart()}>
-                                                <a className='optionsLink' >Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</a>
-                                            </div>
-                                            {showCart ? (
-                                                <Link className='text-danger ' to="/micarrito">Ver carrito</Link>
-                                            ) : (null)}
-                                        </div>
-                                    </div>
+                                    <Card product={element} admin={false} />
                                 </div>
                             ))
                         ) : (null)}
@@ -170,6 +193,7 @@ export const FeaturedProduct = ({
             </>
         )
     }
+
     else {
         return null
     }

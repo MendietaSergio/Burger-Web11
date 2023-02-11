@@ -11,7 +11,8 @@ export const Card = ({
     admin = false,
     setView,
     setSuccess,
-    setIdProduct
+    setIdProduct,
+    relatedView = false
 }) => {
     const { _id, nombre, precio, nombre_categoria, img_art } = product
     const [loading, setLoading] = useState(false)
@@ -65,7 +66,7 @@ export const Card = ({
                 setCantView(true)
             }
         }
-    }, [])
+    }, [cart])
     useEffect(() => {
         if (update) {
             addItem(product, Number(cant))
@@ -94,7 +95,6 @@ export const Card = ({
             setCantView(true)
         }, 2500)
     }
-    console.log(cant)
     if (!admin) {
         return (
             <div className='container-featuredProduct my-3'>
@@ -109,27 +109,34 @@ export const Card = ({
                         <h5 className='text-center'>{nombre}</h5>
                     </div>
                     <span className='price'>${precio},00</span>
-                    {cantView ? (
-                        <div className='d-flex flex-row justify-content-center w-100'>
-                            <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
-                            <input
-                                type="number"
-                                className='form-control'
-                                onChange={(e) => onChangeValue(e)}
-                                value={cant}
-                                min="1"
-                                max="10"
-                            />
-                            <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+                    {relatedView ? (
 
+                        <div className='btn-link'>
+                            <Link className='optionsLink' to={`/productos/detalle/${_id}`} onClick={() => setSuccess(false)}>Ver detalles <i className="fas fa-angle-right"></i></Link>
                         </div>
                     ) : (
-                        <div className='btn-link'>
-                            <a className='optionsLink' href="#" onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</a>
-                        </div>
+                        cantView ? (
+                            <div className='d-flex flex-row justify-content-center w-100'>
+                                <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
+                                <input
+                                    type="number"
+                                    className='form-control'
+                                    onChange={(e) => onChangeValue(e)}
+                                    value={cant}
+                                    min="1"
+                                    max="10"
+                                />
+                                <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+
+                            </div>
+                        ) : (
+                            <div className='btn-link'>
+                                <button className='optionsLink' type='button' onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</button>
+                            </div>
+                        )
                     )}
                 </div>
-            </div>
+            </div >
         )
     }
     if (admin) {

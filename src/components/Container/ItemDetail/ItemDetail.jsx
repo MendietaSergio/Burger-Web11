@@ -1,33 +1,59 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import './ItemDetail.css'
 import { Navigation } from '../../Navigation/Navigation'
 import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { CartContextUse } from '../../../Context/CartContextProvider'
-export const ItemDetail = ({ productDetail, loading }) => {
+export const ItemDetail = ({ productDetail, loading, success }) => {
     const { addItem, cart } = CartContextUse()
     const { nombre, img_art, precio, descripcion, nombre_categoria, _id } = productDetail;
     const [loadingCart, setLoadingCart] = useState(false)
-    const [cant, setCant] = useState(0);
+    const [cant, setCant] = useState(1);
+    const [cantView, setCantView] = useState(false)
+    const [update, setUpdate] = useState(false)
+    const { idDetail } = useParams()
     const [loadingNumber, setLoadingNumber] = useState(true)
     useEffect(() => {
         if (productDetail != undefined) {
-            let product = cart.find(element => element.item._id === productDetail._id)
+            let product = cart.find(element => element.item._id === idDetail)
             if (product) {
                 setCant(product.cantidad)
+                setCantView(true)
             } else {
+                setCantView(false)
                 setCant(1)
             }
         }
         setTimeout(() => {
             setLoadingNumber(false)
         }, 5000)
-    }, [productDetail, cart])
+    }, [productDetail, cart, success])
+    useEffect(() => {
+        if (update) {
+            addItem(productDetail, Number(cant))
+            setUpdate(false)
+        }
+    }, [update])
+    const cantSum = () => {
+        setCant(cant + 1)
+        setUpdate(true)
+    }
+    const cantRest = () => {
+        setCant(cant - 1)
+        setUpdate(true)
+
+    }
+    const onChangeValue = (e) => {
+        setCant((cant) => parseInt(e.target.value));
+        setUpdate(true)
+
+    };
     const AddCart = (productDetail) => {
         if (!loadingNumber) {
             setLoadingCart(true)
             addItem(productDetail, Number(cant))
             setTimeout(() => {
+                setCantView(true)
                 setLoadingCart(false)
             }, 2500)
         }
@@ -69,30 +95,34 @@ export const ItemDetail = ({ productDetail, loading }) => {
                                 </div>
                                 <span className='detail-categorie'>{descripcion}</span>
                                 <div className='d-flex justify-content-center'>
-                                    {loadingNumber ? (
-                                        <div className='container_detail-spiner'>
-                                            <i class="fas fa-circle-notch fa-spin"></i>
+                                    {cantView ? (
+                                        <div className='d-flex flex-row justify-content-center w-100'>
+                                            <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
+                                            <input
+                                                type="number"
+                                                className='form-control'
+                                                onChange={(e) => onChangeValue(e)}
+                                                value={cant}
+                                                min="1"
+                                                max="10"
+                                            />
+                                            <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+
                                         </div>
                                     ) : (
-                                        <input
-                                            type="number"
-                                            className='form-control'
-                                            onChange={(e) => setCant(e.target.value)}
-                                            defaultValue={cant}
-                                            min="1"
-                                            max="10"
-                                        />
+                                        <div className='btn-link'>
+                                            <a
+                                                className='optionsLink'
+                                                onClick={() => AddCart(productDetail)}
+                                            >Pedime Ahora {loadingCart ? (
+                                                <i className="fas fa-spinner fa-pulse"></i>
+                                            ) : (
+                                                <i className="fas fa-angle-right"></i>
+                                            )}
+                                            </a>
+                                        </div>
                                     )}
-                                    <div className='btn-link'>
-                                        <a
-                                            className='optionsLink'
-                                            onClick={() => AddCart(productDetail)}
-                                        >Pedime Ahora {loadingCart ? (
-                                            <i className="fas fa-spinner fa-pulse"></i>
-                                        ) : (
-                                            <i className="fas fa-angle-right"></i>
-                                        )}</a>
-                                    </div>
+
 
                                 </div>
                             </div>
