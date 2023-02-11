@@ -21,7 +21,6 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
     setViewMessage(false)
     setMessage('')
     const { nombre, usuario, email, password, roles } = data;
-    console.log("data ", data);
     await axios.post('http://localhost:3001/api/auth/signup', {
       nombre,
       usuario,
@@ -32,7 +31,6 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
     })
       .then(res => {
         setLoading(true)
-        console.log(res.data);
         if (res.data.ok) {
           setChangeClassName(true)
           if (!admin) {
@@ -42,8 +40,6 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
               setLoading(false)
             }, 2000)
           } else {
-            console.log("admin> ", admin);
-            console.log("res.data> ", res.data);
             setNewRegister(true)
             setLoading(true)
             setMessage(res.data.msg)
@@ -71,16 +67,7 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
       }
     })
   }
-  const handleRol = (rol) => {
-    if (rol === 'user') {
-      console.log("rol usuario ", rol);
-      setValue('rol', rol)
-    } else {
-      console.log("rol admin ", rol);
 
-      setValue('rol', rol)
-    }
-  }
   return (
     <>
       {admin ? (null) : (

@@ -12,7 +12,6 @@ export const Cart = () => {
     const [priceTotal, setPriceTotal] = useState(0)
     useEffect(() => {
         let sumTotal = 0;
-        console.log("precio total ", cart);
         cart.map((element) => (sumTotal += element.item.precio * element.cantidad));
         setPriceTotal(sumTotal);
         if (cart.length === 0) {

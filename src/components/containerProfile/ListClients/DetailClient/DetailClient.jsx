@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const DetailClient = ({ viewClient }) => {
-    console.log(viewClient);
     const { usuario, nombre, email, domicilio, createdAt } = viewClient
 
     return (

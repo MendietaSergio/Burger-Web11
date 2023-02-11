@@ -2,8 +2,6 @@ import React from 'react'
 import { CartContextUse } from '../../../Context/CartContextProvider';
 import './ShoppingCart.css'
 export const ShoppingCart = ({ cart }) => {
-
-    console.log("container cart ", cart);
     const { addItem, removeItem } = CartContextUse()
     const handleCant = (product, e) => {
         let { item } = product;

@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Navigation.css'
 export const Navigation = ({ categoria, tipo }) => {
-    console.log("categoria navigation ", categoria);
     return (
         <>
             <div className="container-navigation-page">

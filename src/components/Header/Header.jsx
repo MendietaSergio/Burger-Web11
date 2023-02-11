@@ -15,7 +15,6 @@ export const Header = ({ widthImg }) => {
     const [cantCart, setCantCart] = useState(0)
     const { nombre } = user;
     const { cart } = CartContextUse()
-    console.log("largo ", cart);
     useEffect(() => {
         const getCategories = async () => {
             await axios.get('http://localhost:3001/api/products/categories')
@@ -25,7 +24,6 @@ export const Header = ({ widthImg }) => {
                 .catch((error) => console.log(error))
                 .finally(() => {
                     setLoading(true)
-                    console.log("state => ", menuCategorie)
                 })
         }
         getCategories()

@@ -44,8 +44,8 @@ export const SkeletonCard = ({
           )
           }
           {
-            cant.map(list => (
-              <div className="list">
+            cant.map((list, index) => (
+              <div key={index} className="list">
 
               </div>
             ))

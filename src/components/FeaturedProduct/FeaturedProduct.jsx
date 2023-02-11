@@ -46,8 +46,9 @@ export const FeaturedProduct = ({
     }
     useEffect(() => {
         setUpdateProduct([])
-
-        getFilterProducts()
+        if (relatedView!==false) {
+            getFilterProducts()
+        }
     }, [productDetail])
     // const addCart = (e) => {
     //     setLoading(true)
