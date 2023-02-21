@@ -15,10 +15,14 @@
     height     : 60px;
     display    : flex;
     align-items: center;
+    width      : 100%;
 }
 
 .container-img-featuredProduct {
-    position: relative;
+    position   : relative;
+    width      : 150px;
+    margin     : 0 auto;
+    /* height  : 300px; */
 }
 
 .img-featuredProduct {
@@ -26,6 +30,9 @@
     width          : 100%;
     height         : inherit;
     cursor         : pointer;
+    margin         : 0 auto;
+    display        : flex;
+
 }
 
 .container-img-detail {
@@ -61,7 +68,7 @@
 }
 
 .container-img-featuredProduct:hover .container-img-detail {
-    color  : red;
+    color  : var(--rojo);
     opacity: 1;
 }
 
@@ -72,22 +79,20 @@
 
 .price {
     color      : black;
-    font-weight: 600;
+    font-weight: 700;
+    font-size  : 14px;
 }
 
 .btn-link {
-    cursor          : pointer;
-    background-color: #FF5151;
-    padding         : 8px;
-    border          : none;
+    cursor             : pointer;
+    background-color   : var(--rojo);
+    /* padding         : 8px; */
+    padding            : 4px;
+    border             : none;
 }
 
 .btn-link:hover {
-    background-color: #ed5555b3 !important;
-}
-
-.optionsLink:hover {
-    background-color: #ff8383b3 !important;
+    background-color: var(--rojoHover);
 }
 
 .optionsLink {
@@ -98,6 +103,13 @@
     text-decoration : none;
     background-color: rgba(0, 0, 0, 0);
     border          : none;
+    font-size       : 12px;
+}
+
+.optionsLink:hover,
+.btn-link:hover {
+    color          : white;
+    text-decoration: none;
 }
 
 .optionsLink:focus {
@@ -106,7 +118,7 @@
 }
 
 .btn-link i {
-    font-size: 18px;
+    font-size: 12px;
 }
 
 .title-productCard {
@@ -118,14 +130,71 @@
 }
 
 .featuredProduct-slider {
-    display        : flex;
-    flex-direction : row;
-    overflow-x     : scroll;
-    justify-content: space-between;
+    display           : flex;
+    flex-direction    : row;
+    overflow-x        : scroll;
+    justify-content   : space-between;
+    /* animation      : cambio 20s infinite alternate linear; */
+}
+
+@keyframes cambio {
+    0% {
+        margin-left: 0;
+    }
+
+    20% {
+        margin-left: 0;
+    }
+
+    25% {
+        margin-left: -100%;
+    }
+
+    45% {
+        margin-left: -100%;
+    }
+
+    50% {
+        margin-left: -200%;
+    }
+
+    70% {
+        margin-left: -200%;
+    }
+
+    75% {
+        margin-left: -300%;
+    }
+
+    100% {
+        margin-left: -300%;
+    }
 }
 
 .input-featured {
     right   : 20px;
     position: absolute;
     z-index : 9999;
+}
+
+.container-featuredProductUpdate {
+    width          : 80%;
+    margin         : 10%;
+    display        : flex;
+    flex-direction : column;
+    justify-content: space-between;
+}
+
+@media(min-width:768px) {
+    .optionsLink {
+        font-size: 14px;
+    }
+
+    .btn-link i {
+        font-size: 16px;
+    }
+
+    .btn-link {
+        padding: 8px;
+    }
 }

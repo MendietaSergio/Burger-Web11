@@ -6,7 +6,7 @@ import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { CartContextUse } from '../../../Context/CartContextProvider'
 export const ItemDetail = ({ productDetail, loading, success }) => {
     const { addItem, cart } = CartContextUse()
-    const { nombre, img_art, precio, descripcion, nombre_categoria, _id } = productDetail;
+    const { nombre, img_art, precio, descripcion, nombre_categoria, _id, oferta, descuento } = productDetail;
     const [loadingCart, setLoadingCart] = useState(false)
     const [cant, setCant] = useState(1);
     const [cantView, setCantView] = useState(false)
@@ -69,7 +69,14 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                     {loading ? (
                         <SkeletonCard skeletonImg={true} className="image-detail" />
                     ) : (
-                        <img className='img-detail' src={img_art} title={nombre} />
+                        <>
+                            {oferta &&
+                                <div className='container-offertDetail'>
+                                    <span>{" "}-{descuento}%{" "}</span>
+                                </div>
+                            }
+                            <img className='img-detail' src={img_art} title={nombre} />
+                        </>
                     )}
                 </div>
                 <div className="col-12 col-md-6">
@@ -85,7 +92,17 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                                     tipo={nombre_categoria.tipo}
                                 />
                                 <h5 className=''>{nombre}</h5>
-                                <span className='price'>${precio},00</span>
+                                {/* <span className='price'>${precio},00</span> */}
+                                {oferta ? (
+                                    <div className='container-priceOfert'>
+                                        <h6 className='price'><del>${precio},00</del></h6>
+                                        <h2 className='priceOfert'>${precio - ((descuento / 100) * precio)},00</h2>
+                                    </div>
+                                ) : (<>
+                                    <h2 className='price'>${precio},00</h2>
+                                </>
+                                )
+                                }
                                 {/* FALTA MOSTRAR LA DESCRIPCION, SACANDO LA INFO Y PASANDOLA COMO ARRAY PARA IR MOSTRANDO UNA LISTA */}
                                 <div className='detail-list'>
                                     <ul>

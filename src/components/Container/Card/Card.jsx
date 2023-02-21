@@ -14,7 +14,7 @@ export const Card = ({
     setIdProduct,
     relatedView = false
 }) => {
-    const { _id, nombre, precio, nombre_categoria, img_art } = product
+    const { _id, nombre, precio, nombre_categoria, img_art, oferta, descuento } = product
     const [loading, setLoading] = useState(false)
     const { addItem, cart } = CartContextUse()
     const [cantView, setCantView] = useState(false)
@@ -103,42 +103,61 @@ export const Card = ({
             <div className='container-featuredProduct my-3'>
                 <div className='container-img-featuredProduct'>
                     <Link className='viewDetail' to={`/productos/detalle/${_id}`}>
+                        {oferta &&
+                            <div className='container-offert'>
+                                <span>{" "}-{descuento}%{" "}</span>
+                            </div>
+                        }
                         <img className='img-featuredProduct' src={img_art} alt="Burger" height='255' />
                     </Link>
                 </div>
                 <div className='container-info'>
                     <span className='title-categorie'>{nombre_categoria.categoria}</span>
                     <div className='container-info-name'>
-                        <h5 className='text-center'>{nombre}</h5>
+                        {/* <h5 className='text-center'>{nombre}</h5> */}
+                        <h6 className='title-productCard'>{nombre}</h6>
+
+                        {/* <h5 className='text-center'>{nombre}</h5> */}
                     </div>
-                    <span className='price'>${precio},00</span>
-                    {relatedView ? (
-
-                        <div className='btn-link'>
-                            <Link className='optionsLink' to={`/productos/detalle/${_id}`} onClick={() => setSuccess(false)}>Ver detalles <i className="fas fa-angle-right"></i></Link>
+                    {oferta ? (
+                        <div className='container-priceOfert'>
+                            <span className='price'><del>${precio},00</del></span>
+                            <span className='priceOfert'>${precio - ((descuento / 100) * precio)},00</span>
                         </div>
-                    ) : (
-                        cantView ? (
-                            <div className='d-flex flex-row justify-content-center w-100'>
-                                <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
-                                <input
-                                    type="number"
-                                    className='form-control input-changeValue'
-                                    onChange={(e) => onChangeValue(e)}
-                                    value={cant}
-                                    min="1"
-                                    max="10"
-                                />
-                                <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+                    ) : (<>
+                        <h2 className='price'>${precio},00</h2>
+                    </>
+                    )
+                    }
+                    {
+                        relatedView ? (
 
+                            <div className='btn-link'>
+                                <Link className='optionsLink' to={`/productos/detalle/${_id}`} onClick={() => setSuccess(false)}>Ver detalles <i className="fas fa-angle-right"></i></Link>
                             </div>
                         ) : (
-                            <div className='btn-link'>
-                                <button className='optionsLink' type='button' onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</button>
-                            </div>
+                            cantView ? (
+                                <div className='d-flex flex-row justify-content-center w-100'>
+                                    <button className='btn btn-light btnCount' onClick={() => cantRest()}>-</button>
+                                    <input
+                                        type="number"
+                                        className='form-control input-changeValue'
+                                        onChange={(e) => onChangeValue(e)}
+                                        value={cant}
+                                        min="1"
+                                        max="10"
+                                    />
+                                    <button className='btn btn-light btnCount' onClick={() => cantSum()}>+</button>
+
+                                </div>
+                            ) : (
+                                <div className='btn-link'>
+                                    <button className='optionsLink' type='button' onClick={() => AddCart(product)}>Pedime Ahora {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : (<i className="fas fa-angle-right"></i>)}</button>
+                                </div>
+                            )
                         )
-                    )}
-                </div>
+                    }
+                </div >
             </div >
         )
     }
@@ -151,11 +170,25 @@ export const Card = ({
                 <div className="w-100 flex-column container-info">
                     <>
                         <h5>{product.nombre}</h5>
-                        <p>
+                        <div className='descriptionUpdate'>
                             <small>{product.descripcion}</small>
-                        </p>
+                        </div>
                         <div className="container-cant">
-                            <span>PRECIO</span> $ {product.precio}
+                            {product.oferta ? (
+                                <div className='container-priceOfertUpdate'>
+                                    <span className='price'>Precio: </span>
+                                    <span className='price'><del>${product.precio},00</del></span>
+                                    <span className='priceOfert'>${product.precio - ((product.descuento / 100) * product.precio)},00</span>
+                                </div>
+                            ) : (<>
+                                <span className='price'>Precio: </span>
+                                <span className='price'>${product.precio},00</span>
+                            </>
+                            )
+                            }
+                            {/* <span className='price'>PRECIO </span><span className='priceUpdate'>
+                                ${product.precio}
+                            </span> */}
                         </div>
                         <div className="container-cant">
 

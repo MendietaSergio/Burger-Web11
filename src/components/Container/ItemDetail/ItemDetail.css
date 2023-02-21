@@ -99,3 +99,20 @@
     display    : flex;
     align-items: center;
 }
+
+.container-offertDetail {
+    width           : 40px;
+    height          : 40px;
+    border-radius   : 50%;
+    background-color: var(--verdeDescuento);
+    color           : white;
+    position        : absolute;
+    transform       : rotate(-45deg);
+    left            : 20px;
+    top             : 6px;
+    text-align      : center;
+    align-items     : center;
+    display         : flex;
+    justify-content : center;
+    font-weight     : bolder;
+}

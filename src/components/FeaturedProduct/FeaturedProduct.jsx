@@ -119,7 +119,7 @@ export const FeaturedProduct = ({
                             <Title title="Productos Relacionados" />
                             <div className='featuredProduct-slider'>
                                 {relatedProducts.map((element, index) => (
-                                    <div className="col-6 col-md-3" key={index}>
+                                    <div className="col-6 col-md-3 my-3" key={index}>
                                         <Card product={element} admin={false} relatedView={relatedView} setSuccess={setSuccess} />
                                     </div>
                                 ))}
@@ -146,7 +146,7 @@ export const FeaturedProduct = ({
                                                 <label htmlFor={element._id} className="d-block"
                                                     onChange={(e) => changeFeatured(element._id, e)}
                                                 >
-                                                    <div className='container-featuredProduct my-3 form-check-label' htmlFor={element._id}>
+                                                    <div className='container-featuredProductUpdate my-3 form-check-label' htmlFor={element._id}>
                                                         <input class="form-check-input input-featured" name={element._id} type="checkbox" defaultChecked={element.destacado} id={element._id} />
                                                         <div className='container-img-featuredProduct'>
                                                             <img className='img-featuredProduct' src={element.img_art} alt="Burger" />
@@ -182,7 +182,7 @@ export const FeaturedProduct = ({
                     <div className='featuredProduct-slider'>
                         {feacturedProducts.length > 0 ? (
                             feacturedProducts.map((element, index) => (
-                                <div className="col-6 col-md-3" key={index}>
+                                <div className="col-6 col-md-3 my-3" key={index}>
                                     <Card product={element} admin={false} />
                                 </div>
                             ))

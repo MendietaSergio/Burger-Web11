@@ -12,7 +12,7 @@ export const Cart = () => {
     const [priceTotal, setPriceTotal] = useState(0)
     useEffect(() => {
         let sumTotal = 0;
-        cart.map((element) => (sumTotal += element.item.precio * element.cantidad));
+        cart.map((element) => (sumTotal += element.subtotal));
         setPriceTotal(sumTotal);
         if (cart.length === 0) {
             setShowListCart(true)
