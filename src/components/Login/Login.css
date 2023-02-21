@@ -30,16 +30,20 @@
 }
 
 label small {
-    color      : #FF515C;
+    color      : var(--rojoText);
     font-weight: 900;
 }
 
 .btn-toAccess {
     width           : 150px;
     height          : 50px;
-    background-color: #FF515C;
+    background-color: var(--rojo);
     color           : white;
     border          : none;
+}
+
+.btn-toAccess:hover {
+    background-color: var(--rojoHover);
 }
 
 .info-password {

@@ -14,6 +14,7 @@ import { ErrorFound } from './pages/ErrorFound'
 import { AuthContext } from './Auth/AuthContext'
 import { AuthReducer } from './Auth/AuthReducer'
 import { CartContextProvider } from './Context/CartContextProvider'
+import { ScrollToTop } from './components/ScrollToTop/ScrollToTop'
 
 const init = () => {
   return JSON.parse(localStorage.getItem('userBurger')) || {
@@ -46,8 +47,9 @@ function App() {
     >
       <CartContextProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <div className="container-fluid">
-            <Header setWidthImg={setWidthImg} widthImg={widthImg} />
+            <Header setWidthImg={setWidthImg} widthImg={widthImg} widthMin={992} />
             <Routes>
               <Route path='/' element={<Home setWidthImg={setWidthImg} widthImg={widthImg} />} />
               <Route path='/productos' element={<Productos cantPages={false} />} />
