@@ -7,9 +7,3 @@
     border-radius   : 2%;
     padding         : 20px;
 }
-
-@media(min-width:768px) {
-    .form-addProduct {
-        width: 600px;
-    }
-}

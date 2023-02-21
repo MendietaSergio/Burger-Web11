@@ -1,13 +1,12 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
 import { ValidationAddProduct } from '../../../utils/ValidationAddProduct'
 import { Message } from '../../Message/Message'
 import { Title } from '../../Title/Title'
 import './AddProduct.css'
-// FALTA AGREGAR DISPONIBLE, DESCUENTO
-export const AddProduct = ({setSuccess, success }) => {
+
+export const AddProduct = ({ setSuccess, success }) => {
 
   const { register, handleSubmit, reset, formState: { errors }, watch } = useForm()
 
@@ -75,8 +74,6 @@ export const AddProduct = ({setSuccess, success }) => {
           }
           sendProducto(newData)
         }
-
-
       })
       .catch(error => {
         console.log(error)
@@ -99,7 +96,8 @@ export const AddProduct = ({setSuccess, success }) => {
       setLoading(false)
     }, 5000);
   }
-
+  console.log("categoria => ", watch('categoria'));
+  console.log("categoria => ", categoria);
   return (
     <>
 
