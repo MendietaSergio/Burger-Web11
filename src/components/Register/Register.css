@@ -72,7 +72,11 @@
     .btn-toRegister,
     .btn-toSend,
     .btn-toCancel {
-        width: 150px;
+        width: 200px;
+    }
+
+    .btn-toRegister i {
+        margin: 10px;
     }
 
 }

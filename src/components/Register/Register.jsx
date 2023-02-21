@@ -1,17 +1,18 @@
 import axios from 'axios'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
 import { types } from '../../Types/Types'
 import { validations } from '../../utils/ValidationsRegister'
 import { Message } from '../Message/Message'
+import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
 import { Title } from '../Title/Title'
 import './Register.css'
 
 export const Register = ({ title = "Registrarse", admin = false, setNewRegister }) => {
   const { dispatch } = useContext(AuthContext)
-  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm()
   const [viewMessage, setViewMessage] = useState(false)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -47,17 +48,28 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
               setNewRegister(false)
               setViewMessage(true)
               setLoading(false)
+              reset()
             }, 2000)
           }
         } else {
           setChangeClassName(false)
-
           setViewMessage(true)
           setMessage(res.data.msg)
           setLoading(false)
         }
       })
   }
+
+  useEffect(() => {
+    if (viewMessage) {
+      window.scroll({
+        top: 0,
+        letf: 0,
+        behavior: 'smooth'
+      });
+      setTimeout(() => setViewMessage(false), 3000)
+    }
+  }, [viewMessage])
   const handleLogin = (data) => {
 
     dispatch({
@@ -77,7 +89,7 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
         <div className="container-form-body">
           <Title title={title} bar={false} />
           {viewMessage ?
-            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} className={`container-message-login ${changeClassName ? 'alert-success' : 'alert-danger'}`} />) : (null)
+            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} className={`container-message-register ${changeClassName ? 'alert-success' : 'alert-danger'}`} />) : (null)
           }
         </div>
         <form onSubmit={handleSubmit(submit)} className="form-login">
