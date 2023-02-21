@@ -30,5 +30,9 @@ export const optionsProfile = [
     {
         name: 'articulos-destacados',
         option: false,
+    },
+    {
+        name: 'diseño',
+        option: false,
     }
 ]

@@ -5,6 +5,7 @@ import { optionsProfile } from '../../../utils/OptionsProfile'
 import { FeaturedProduct } from '../../FeaturedProduct/FeaturedProduct'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
+import { DesignsPages } from '../DesignsPages/DesignsPages'
 import '../Imgprofile/ImgProfile.css'
 import { ListClients } from '../ListClients/ListClients'
 import { PersonalInformation } from '../PersonalInformation/PersonalInformation'
@@ -65,6 +66,9 @@ export const OptionProfile = ({
             {dataProfile === "lista-de-clientes" ? (
                 <ListClients
                     newRegister={newRegister} />
+            ) : null}
+            {dataProfile === "diseño" ? (
+                <DesignsPages />
             ) : null}
 
         </div>

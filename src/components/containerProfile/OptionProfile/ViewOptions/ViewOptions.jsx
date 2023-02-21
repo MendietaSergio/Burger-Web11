@@ -20,6 +20,7 @@ export const ViewOptions = ({ widthImg, admin,
                             <option value="lista-de-articulos">Lista de articulos</option>
                             <option value="articulos-destacados">Prod. destacados</option>
                             <option value="lista-de-clientes">Lista de clientes</option>
+                            <option value="diseño">Diseño</option>
                         </>
                     ) : (
                         <>
@@ -43,6 +44,7 @@ export const ViewOptions = ({ widthImg, admin,
                         <NavLink exact to={'/micuenta/lista-de-articulos'} >Lista articulos <i className="fas fa-chevron-right"></i></NavLink>
                         <NavLink exact to={'/micuenta/articulos-destacados'} >Prod. Destacados<i className="fas fa-chevron-right"></i></NavLink>
                         <NavLink exact to={'/micuenta/lista-de-clientes'}  >Lista de clientes<i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink exact to={'/micuenta/diseño'}  >Diseño<i className="fas fa-chevron-right"></i></NavLink>
                     </>
                 ) : (
                     <>
