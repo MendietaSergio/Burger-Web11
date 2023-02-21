@@ -1,0 +1,22 @@
+.container-desings {
+    padding: 10px;
+
+}
+
+.container-desings-btn {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    margin         : 10px 0;
+}
+
+.container-desings-btn button {
+    margin: 5px;
+}
+
+.container-desings-options {
+    height         : 350px;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
