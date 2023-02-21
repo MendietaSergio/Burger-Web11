@@ -21,6 +21,7 @@ export const CartContextProvider = ({ children }) => {
             return { _id, nombre, precio }
         })
     }
+    let subtotal;
     const addItem = (item, cantidad) => {
         if (isInCart(item._id)) {
             const updateQty = [...cart];
@@ -28,16 +29,29 @@ export const CartContextProvider = ({ children }) => {
                 if (element.item._id === item._id) {
                     if (cantidad >= 1) {
                         element.cantidad = cantidad;
+                        element.subtotal = subtotal
+                        subtotal = element.item.oferta ? (
+                            (element.item.precio - ((element.item.descuento / 100) * element.item.precio)) * element.cantidad
+                        ) : (element.item.precio * cantidad)
                     } else {
                         element.cantidad = element.cantidad + cantidad
+                        subtotal = element.item.oferta ? (
+                            (element.item.precio - ((element.item.descuento / 100) * element.item.precio)) * element.cantidad
+                        ) : (element.item.precio * cantidad)
                     }
+                    // subtotal = element.item.oferta ? (
+                    //     (element.item.precio - ((element.item.descuento / 100) * element.item.precio)) * element.cantidad
+                    // ) : (element.item.precio * cantidad)
+                    console.log("subtotal ? ", subtotal);
+                    element.subtotal = subtotal
                 }
                 return element
             })
             setCart(updateQty)
         }
         else {
-            setCart([...cart, { item, cantidad }])
+
+            setCart([...cart, { item, cantidad, subtotal: item.precio }])
         }
     }
     //SI ESTA EN EL CARRITO, SUMO SU CANTIDAD
