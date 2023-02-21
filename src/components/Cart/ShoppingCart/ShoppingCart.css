@@ -5,13 +5,21 @@
 }
 
 .row-cart-title .cart-section-title {
-    display: none;
+    display    : none;
+    font-weight: 600;
+}
+
+.cart-section-title:nth-child(3) {
+    margin-left: 100px;
+
 }
 
 .container-cart-section {
     height       : auto;
     padding      : 10px;
     border-bottom: 1px solid #a9a9a9;
+    width        : auto;
+
 }
 
 .container-cart-section:last-child {
@@ -36,10 +44,9 @@
 }
 
 .container-cart-section:nth-last-child(5) {
-    height         : auto;
-    padding        : 10px;
-    display        : flex;
-    justify-content: center;
+    height  : auto;
+    padding : 10px;
+    position: relative;
 }
 
 .cart-img {
@@ -57,11 +64,58 @@
 
 .container-cart-section input {
     margin: 3px;
+    width : 100px;
     width : 60px;
 }
 
 .container-cart-section i {
     cursor: pointer;
+}
+
+.container-offertCart {
+    width           : 30px;
+    height          : 30px;
+    border-radius   : 50%;
+    background-color: var(--verdeDescuento);
+    color           : white;
+    position        : absolute;
+    transform       : rotate(-45deg);
+    left            : 12px;
+    top             : 12px;
+    text-align      : center;
+    align-items     : center;
+    display         : flex;
+    justify-content : center;
+    font-weight     : bolder;
+}
+
+.container-offertCartModal {
+    width           : 20px;
+    height          : 20px;
+    border-radius   : 50%;
+    background-color: var(--verdeDescuento);
+    color           : white;
+    position        : absolute;
+    transform       : rotate(45deg);
+    right            : -1px;
+    top             : -11px;
+    text-align      : center;
+    align-items     : center;
+    display         : flex;
+    justify-content : center;
+    font-weight     : bolder;
+    font-size: 10px;
+}
+
+.container-offertCart span {
+    font-size: 10px;
+}
+
+.container-priceOfert {
+    width          : 100%;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
 }
 
 @media(min-width: 992px) {
@@ -99,4 +153,30 @@
     .container-cart-section .cart-section-title {
         display: none;
     }
+
+    .container-cart-section:nth-last-child(2) {
+        width: 100px;
+    }
+
+    .container-cart-section:nth-last-child(1) {
+        width: 100px;
+    }
+
+
+    .container-cart-section:nth-last-child(4) {
+        margin-right : -26px;
+        width        : 250px;
+        overflow-wrap: anywhere;
+        text-align   : center;
+    }
+
+    .container-cart-section:nth-last-child(5) {
+        margin-right: -18px;
+    }
+
+    .container-cart-section:nth-last-child(3) {
+        margin-right: -18px;
+        width       : 100px;
+    }
+
 }
