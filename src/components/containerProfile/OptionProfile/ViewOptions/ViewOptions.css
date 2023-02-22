@@ -34,11 +34,7 @@
 
 .container-user-menu a:hover {
     color           : white;
-    background-color: gray;
-}
-
-.active {
-    background-color: aqua;
+    background-color: #e53737f2;
 }
 
 .container-purchase {

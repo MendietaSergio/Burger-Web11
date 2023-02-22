@@ -214,17 +214,17 @@ export const Productos = ({
               </span>
             ) : null}
           </div>
-          <div className="col-12 col-md-6 ">
+          <div className="col-12 col-md-6 selectFilter">
             <select
               name="filter"
-              className="form-select"
+              className="optionsFilter"
               onChange={(e) => setFilter(e.target.value)}
             >
-              <option>Ordenar por precios bajos</option>
-              <option>Ordenar por precios altos</option>
-              <option>Ordenar por popularidad</option>
-              <option>Ordenar alfabeticamente</option>
-              <option>Ordenar por los últimos</option>
+              <option className="selectOptions">Ordenar por precios bajos</option>
+              <option className="selectOptions">Ordenar por precios altos</option>
+              <option className="selectOptions">Ordenar por popularidad</option>
+              <option className="selectOptions">Ordenar alfabeticamente</option>
+              <option className="selectOptions">Ordenar por los últimos</option>
             </select>
           </div>
         </div>

@@ -30,8 +30,8 @@
 }
 
 .active {
-    background-color: #b9b9b9;
-    color           : white !important;
+    background-color: #e53737f2;
+    color: white !important;
 }
 
 @media(min-width: 768px) {
