@@ -8,12 +8,12 @@ import { AuthContext } from "../../../Auth/AuthContext";
 import { SkeletonCard } from "../../Skeleton/SkeletonCard";
 import { Message } from "../../Message/Message";
 import { DetailClient } from "./DetailClient/DetailClient";
-export const ListClients = ({ cantPages, newRegister }) => {
+export const ListClients = ({ newRegister }) => {
   const [clientsList, setClientsList] = useState([]);
   const [total, setTotal] = useState();
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [clientsPage] = useState(cantPages ? 8 : 5);
+  const [clientsPage] = useState(8);
   const { user } = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [viewMessage, setViewMessage] = useState(false);

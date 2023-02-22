@@ -1,71 +1,65 @@
 .container-listClients {
-    height         : 400px;
-    flex-direction : column;
-    display        : flex;
-    justify-content: space-between;
+  height: 400px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
 }
 
 .container-listClients table tr:hover {
-    background-color: #b3b3b3;
-    color           : white;
+  background-color: #b3b3b3;
+  color: white;
 }
 
 .container-title-client {
-    display        : flex;
-    justify-content: end;
-    align-items    : center;
-    width          : 80%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bolder;
 }
-
-.container-title-client {
-    font-size  : 16px;
-    font-weight: bold;
-}
-
 .container-listClients table {
-    width: 100%;
+  width: 100%;
 }
 
 .contianer-clients {
-    height: 10px;
+  height: 10px;
 }
 
 .columnId {
-    width     : 40px;
-    text-align: center;
+  width: 40px;
+  text-align: center;
 }
 
 .columnOptions {
-    text-align: center;
+  text-align: center;
 }
 
 .columnUser,
 .columnName {
-    font-weight : 600;
-    padding-left: 20px;
-    text-align  : start;
+  font-weight: 600;
+  padding-left: 20px;
+  text-align: start;
 }
 
 .columnName:last-child {
-    padding: 0;
+  padding: 0;
 }
 
 .containerIconClients {
-    height         : 100%;
-    display        : flex;
-    justify-content: space-evenly;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .optionIconClient {
-    width : 20px;
-    height: 20px;
-    margin: 15px 0;
-    cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 15px 0;
+  cursor: pointer;
 }
 
-@media(min-width:768px) {
-    .container-listClients {
-
-        height: 450px;
-    }
+@media (min-width: 768px) {
+  .container-listClients {
+    height: 450px;
+  }
 }
