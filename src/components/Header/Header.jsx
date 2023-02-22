@@ -41,7 +41,6 @@ export const Header = ({ widthImg, edit = false, viewImg, imgChange }) => {
         }
 
     }
-    // console.log("viewImg ", viewImg);
     if (edit) {
         return (
             <div className='row row-header'>

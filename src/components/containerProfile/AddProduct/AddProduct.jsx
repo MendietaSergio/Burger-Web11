@@ -106,10 +106,6 @@ export const AddProduct = ({ setSuccess, success }) => {
       setMessage("");
     }, 5000);
   };
-  console.log("categoria => ", watch("categoria"));
-  useEffect(() => {
-    console.log("categoria => ", categoria);
-  }, [categoria]);
   return (
     <>
       <div className="container-form">

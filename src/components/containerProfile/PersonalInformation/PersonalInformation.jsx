@@ -14,7 +14,6 @@ export const PersonalInformation = ({ estados, user, dispatch }) => {
     const [loading, setLoading] = useState(false)
     const [succes, setSucces] = useState(false)
     const { dataProfile } = useParams()
-    console.log("peronslainformtion ", dataProfile)
     const { nombre, email, _id, usuario, domicilio, descripcion } = user;
     const submit = async (data) => {
         setViewMessage(false)

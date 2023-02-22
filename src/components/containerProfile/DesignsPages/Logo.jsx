@@ -15,8 +15,6 @@ export const Logo = ({ options }) => {
             const reader = new FileReader();
             const img = new Image();
             img.onload = function () {
-                console.log("img ", img);
-                console.log("img ", img.width);
                 if (img.width <= 360 && img.height <= 360) {
                     reader.onload = () => {
                         if (reader.readyState === 2) {
@@ -45,7 +43,6 @@ export const Logo = ({ options }) => {
         } else {
             console.log("No se puede enviar");
         }
-        console.log(watch('img'));
     }
 
     if (options === "Logo") {

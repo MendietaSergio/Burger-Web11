@@ -39,10 +39,6 @@ export const CartContextProvider = ({ children }) => {
                             (element.item.precio - ((element.item.descuento / 100) * element.item.precio)) * element.cantidad
                         ) : (element.item.precio * cantidad)
                     }
-                    // subtotal = element.item.oferta ? (
-                    //     (element.item.precio - ((element.item.descuento / 100) * element.item.precio)) * element.cantidad
-                    // ) : (element.item.precio * cantidad)
-                    console.log("subtotal ? ", subtotal);
                     element.subtotal = subtotal
                 }
                 return element

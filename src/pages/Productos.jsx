@@ -112,7 +112,6 @@ export const Productos = ({
   //FUNCION PARA DEFITIR TIPO DE FILTRO
   const TopToLow = (filter) => {
     setLoading(true);
-    console.log("filter ", filter);
     if (filter === "Ordenar por precios altos") {
       const newProduct = products.sort(function (a, b) {
         return b.precio - a.precio;
@@ -143,7 +142,6 @@ export const Productos = ({
       const newProduct = products.sort(function (a, b) {
         return a.nombre.localeCompare(b.nombre);
       });
-      console.log(newProduct);
       setProducts(newProduct);
     }
     paginate(1);
