@@ -8,7 +8,7 @@ import { CartContextUse } from '../Context/CartContextProvider'
 import './Cart.css'
 export const Cart = () => {
     const [showListCart, setShowListCart] = useState(false)
-    const { clear, remoteItem, cart } = CartContextUse()
+    const { clear, cart } = CartContextUse()
     const [priceTotal, setPriceTotal] = useState(0)
     useEffect(() => {
         let sumTotal = 0;
@@ -52,7 +52,7 @@ export const Cart = () => {
                             <EmptyCart />
                         ) : (
                             <>
-                                <ShoppingCart cart={cart} />
+                                <ShoppingCart />
                                 <div className='col-12 d-flex justify-content-end p-3'>
                                     <button type='submit' className='btn-toAccess' onClick={() => deleteCart()} >Eliminar todos</button>
                                 </div>

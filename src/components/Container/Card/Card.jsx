@@ -115,10 +115,7 @@ export const Card = ({
         <div className="container-info">
           <span className="title-categorie">{nombre_categoria.categoria}</span>
           <div className="container-info-name">
-            {/* <h5 className='text-center'>{nombre}</h5> */}
             <span className="title-productCard">{nombre}</span>
-
-            {/* <h5 className='text-center'>{nombre}</h5> */}
           </div>
           {oferta ? (
             <div className="container-priceOfert">
@@ -223,9 +220,6 @@ export const Card = ({
                   <span className="price">${product.precio},00</span>
                 </>
               )}
-              {/* <span className='price'>PRECIO </span><span className='priceUpdate'>
-                                ${product.precio}
-                            </span> */}
             </div>
             <div className="container-cant"></div>
           </>
