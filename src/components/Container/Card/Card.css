@@ -1,130 +1,142 @@
 .image-parent {
-    width : 100px;
-    height: 100px;
-
+  width: 100px;
+  height: 100px;
 }
 
 .contianer_optonIcon {
-    display       : flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .optionIcon {
-    width : 20px;
-    height: 20px;
-    margin: 15px 0;
-    cursor: pointer;
+  width: 20px;
+  height: 20px;
+  margin: 15px 0;
+  cursor: pointer;
 }
 
-
 .page-item {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .list-group-item-action:focus,
 .list-group-item-action:hover {
-    z-index: auto !important;
+  z-index: auto !important;
 }
 
 .modal {
-    z-index: 9999999999999 !important;
+  z-index: 9999999999999 !important;
 }
 
 .input-changeValue {
-    width     : 50px;
-    text-align: center;
-    margin    : 0 10px;
+  width: 50px;
+  text-align: center;
+  margin: 0 10px;
 }
 
 .btnCount {
-    background-color: var(--rojo);
-    color           : white;
-    font-weight     : 700;
-    width           : 50px;
+  background-color: var(--rojo);
+  color: white;
+  font-weight: 700;
+  width: 50px;
 }
 
 .btnCount:hover,
 .btnCount:active,
 .btnCount:focus {
-    background-color: var(--rojoHover);
+  background-color: var(--rojoHover);
 }
 
 .container-priceOfert {
-    width          : 100%;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-priceOfertDetail {
-    width          : 100%;
-    display        : flex;
-    justify-content: start;
-    align-items    : center;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
 .container-priceOfert span:nth-child(1) {
-    font-size    : 12px;
-    padding-right: 10px;
+  font-size: 12px;
+  padding-right: 10px;
 }
 
 .container-priceOfertUpdate {
-    width          : 100%;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .priceOfert {
-    font-weight   : 700 !important;
-    color         : green !important;
-    /* font-size  : 14px !important; */
-    font-size     : 14px;
+  font-weight: 700 !important;
+  color: green !important;
+  /* font-size  : 14px !important; */
+  font-size: 12px;
 }
 
 .priceUpdate {
-    font-weight   : 700 !important;
-    /* font-size  : 14px !important; */
-    font-size     : 14px;
+  font-weight: 700 !important;
+  /* font-size  : 14px !important; */
+  font-size: 12px;
 }
 
 .container-info h5 {
-    color: black;
+  color: black;
 }
-
+.list-group-item {
+  padding: 0;
+}
 .descriptionUpdate {
-    height            : 50px;
-    font-weight       : 500;
-    width             : 250px;
-    display           : -webkit-box;
-    overflow          : hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    color             : var(--negroClaro);
+  height: 50px;
+  font-weight: 500;
+  /* width: 100px; */
+  width: 170px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--negroClaro);
 }
 
 .container-priceOfertUpdate .priceOfert {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 .container-priceOfertUpdate .price:nth-child(1) {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 .container-offert {
-    width           : 40px;
-    height          : 40px;
-    border-radius   : 50%;
-    background-color: var(--verdeDescuento);
-    color           : white;
-    position        : absolute;
-    transform       : rotate(45deg);
-    right           : 1px;
-    top             : 1px;
-    text-align      : center;
-    align-items     : center;
-    display         : flex;
-    justify-content : center;
-    font-weight     : bolder;
-
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--verdeDescuento);
+  color: white;
+  position: absolute;
+  transform: rotate(45deg);
+  right: 1px;
+  top: 1px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+}
+@media (min-width: 768px) {
+  .descriptionUpdate {
+    width: 200px;
+  }
+  .priceUpdate,
+  .priceOfert {
+    font-size: 14px;
+  }
+  .list-group-item {
+    padding: 0.75rem 1.25rem;
+  }
 }

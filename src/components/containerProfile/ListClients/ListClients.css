@@ -69,9 +69,3 @@
         height: 450px;
     }
 }
-
-.container-message-client {
-    position: absolute;
-    height  : 50px;
-    right   : 0 !important;
-}
