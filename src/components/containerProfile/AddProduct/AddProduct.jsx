@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { scrollToTop } from "../../../utils/ScrollToTop";
 import { ValidationAddProduct } from "../../../utils/ValidationAddProduct";
 import { Message } from "../../Message/Message";
+import { TagsInput } from "../../TagsInput/TagsInput";
 import { Title } from "../../Title/Title";
 import "./AddProduct.css";
 
@@ -12,21 +13,42 @@ export const AddProduct = ({ setSuccess, success }) => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
     watch,
   } = useForm();
-
+  const [viewSubmit, setViewSubmit] = useState(true)
   const [viewMessage, setViewMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [categoria, setCategoria] = useState([]);
   const [totalCategoria, setTotalCategoria] = useState([]);
   const [showDiscount, setShowDiscount] = useState("si");
+  const [tags, setTags] = useState([]);
 
   const config = {
     headaers: {
       "Content-Type": "multipart/form-data",
     },
+  };
+  let _URL = window.URL || window.webkitURL;
+  const changeImg = (e) => {
+    if (e !== undefined) {
+      const reader = new FileReader();
+      const img = new Image();
+      img.onload = function () {
+        if (img.width <= 1000 && img.height <= 1000) {
+          reader.readAsDataURL(e);
+        } else {
+          alert("El tamaño de la imagen es de " + this.width + "x" + this.height);
+          setValue('img', undefined)
+        }
+      };
+      img.onerror = function () {
+        alert("not a valid file: " + e.type);
+      };
+      img.src = _URL.createObjectURL(e);
+    }
   };
   useEffect(() => {
     const getCategoria = async () => {
@@ -57,6 +79,7 @@ export const AddProduct = ({ setSuccess, success }) => {
             setLoading(false);
             scrollToTop();
             reset();
+            setTags([])
           }, 1500);
         } else {
           setLoading(false);
@@ -90,8 +113,9 @@ export const AddProduct = ({ setSuccess, success }) => {
         console.log(error);
       });
   };
-  const submit = async (data) => {
-    setLoading(true);
+  const submit = async (data, e) => {
+    data.tags = tags;
+    console.log(data);
     let newData = {
       ...data,
     };
@@ -104,6 +128,7 @@ export const AddProduct = ({ setSuccess, success }) => {
       setViewMessage(false);
       setSuccess(false);
       setMessage("");
+
     }, 5000);
   };
   return (
@@ -203,21 +228,11 @@ export const AddProduct = ({ setSuccess, success }) => {
             ) : null}
             <div className="col-12">
               <label name="ingredientes">Ingredientes </label>
-              <input
-                name="ingredientes"
-                className={
-                  errors.ingredientes
-                    ? "form-control is-invalid"
-                    : "form-control"
-                }
-                type="text"
-                {...register("ingredientes", ValidationAddProduct.ingredientes)}
-              />
-              {errors.ingredientes ? (
-                <small className="text-danger">
-                  {errors.ingredientes.message}
-                </small>
-              ) : null}
+              <TagsInput addIngredients={true} name="ingredientes"
+                setViewSubmit={setViewSubmit}
+                setTags={setTags}
+                tags={tags}
+                className={"form-control"} />
             </div>
           </div>
           <div className="row">
@@ -320,6 +335,7 @@ export const AddProduct = ({ setSuccess, success }) => {
                 type="file"
                 name="img"
                 accept=".png , .jpg, .jpeg"
+                onChange={(e) => changeImg(e.target.files[0])}
                 className="form-control-file"
                 id="img"
               />
@@ -383,16 +399,17 @@ export const AddProduct = ({ setSuccess, success }) => {
               <label htmlFor="destacado">Producto destacado</label>
             </div>
           </div>
+
           <div className="d-flex flex-row justify-content-around my-4">
             <div>
-              <button type="submit" className="btn-toRegister">
+              <button type={viewSubmit ? 'submit' : 'button'} className="btn-toRegister">
                 Agregar{" "}
                 {loading ? <i className="fas fa-spinner fa-pulse"></i> : null}
               </button>
             </div>
             <div>
               <a
-                type="submit"
+                type="button"
                 className="btn-toCancel btn-toReset"
                 onClick={() => reset()}
               >
