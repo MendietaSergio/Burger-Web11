@@ -32,7 +32,11 @@
 }
 
 .detail-list {
-    padding: 0 50px;
+    padding   : 0 28px;
+    height    : 200px;
+    max-height: 250px;
+    display   : flex;
+    align-self: self-start;
 }
 
 .detail-subItem {

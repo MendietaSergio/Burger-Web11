@@ -6,7 +6,7 @@ import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { CartContextUse } from '../../../Context/CartContextProvider'
 export const ItemDetail = ({ productDetail, loading, success }) => {
     const { addItem, cart } = CartContextUse()
-    const { nombre, img_art, precio, descripcion, nombre_categoria, _id, oferta, descuento } = productDetail;
+    const { nombre, img_art, precio, descripcion, nombre_categoria, _id, oferta, descuento, tags } = productDetail;
     const [loadingCart, setLoadingCart] = useState(false)
     const [cant, setCant] = useState(1);
     const [cantView, setCantView] = useState(false)
@@ -92,7 +92,6 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                                     tipo={nombre_categoria.tipo}
                                 />
                                 <h5 className=''>{nombre}</h5>
-                                {/* <span className='price'>${precio},00</span> */}
                                 {oferta ? (
                                     <div className='container-priceOfert'>
                                         <h6 className='price'><del>${precio},00</del></h6>
@@ -103,15 +102,14 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                                 </>
                                 )
                                 }
-                                {/* FALTA MOSTRAR LA DESCRIPCION, SACANDO LA INFO Y PASANDOLA COMO ARRAY PARA IR MOSTRANDO UNA LISTA */}
                                 <div className='detail-list'>
-                                    <ul>
-                                        <li>mac cheese</li>
-                                        <li>panceta</li>
-                                        <li>salsa bbq</li>
-                                        <li>200g de carne</li>
-                                        <li>deep fried</li>
-                                    </ul>
+                                    {tags.length > 0 ? (
+                                        <ul>
+                                            {tags.map((tag, index) => (
+                                                <li key={index}>{tag}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (<span>No hay datos a mostrar</span>)}
                                 </div>
                                 <span className='detail-categorie'>{descripcion}</span>
                                 <div className='d-flex justify-content-center'>
