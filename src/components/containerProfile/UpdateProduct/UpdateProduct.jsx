@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ValidationAddProduct } from "../../../utils/ValidationAddProduct";
@@ -9,6 +9,7 @@ import "./UpdateProduct.css";
 import clearImg from "../../../Img/closed.png";
 import imgDefault from "../../../Img/imgDefault.png";
 import { scrollToTop } from "../../../utils/ScrollToTop";
+import { TagsInput } from "../../TagsInput/TagsInput";
 
 export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
   const {
@@ -27,7 +28,9 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
   const [totalCategoria, setTotalCategoria] = useState([]);
   const [showDiscount, setShowDiscount] = useState(false);
   const [valueOfert, setValueOfert] = useState();
+  const [tags, setTags] = useState([]);
   const [product, setProduct] = useState({});
+  const [viewSubmit, setViewSubmit] = useState(true)
   const [showImgViewLoad, setShowImgViewLoad] = useState(true);
   const [newImg, setNewImg] = useState(
     "http://localhost:3000/src/img/imgDefault.png"
@@ -52,6 +55,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
       .get(`http://localhost:3001/api/products/detail/${_id}`)
       .then((res) => {
         setProduct(res.data.productDetail);
+        setTags(res.data.productDetail.tags)
         setLoadingView(false);
         if (res.data.productDetail.nombre_categoria.tipo !== "") {
           setValue("categoria", "Bebidas");
@@ -142,8 +146,10 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
   useEffect(() => {
     setValueOfert(watch("oferta"));
   }, [watch("oferta")]);
+  
   const submit = async (data) => {
     setLoading(true);
+    data.tags = tags;
     let newData = {
       ...data,
     };
@@ -283,19 +289,12 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
               ) : null}
               <div className="col-12  my-3">
                 <label name="ingredientes">Ingredientes </label>
-                <input
-                  name="ingredientes"
-                  defaultValue={product.ingredientes}
-                  className={
-                    errors.ingredientes
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
-                  type="text"
-                  {...register(
-                    "ingredientes",
-                    ValidationAddProduct.ingredientes
-                  )}
+                <TagsInput
+                  addIngredients={true} name="ingredientes"
+                  setViewSubmit={setViewSubmit}
+                  setTags={setTags}
+                  tags={tags}
+                  className={"form-control"}
                 />
                 <div className={`container-errors`}>
                   {errors.ingredientes ? (
@@ -308,9 +307,8 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
             </div>
             <div className="row my-2">
               <div
-                className={`col-12 col-md-6 d-flex align-items-center container_img_update ${
-                  showImgViewLoad ? null : "flex-column"
-                }`}
+                className={`col-12 col-md-6 d-flex align-items-center container_img_update ${showImgViewLoad ? null : "flex-column"
+                  }`}
               >
                 {showImgViewLoad ? (
                   <>
@@ -504,8 +502,8 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                 <label htmlFor="disponible">Producto disponible</label>
               </div>
               <div className="form-check m-3">
-                <input 
-                className="inputUpdate"
+                <input
+                  className="inputUpdate"
                   type="checkbox"
                   name="destacado"
                   id="destacado"
@@ -517,7 +515,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
             </div>
             <div className="d-flex flex-row justify-content-around my-4">
               <div>
-                <button type="submit" className="btn-toRegister">
+                <button type={viewSubmit ? "submit" : 'button'} className="btn-toRegister">
                   Agregar{" "}
                   {loading ? <i className="fas fa-spinner fa-pulse"></i> : null}
                 </button>

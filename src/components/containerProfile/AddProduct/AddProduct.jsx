@@ -115,7 +115,6 @@ export const AddProduct = ({ setSuccess, success }) => {
   };
   const submit = async (data, e) => {
     data.tags = tags;
-    console.log(data);
     let newData = {
       ...data,
     };
