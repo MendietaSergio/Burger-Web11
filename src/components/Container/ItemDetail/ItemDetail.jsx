@@ -106,12 +106,11 @@ export const ItemDetail = ({ productDetail, loading, success }) => {
                                     {tags.length > 0 ? (
                                         <ul>
                                             {tags.map((tag, index) => (
-                                                <li key={index}>{tag}</li>
+                                                <li className='listTags' key={index}>{tag}</li>
                                             ))}
                                         </ul>
                                     ) : (<span>No hay datos a mostrar</span>)}
                                 </div>
-                                <span className='detail-categorie'>{descripcion}</span>
                                 <div className='d-flex justify-content-center'>
                                     {cantView ? (
                                         <div className='d-flex flex-row justify-content-center w-100'>

@@ -41,22 +41,11 @@ export const ValidationAddProduct = {
   descripcion: {
     minLength: {
       value: 20,
-      message: "Debe tener al menos 5 carácteres.",
+      message: "Debe tener al menos 20 carácteres.",
     },
     maxLength: {
-      value: 100,
-      message: "El máximo son 100 carácteres.",
-    },
-  },
-  ingredientes: {
-    //VER MAS ADELANTE SI DEJARLO REQUERIDO O NO, EN BASE A SU CATEGORIA
-    minLength: {
-      value: 5,
-      message: "Debe tener al menos 5 carácteres.",
-    },
-    maxLength: {
-      value: 100,
-      message: "El máximo son 100 carácteres.",
+      value: 800,
+      message: "El máximo son 800 carácteres.",
     },
   },
   img: {

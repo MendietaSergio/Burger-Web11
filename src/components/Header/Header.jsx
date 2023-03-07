@@ -6,12 +6,15 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
 import { types } from '../../Types/Types'
 import { CartContextUse } from '../../Context/CartContextProvider'
+import { DetectSizeContextUse } from '../../Context/DetectSizeProvider'
+import imgPort from '../../Img/logo.png'
 
-export const Header = ({ widthImg, edit = false, viewImg, imgChange }) => {
+export const Header = ({ edit = false, viewImg, imgChange }) => {
     const [showCartList, setShowCartList] = useState(false)
     const [menuCategorie, setMenuCategorie] = useState({})
     const [loading, setLoading] = useState(false)
     const { user, dispatch } = useContext(AuthContext)
+    const { widthImg } = DetectSizeContextUse()
     const [cantCart, setCantCart] = useState(0)
     const { nombre } = user;
     const { cart } = CartContextUse()

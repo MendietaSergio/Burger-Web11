@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Header } from './components/Header/Header'
@@ -15,6 +15,7 @@ import { AuthContext } from './Auth/AuthContext'
 import { AuthReducer } from './Auth/AuthReducer'
 import { CartContextProvider } from './Context/CartContextProvider'
 import { ScrollToTop } from './components/ScrollToTop/ScrollToTop'
+import { DetectSizeProvider } from './Context/DetectSizeProvider'
 
 const init = () => {
   return JSON.parse(localStorage.getItem('userBurger')) || {
@@ -29,42 +30,32 @@ function App() {
   useEffect(() => {
     localStorage.setItem("userBurger", JSON.stringify(user, null, 3))
   }, [user])
-  const [widthImg, setWidthImg] = useState(window.innerWidth)
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [window.innerWidth]);
-
-  const handleResize = () => {
-    setWidthImg(window.innerWidth);
-  };
   return (
     <AuthContext.Provider
       value={{ user, dispatch }}
     >
       <CartContextProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <div className="container-fluid">
-            <Header setWidthImg={setWidthImg} widthImg={widthImg} widthMin={992} />
-            <Routes>
-              <Route path='/' element={<Home setWidthImg={setWidthImg} widthImg={widthImg} />} />
-              <Route path='/productos' element={<Productos cantPages={false} />} />
-              <Route path='/productos/:idCategoria' element={<Productos />} />
-              <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
-              <Route path='/productos/detalle/:idDetail' element={<Detail />} />
-              <Route path='/ingresar' element={<LoginPages />} />
-              <Route path='/registrarse' element={<RegisterPages />} />
-              <Route path='/micuenta/:dataProfile' element={<Myaccount />} />
-              <Route path='/micarrito' element={<Cart />} />
-              <Route path='*' element={<ErrorFound />} />
-            </Routes>
-            <Footer />
-          </div>
-        </BrowserRouter>
+        <DetectSizeProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <div className="container-fluid">
+              <Header widthMin={992} />
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/productos' element={<Productos cantPages={false} />} />
+                <Route path='/productos/:idCategoria' element={<Productos />} />
+                <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
+                <Route path='/productos/detalle/:idDetail' element={<Detail />} />
+                <Route path='/ingresar' element={<LoginPages />} />
+                <Route path='/registrarse' element={<RegisterPages />} />
+                <Route path='/micuenta/:dataProfile' element={<Myaccount />} />
+                <Route path='/micarrito' element={<Cart />} />
+                <Route path='*' element={<ErrorFound />} />
+              </Routes>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </DetectSizeProvider>
       </CartContextProvider>
     </AuthContext.Provider>
   )

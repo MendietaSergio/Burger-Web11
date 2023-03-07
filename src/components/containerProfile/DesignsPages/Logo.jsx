@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { DetectSize } from '../../../utils/DetectSize'
 import { Header } from '../../Header/Header'
 
 export const Logo = ({ options }) => {
     const { register, handleSubmit, reset, formState: { errors }, watch } = useForm()
-    const { widthImg, setWidthImg } = DetectSize()
     const [imgChange, setImgChange] = useState(false)
     const [checkSubmit, setCheckSubmit] = useState(false)
     const [viewImg, setViewImg] = useState("http://localhost:3000/src/img/imgDefault.png")
@@ -49,7 +47,7 @@ export const Logo = ({ options }) => {
 
         return (
             <>
-                <Header setWidthImg={setWidthImg} widthImg={widthImg} edit={true} viewImg={viewImg} imgChange={imgChange} widthMin={1200} />
+                <Header edit={true} viewImg={viewImg} imgChange={imgChange} widthMin={1200} />
                 <div className='container-desings-options'>
                     <form onSubmit={handleSubmit(submitLogo)}>
                         <div className='col-12 col-md-12 d-flex flex-column align-items-center'>

@@ -22,6 +22,7 @@ export const Detail = () => {
   }
   useEffect(() => {
     setLoading(true)
+    setShowLine(true)
     getProductDetail()
   }, [idDetail])
   return (
@@ -51,10 +52,10 @@ export const Detail = () => {
                 viewDescription={true}
               />
             ) : (
-              <Description />
+              <Description descripcion={productDetail.descripcion} />
             )
             ) : (
-              <Ratings />
+              <Ratings productDetail={productDetail} />
             )}
           </div>
         </div>

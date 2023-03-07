@@ -31,6 +31,10 @@
     padding       : 10px;
 }
 
+.detail-categorie {
+    white-space: pre-line;
+}
+
 .detail-list {
     padding   : 0 28px;
     height    : 200px;
@@ -41,6 +45,14 @@
 
 .detail-subItem {
     color: #FF515C;
+}
+
+.listTags::marker {
+    color: var(--rojo);
+}
+
+.listTags span {
+    color: black;
 }
 
 .container-options {
@@ -61,8 +73,17 @@
     border : solid 1px #747171db;
 }
 
-.detail-warning a {
+.detail-raings-login a {
     color: #FF515C;
+}
+
+.detail-raings-login {
+    padding   : 20px;
+    border    : solid 1px #747171db;
+    width     : auto;
+    max-width : 50%;
+    text-align: center;
+    margin    : 0 auto;
 }
 
 .view-options {

@@ -4,15 +4,18 @@ import { FeaturedProduct } from '../components/FeaturedProduct/FeaturedProduct'
 import { HappyCustomers } from '../components/HappyCustomers/HappyCustomers'
 import { OptionsSelection } from '../components/OptionsSelection/OptionsSelection'
 import { PortBurger } from '../components/PortBurger/PortBurger'
+import { Ubication } from '../components/Ubication/Ubication'
 
-export const Home = ({ widthImg, setWidthImg }) => {
+export const Home = () => {
   return (
     <div>
-      <PortBurger setWidthImg={setWidthImg} widthImg={widthImg} />
-      <OptionsSelection />
+      <div className='row container-imgFondo'>
+        <PortBurger />
+        <OptionsSelection />
+      </div>
       <FeaturedProduct />
       <Banner />
-      <HappyCustomers />
+      <Ubication />
     </div>
   )
 }

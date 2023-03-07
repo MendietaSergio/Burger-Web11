@@ -1,17 +1,23 @@
 .container_img {
-    height: 350px;
+    height         : auto;
+    justify-content: center;
+    align-items    : center;
+    display        : flex;
 }
 
 .img_port {
     max-width          : 100%;
     background-position: center;
-    margin: 0 !important;
+    margin             : 0 !important;
 }
-.dropdown-menu{
+
+.dropdown-menu {
     background-color: #313131;
 }
+
 @media(min-width: 768px) {
     .img_port {
         height: 500px;
+        margin: 0 auto;
     }
 }

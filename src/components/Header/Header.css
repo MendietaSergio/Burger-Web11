@@ -4,7 +4,12 @@
 
 .row-header,
 .navbar {
-    background-color: #313131 !important;
+    background-color: #3131317d !important;
+}
+
+.row-header {
+    background-image: url('https://i.pinimg.com/564x/a4/64/c4/a464c416335db17d43cb43cb0e0e6268.jpg');
+    font-weight: 700;
 }
 
 .navbar a,
@@ -39,9 +44,11 @@
 .navbar-expand-md .navbar-toggler2 {
     display: flex;
 }
-.navbar-expand-md{
+
+.navbar-expand-md {
     justify-content: space-between;
 }
+
 .navbar-toggler2 {
     padding         : 0.25rem 0.75rem;
     font-size       : 1.25rem;
@@ -50,6 +57,7 @@
     border          : 1px solid transparent;
     border-radius   : 0.25rem;
 }
+
 @media(min-width: 992px) {
     .navbar-collapse {
         display        : flex;
@@ -84,7 +92,7 @@
         display: none;
     }
 
-    
+
 
     /* .navbar-expand-lg2 .navbar-toggler2 {
         display: flex;
