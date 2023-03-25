@@ -7,6 +7,7 @@ import { Navigation } from "../components/Navigation/Navigation";
 import { SkeletonCard } from "../components/Skeleton/SkeletonCard";
 import { Title } from "../components/Title/Title";
 import { useAllProduct } from "../hooks/useAllProduct";
+import { scrollToTop } from "../utils/ScrollToTop";
 import "./filter.css";
 export const Productos = ({
   admin = false,
@@ -51,7 +52,10 @@ export const Productos = ({
   }, [filter]);
 
   //PAGINACION
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    scrollToTop()
+  }
   //FUNCION PARA DEFITIR TIPO DE FILTRO
   const TopToLow = (filter) => {
     setLoading(true);
