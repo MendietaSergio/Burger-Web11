@@ -70,8 +70,8 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
 
         return (
             <>
-                <div className='col-12'>
-                    <div className="container-cartTotal">
+                <div className='col-12 '>
+                    <div className="container-cartTotal mt-5">
                         {data === null ? <span>cargando...</span> : (
                             <>
                                 <div className="container-cartTotal-section">
@@ -90,15 +90,12 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
                                             <span>${priceTotal}, 0</span>
                                         )}
                                     </div>
-                                    <div className="">
-                                        <button type='submit' className='btn-toAccess' onClick={() => setViewForm(true)} >Avanzar</button>
-                                    </div>
                                 </div>
                             </>
                         )}
                     </div>
                 </div >
-                {viewForm && <FormOrder priceTotal={priceTotal} data={data} dataConfig={dataConfig} />}
+                <FormOrder priceTotal={priceTotal} data={data} dataConfig={dataConfig} />
             </>
         )
     }

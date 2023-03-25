@@ -51,7 +51,9 @@
 }
 
 .btn-toProducts:hover {
-    color: black;
+    color           : white;
+    text-decoration : none;
+    background-color: var(--rojoHover);
 }
 
 @media(min-width:768px) {

@@ -5,10 +5,11 @@
 }
 
 .navigation-page a {
-    padding-left : 6px;
-    cursor: pointer;
-    color    : black;
-    font-size: 15px;
+    padding-left   : 6px;
+    cursor         : pointer;
+    color          : black;
+    font-size      : 15px;
+    text-decoration: underline red;
 }
 
 .navigation-page a i {

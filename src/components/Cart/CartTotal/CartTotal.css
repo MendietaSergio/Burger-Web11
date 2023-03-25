@@ -40,7 +40,7 @@
 
 .container-cartTotal-info div:nth-last-child(1) {
     display        : flex;
-    justify-content: end;
+    justify-content: space-between;
     border         : none;
     padding        : 12px;
 }

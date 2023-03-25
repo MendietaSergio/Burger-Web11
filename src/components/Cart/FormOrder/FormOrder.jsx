@@ -6,6 +6,7 @@ import imgEfec from '../../../Img/pago-en-efectivo.png'
 import { validationFormOrder } from '../../../utils/ValidationFormOrder'
 import { CartContextUse } from '../../../Context/CartContextProvider'
 import { MessageWsp } from '../../../utils/MessageWsp'
+import { Title } from '../../Title/Title'
 export const FormOrder = ({ priceTotal, data, dataConfig }) => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [wayToPay, setWayToPay] = useState({
@@ -35,6 +36,7 @@ export const FormOrder = ({ priceTotal, data, dataConfig }) => {
     }
     return (
         <div className='container'>
+            <Title title="Formulario de contacto" />
             <form onSubmit={handleSubmit(sendWsp)} className="form-order my-5">
                 <div className='row'>
                     <div className="col-12  col-md-6">
