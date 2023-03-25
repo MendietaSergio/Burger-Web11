@@ -5,6 +5,7 @@ import deleteIcon from "../../../Img/delete.png";
 import editIcon from "../../../Img/edit.png";
 import axios from "axios";
 import { CartContextUse } from "../../../Context/CartContextProvider";
+import { useDeleteProducts } from "../../../hooks/useDeleteProducts";
 
 export const Card = ({
   product,
@@ -21,35 +22,8 @@ export const Card = ({
   const [cantView, setCantView] = useState(false);
   const [cant, setCant] = useState(1);
   const [update, setUpdate] = useState(false);
-  const deleteProduct = async (_id) => {
-    Swal.fire({
-      title: "¿Eliminarlo?",
-      text: "¿Estas seguro que quieres eliminar el articulo?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminarlo!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await axios
-          .delete(`http://localhost:3001/api/products/eliminar-producto/${_id}`)
-          .then((resp) => {
-            if (resp.data.ok) {
-              setSuccess(true);
-              Swal.fire("Eliminado!", `${resp.data.msg}`, "success");
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: `${resp.data.msg}`,
-                footer: '<a href="">Why do I have this issue?</a>',
-              });
-            }
-          });
-      }
-    });
-  };
+  const { deleteProduct } = useDeleteProducts()
+
   const viewData = (e) => {
     setView(true);
     setIdProduct(product._id);
@@ -235,7 +209,7 @@ export const Card = ({
             src={deleteIcon}
             alt="deleteIcon"
             className="optionIcon"
-            onClick={() => deleteProduct(product._id)}
+            onClick={() => deleteProduct(product._id, setSuccess)}
           />
         </div>
       </div>

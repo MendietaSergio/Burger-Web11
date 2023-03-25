@@ -9,7 +9,7 @@
 
 .row-header {
     background-image: url('https://i.pinimg.com/564x/a4/64/c4/a464c416335db17d43cb43cb0e0e6268.jpg');
-    font-weight: 700;
+    font-weight     : 700;
 }
 
 .navbar a,
@@ -27,6 +27,10 @@
     display: none;
 }
 
+.edit-logo {
+    font-size: 12px !important;
+}
+
 .navbar-toggler-icon {
     background-color: white;
 }
@@ -37,8 +41,12 @@
 }
 
 .imgLogo {
-    width : 50px;
-    height: 50px;
+    width : 100px;
+    height: 85px;
+}
+
+.font-header-edit {
+    font-size: 12px;
 }
 
 .navbar-expand-md .navbar-toggler2 {

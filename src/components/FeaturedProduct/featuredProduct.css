@@ -186,7 +186,7 @@
     width: 100px;
   }
   .container-img-featuredProductUpdate {
-    width: 100px;
+    /* width: 100px; */
   }
 }
 @media (min-width: 1024px) {

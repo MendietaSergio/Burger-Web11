@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useConfig } from '../../../hooks/useConfig'
+import { FormOrder } from '../FormOrder/FormOrder'
 import './CartTotal.css'
 export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList }) => {
+    const [data, setData] = useState(null)
+    const [viewForm, setViewForm] = useState(false)
+    const {
+        getConfig,
+        dataConfig,
+        loading
+    } = useConfig()
+    useEffect(() => {
+        getConfig()
+    }, [])
+    useEffect(() => {
+        if (dataConfig) {
+            setData(dataConfig[0])
+        }
+    }, [dataConfig])
     const deleteCart = () => {
         setShowCartList(false)
         Swal.fire({
@@ -26,9 +43,22 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
     if (viewCartModal) {
         return (
             <>
-                <div className="col-12 container-itemcart-modal">
-                    <span>Total: ${priceTotal},00</span>
-                </div>
+                {data === null ? <span>cargando...</span> : (
+                    <>
+                        <div className="col-12 container-itemcart-modal">
+                            <span>Envío:</span>
+                            <span>${data.envio ? data.valorEnvio : 'Sin cargo'}</span>
+                        </div>
+                        <div className="col-12 container-itemcart-modal">
+                            <span>Total:</span>
+                            {data.envio ? (
+                                <span>${priceTotal + data.valorEnvio}</span>
+                            ) : (
+                                <span>${priceTotal}, 0</span>
+                            )}
+                        </div>
+                    </>
+                )}
                 <div className="col-12 container-btncart-modal">
                     <button type='submit' className='btn-toAccess my-2' ><Link className='btn-viewCart' to="/micarrito" onClick={() => setShowCartList(false)}>Ver carrito</Link></button>
                     <button type='submit' className='btn-toAccess my-2' onClick={() => deleteCart()} >Vaciar carrito</button>
@@ -38,27 +68,37 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
     } else {
 
         return (
-            <div className='col-12'>
-                <div className="container-cartTotal">
-                    <div className="container-cartTotal-section">
-                        <h5 className=''>Total del carrito</h5>
+            <>
+                <div className='col-12'>
+                    <div className="container-cartTotal">
+                        {data === null ? <span>cargando...</span> : (
+                            <>
+                                <div className="container-cartTotal-section">
+                                    <h5 className=''>Total del carrito</h5>
+                                </div>
+                                <div className='container-cartTotal-info'>
+                                    <div className="">
+                                        <span>Envío:</span>
+                                        <span>${data.envio ? data.valorEnvio : 'Sin cargo'}</span>
+                                    </div>
+                                    <div className="">
+                                        <span>Total:</span>
+                                        {data.envio ? (
+                                            <span>${priceTotal + data.valorEnvio}</span>
+                                        ) : (
+                                            <span>${priceTotal}, 0</span>
+                                        )}
+                                    </div>
+                                    <div className="">
+                                        <button type='submit' className='btn-toAccess' onClick={() => setViewForm(true)} >Avanzar</button>
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </div>
-                    <div className='container-cartTotal-info'>
-                        <div className="">
-                            <span>Total:</span>
-                            <span>${priceTotal},0</span>
-                        </div>
-                        <div className="">
-                            <span>Envío:</span>
-                            <span></span>
-                        </div>
-                        <div className="">
-                            <button type='submit' className='btn-toAccess' >Finalizar compra</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </div >
+                {viewForm && <FormOrder priceTotal={priceTotal} data={data} dataConfig={dataConfig} />}
+            </>
         )
     }
-
 }
