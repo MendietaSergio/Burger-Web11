@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useConfig } from '../../../hooks/useConfig'
+import { SkeletonCard } from '../../Skeleton/SkeletonCard'
 import { FormOrder } from '../FormOrder/FormOrder'
 import './CartTotal.css'
 export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList }) => {
@@ -43,7 +44,7 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
     if (viewCartModal) {
         return (
             <>
-                {data === null ? <span>cargando...</span> : (
+                {data === null ? <SkeletonCard viewEnvio={true} /> : (
                     <>
                         <div className="col-12 container-itemcart-modal">
                             <span>Envío:</span>

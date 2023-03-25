@@ -9,7 +9,8 @@ export const SkeletonCard = ({
   viewDescription = false,
   viewListProduct = false,
   viewListClients = false,
-  featuredProduct = false
+  featuredProduct = false,
+  viewEnvio = false
 }) => {
   if (skeletonImg) {
     return (
@@ -187,11 +188,36 @@ export const SkeletonCard = ({
       </>
     )
   }
+  if (viewEnvio) {
+    return (
+      <div className="col-12 my-2">
+        <div className='viewEnvio loading'>
+          <div className="contentEnvio">
+            <div className="detailsEnvio my-2">
+            </div>
+            <div className="detailsEnvio my-2">
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
   else {
     return (
       null
     )
   }
-
+  {/* <div className="col-12 container-itemcart-modal">
+                            <span>Envío:</span>
+                            <span>${data.envio ? data.valorEnvio : 'Sin cargo'}</span>
+                        </div>
+                        <div className="col-12 container-itemcart-modal">
+                            <span>Total:</span>
+                            {data.envio ? (
+                                <span>${priceTotal + data.valorEnvio}</span>
+                            ) : (
+                                <span>${priceTotal}, 0</span>
+                            )}
+                        </div> */}
 
 }
