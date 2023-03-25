@@ -32,7 +32,7 @@ export const optionsProfile = [
         option: false,
     },
     {
-        name: 'diseño',
+        name: 'configuracion',
         option: false,
     }
 ]

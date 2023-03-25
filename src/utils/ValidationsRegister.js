@@ -1,14 +1,14 @@
 export const validations = {
-    nombre:{
-        required:{
+    nombre: {
+        required: {
             value: true,
-            message:"El nombre es requerido"
+            message: "El nombre es requerido"
         }
     },
-    usuario:{
-        required:{
+    usuario: {
+        required: {
             value: true,
-            message:"El usuario es requerido",
+            message: "El usuario es requerido",
         }
     },
     email: {
@@ -31,26 +31,32 @@ export const validations = {
             message: "La contraseña debe contener mayusculas, menisculas, números y simbolos."
         }
     },
-    domicilio:{
-        required:{
+    domicilio: {
+        required: {
             value: true,
-            message:"El nombre es requerido"
+            message: "El nombre es requerido"
         }
     },
-    descripcion:{
-        minLength:{
-            value:20,
+    descripcion: {
+        minLength: {
+            value: 20,
             message: "Debe tener al menos 5 carácteres."
         },
-        maxLength:{
-            value:50,
+        maxLength: {
+            value: 50,
             message: "El máximo son 20 carácteres."
         },
     },
-    roles:{
-        required:{
+    roles: {
+        required: {
             value: true,
             message: "El rol de obligatorio."
+        }
+    },
+    rememberMe: {
+        required: {
+            value: true,
+            message: "Debe aceptar los terminos y condiciones."
         }
     }
 }
