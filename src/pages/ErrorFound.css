@@ -1,0 +1,33 @@
+.container-notPages {
+    height         : 70vh;
+    margin         : 0 auto;
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+}
+
+.imgNotFound {
+    width        : 250px;
+    height       : 250px;
+    border-radius: 20px;
+}
+
+.list-enlaces {
+    display   : flex;
+    list-style: none;
+}
+
+.list-enlaces li {
+    background-color: var(--rojo);
+    margin          : 15px;
+}
+
+.list-enlaces li:hover {
+    background-color: var(--rojoHover);
+}
+
+.list-enlaces li a {
+    color      : white;
+    font-weight: 700;
+}
