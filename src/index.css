@@ -23,6 +23,7 @@ body {
     sans-serif;
   -webkit-font-smoothing : antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color       : #00000073;
 }
 
 code {
@@ -136,4 +137,36 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #34495e;
   transition      : .25s all ease;
   pointer-events  : none;
+}
+
+.container-loading-home {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  flex-direction : column;
+  height         : 100vh;
+}
+
+.nb-spinner {
+  width            : 75px;
+  height           : 75px;
+  margin           : 0;
+  background       : transparent;
+  border-top       : 4px solid #009688;
+  border-right     : 4px solid transparent;
+  border-radius    : 50%;
+  -webkit-animation: 1s spin linear infinite;
+  animation        : 1s spin linear infinite;
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform        : rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform        : rotate(360deg);
+  }
 }

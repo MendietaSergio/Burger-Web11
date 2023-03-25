@@ -1,6 +1,5 @@
-import { useReducer, useEffect } from 'react'
+import { useReducer, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
 import { Header } from './components/Header/Header'
 import { Home } from './pages/Home'
 import { Productos } from './pages/Productos'
@@ -16,49 +15,59 @@ import { AuthReducer } from './Auth/AuthReducer'
 import { CartContextProvider } from './Context/CartContextProvider'
 import { ScrollToTop } from './components/ScrollToTop/ScrollToTop'
 import { DetectSizeProvider } from './Context/DetectSizeProvider'
-
+import { useConfig } from './hooks/useConfig'
 const init = () => {
   return JSON.parse(localStorage.getItem('userBurger')) || {
     logueado: false
   }
 }
-
 function App() {
-
   const [user, dispatch] = useReducer(AuthReducer, {}, init)
+  const [status, setStatus] = useState(true)
 
+  const { getConfig, dataConfig, loading } = useConfig()
   useEffect(() => {
     localStorage.setItem("userBurger", JSON.stringify(user, null, 3))
   }, [user])
-  return (
-    <AuthContext.Provider
-      value={{ user, dispatch }}
-    >
-      <CartContextProvider>
-        <DetectSizeProvider>
-          <BrowserRouter>
-            <ScrollToTop />
-            <div className="container-fluid">
-              <Header widthMin={992} />
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/productos' element={<Productos cantPages={false} />} />
-                <Route path='/productos/:idCategoria' element={<Productos />} />
-                <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
-                <Route path='/productos/detalle/:idDetail' element={<Detail />} />
-                <Route path='/ingresar' element={<LoginPages />} />
-                <Route path='/registrarse' element={<RegisterPages />} />
-                <Route path='/micuenta/:dataProfile' element={<Myaccount />} />
-                <Route path='/micarrito' element={<Cart />} />
-                <Route path='*' element={<ErrorFound />} />
-              </Routes>
-              <Footer />
-            </div>
-          </BrowserRouter>
-        </DetectSizeProvider>
-      </CartContextProvider>
-    </AuthContext.Provider>
-  )
+  useEffect(() => {
+    if (status) {
+      return getConfig()
+    }
+  }, [status])
+
+  if (!dataConfig) {
+    return <div className='container-loading-home'><div className="nb-spinner"></div></div>
+  } else {
+    return (
+      <AuthContext.Provider
+        value={{ user, dispatch }}
+      >
+        <CartContextProvider>
+          <DetectSizeProvider>
+            <BrowserRouter>
+              <ScrollToTop />
+              <div className="container-fluid">
+                <Header widthMin={992} loading={loading} dataConfig={dataConfig[0]} />
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/productos' element={<Productos cantPages={false} allProducts={true} />} />
+                  <Route path='/productos/:idCategoria' element={<Productos />} />
+                  <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
+                  <Route path='/productos/detalle/:idDetail' element={<Detail />} />
+                  <Route path='/ingresar' element={<LoginPages />} />
+                  <Route path='/registrarse' element={<RegisterPages />} />
+                  <Route path='/micuenta/:dataProfile' element={<Myaccount setStatus={setStatus} />} />
+                  <Route path='/micarrito' element={<Cart />} />
+                  <Route path='*' element={<ErrorFound />} />
+                </Routes>
+                <Footer />
+              </div>
+            </BrowserRouter>
+          </DetectSizeProvider>
+        </CartContextProvider>
+      </AuthContext.Provider>
+    )
+  }
 }
 
 export default App

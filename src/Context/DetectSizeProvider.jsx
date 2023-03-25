@@ -6,7 +6,6 @@ export const DetectSizeContextUse = () => {
 }
 
 export const DetectSizeProvider = ({ children }) => {
-    console.log(window.innerWidth);
     const [widthImg, setWidthImg] = useState(window.innerWidth)
     useEffect(() => {
         window.addEventListener("resize", handleResize);
@@ -19,7 +18,6 @@ export const DetectSizeProvider = ({ children }) => {
     const handleResize = () => {
         setWidthImg(window.innerWidth);
     };
-    console.log(widthImg + " detectSize");
     return (
         <DetectSizeContext.Provider value={{ widthImg, setWidthImg }} >
             {children}
