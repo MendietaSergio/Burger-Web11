@@ -1,95 +1,46 @@
-import axios from 'axios'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, Navigate } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
-import { types } from '../../Types/Types'
+import { useRegister } from '../../hooks/useRegister'
 import { validations } from '../../utils/ValidationsRegister'
 import { Message } from '../Message/Message'
-import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
 import { Title } from '../Title/Title'
 import './Register.css'
 
 export const Register = ({ title = "Registrarse", admin = false, setNewRegister }) => {
   const { dispatch } = useContext(AuthContext)
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
-  const [viewMessage, setViewMessage] = useState(false)
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [succes, setSucces] = useState(false)
-  const [changeClassName, setChangeClassName] = useState(false)
+  const {
+    sendNewUser,
+    message,
+    setMessage,
+    viewMessage,
+    setViewMessage,
+    loading,
+    success,
+    changeClassName,
+  } = useRegister()
   const submit = async (data) => {
     setViewMessage(false)
     setMessage('')
-    const { nombre, usuario, email, password, roles } = data;
-    await axios.post('http://localhost:3001/api/auth/signup', {
-      nombre,
-      usuario,
-      email,
-      password,
-      roles,
-      admin
-    })
-      .then(res => {
-        setLoading(true)
-        if (res.data.ok) {
-          setChangeClassName(true)
-          if (!admin) {
-            handleLogin(res.data.logeado)
-            setTimeout(() => {
-              setSucces(true)
-              setLoading(false)
-            }, 2000)
-          } else {
-            setNewRegister(true)
-            setLoading(true)
-            setMessage(res.data.msg)
-            setTimeout(() => {
-              setNewRegister(false)
-              setViewMessage(true)
-              setLoading(false)
-              reset()
-            }, 2000)
-          }
-        } else {
-          setChangeClassName(false)
-          setViewMessage(true)
-          setMessage(res.data.msg)
-          setLoading(false)
-        }
-      })
+    if (admin) data.admin = admin
+    sendNewUser({ admin, data, dispatch, setNewRegister, reset })
   }
-
-  useEffect(() => {
-    if (viewMessage) {
-      window.scroll({
-        top: 0,
-        letf: 0,
-        behavior: 'smooth'
-      });
-      setTimeout(() => setViewMessage(false), 3000)
-    }
-  }, [viewMessage])
-  const handleLogin = (data) => {
-
-    dispatch({
-      type: types.login,
-      payload: {
-        ...data
-      }
-    })
-  }
-
   return (
     <>
       {admin ? (null) : (
-        succes && <Navigate to="/micuenta" />
+        success && <Navigate to="/micuenta/datos-personales" />
       )}
       <div className="container-form">
         <div className="container-form-body">
           <Title title={title} bar={false} />
           {viewMessage ?
-            (<Message message={message} viewMessage={viewMessage} setViewMessage={setViewMessage} className={`container-message-register ${changeClassName ? 'alert-success' : 'alert-danger'}`} />) : (null)
+            (<Message
+              message={message}
+              viewMessage={viewMessage}
+              setViewMessage={setViewMessage}
+              className={`container-message-register ${changeClassName ? 'alert-success' : 'alert-danger'}`} />) : (null)
           }
         </div>
         <form onSubmit={handleSubmit(submit)} className="form-login">
@@ -137,14 +88,20 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
                 <div className={`container-errors`}>
                   {errors.roles ? <small className='text-danger'>{errors.roles.message}</small> : null}
                 </div>
-
               </div>
             ) : null}
           </div>
           {admin ? null : (
             <div className='d-flex justify-content-start align-items-baseline'>
-              <input name="rememberMe" type="checkbox" />
+              <input
+                name="rememberMe"
+                type="checkbox"
+                className={errors.rememberMe ? ("is-invalid") : ("is-valid")}
+                {...register('rememberMe', validations.rememberMe)} />
               <label htmlFor='rememberMe' name="rememberMe" className='px-2'>Acepto termino y condiciones</label>
+              <div className={`container-errors`}>
+                {errors.rememberMe ? <small className='text-danger'>{errors.rememberMe.message}</small> : null}
+              </div>
             </div>
           )}
           <div className='d-flex flex-row justify-content-around'>
@@ -166,16 +123,13 @@ export const Register = ({ title = "Registrarse", admin = false, setNewRegister 
             </div>
           </div>
           {admin ? null : (
-
             <div>
               <small >¿Tenes una cuenta? <Link className='info-register' to='/ingresar'>¡Logeate!</Link></small>
             </div>
           )}
         </form>
         <div className='container_info_register'>
-
           <div className='d-flex justify-content-center'>
-
             <span>La contraseña debe complir con la siguiente forma:</span>
             <ul>
               <li>Debe tener mas de 8 caracteres</li>

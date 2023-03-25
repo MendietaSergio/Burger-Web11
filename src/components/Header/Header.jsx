@@ -1,36 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { CartModal } from '../Cart/CartModal/CartModal'
-import './Header.css'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthContext'
 import { types } from '../../Types/Types'
 import { CartContextUse } from '../../Context/CartContextProvider'
 import { DetectSizeContextUse } from '../../Context/DetectSizeProvider'
-import imgPort from '../../Img/logo.png'
+import { useCategories } from '../../hooks/useCategories'
 
-export const Header = ({ edit = false, viewImg, imgChange }) => {
+import './Header.css'
+export const Header = ({ edit = false, viewImg, imgChange, dataConfig, viewTitleLogo, viewText }) => {
     const [showCartList, setShowCartList] = useState(false)
-    const [menuCategorie, setMenuCategorie] = useState({})
-    const [loading, setLoading] = useState(false)
     const { user, dispatch } = useContext(AuthContext)
     const { widthImg } = DetectSizeContextUse()
     const [cantCart, setCantCart] = useState(0)
     const { nombre } = user;
     const { cart } = CartContextUse()
-    useEffect(() => {
-        const getCategories = async () => {
-            await axios.get('http://localhost:3001/api/products/categories')
-                .then((res) => {
-                    setMenuCategorie(res.data)
-                })
-                .catch((error) => console.log(error))
-                .finally(() => {
-                    setLoading(true)
-                })
-        }
-        getCategories()
-    }, [])
+    const { menuCategorie, loading } = useCategories();
     useEffect(() => {
         setCantCart(cart.length)
     }, [cart])
@@ -42,7 +27,6 @@ export const Header = ({ edit = false, viewImg, imgChange }) => {
         JSON.parse(localStorage.getItem('userBurger')) || {
             logueado: false
         }
-
     }
     if (edit) {
         return (
@@ -50,17 +34,17 @@ export const Header = ({ edit = false, viewImg, imgChange }) => {
                 <div className='container'>
                     <nav className="navbar navbar-expand-md navbar-light bg-light">
                         {edit ? (
-                            imgChange ? (<Link className="navbar-brand" to="/">Burger</Link>) : (<img className='imgLogo' src={viewImg} title="logo" />)
-                        ) : (<Link className="navbar-brand" to="/">Burger</Link>)}
+                            viewTitleLogo ? (<img className='imgLogo' src={viewImg} title="logo" />) : ((<Link className="navbar-brand" to="/">{viewText}</Link>))
+                        ) : (null)}
 
                         <div className="cart-icon-movil2 ml-4 my-2 my-lg-0">
                             0<i className="fas fa-shopping-cart"></i>
                         </div>
-                        <button className="navbar-toggler2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button className="navbar-toggler2" type="button">
                             <span className="navbar-toggler-icon"></span>
                         </button>
 
-                        <div className="collapse navbar-collapse2 " id="navbarSupportedContent">
+                        <div className="collapse font-header-edit navbar-collapse2 " id="navbarSupportedContent">
                             <ul className="navbar-nav d-flex justify-content-end">
                                 <li className="nav-item">
                                     <a className="nav-link" to="#" data-toggle="collapse"
@@ -105,15 +89,13 @@ export const Header = ({ edit = false, viewImg, imgChange }) => {
         )
 
     } else {
-
         return (
             <div className='row row-header'>
                 <div className='container'>
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        {edit ? (
-                            imgChange ? (<Link className="navbar-brand" to="/">Burger</Link>) : (<img className='imgLogo' src={viewImg} title="logo" />)
-                        ) : (<Link className="navbar-brand" to="/">Burger</Link>)}
-
+                        {dataConfig.mostrarLogo ? (
+                            <Link className="navbar-brand" to="/" ><img className='imgLogo' src={dataConfig.logo.img} title="logo" /></Link>
+                        ) : (<Link className="navbar-brand" to="/">{dataConfig.titulo}</Link>)}
                         <div className="cart-icon-movil ml-4 my-2 my-lg-0">
                             {cantCart}<i className="fas fa-shopping-cart" onClick={() => setShowCartList(!showCartList)}></i>
                             {
@@ -138,7 +120,6 @@ export const Header = ({ edit = false, viewImg, imgChange }) => {
                                             aria-controls="navbarSupportedContent"
                                             aria-expanded="false" aria-label="Toggle navigation">Inicio </Link>
                                     )}
-
                                 </li>
                                 <li className="nav-item">
                                     {widthImg > 992 ? (
@@ -318,3 +299,4 @@ export const Header = ({ edit = false, viewImg, imgChange }) => {
         )
     }
 }
+

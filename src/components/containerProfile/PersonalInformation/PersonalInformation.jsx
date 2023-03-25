@@ -1,79 +1,31 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
-import { types } from '../../../Types/Types'
+import { useUserData } from '../../../hooks/useUserData'
 import { validations } from '../../../utils/ValidationsRegister'
 import { Message } from '../../Message/Message'
 
 import './PersonalInformation.css'
 export const PersonalInformation = ({ estados, user, dispatch }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const [viewMessage, setViewMessage] = useState(false)
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [succes, setSucces] = useState(false)
-    const { dataProfile } = useParams()
     const { nombre, email, _id, usuario, domicilio, descripcion } = user;
+    const { sendDataUser,
+        message,
+        loading,
+        success,
+        setViewMessage,
+        viewMessage } = useUserData()
     const submit = async (data) => {
-        setViewMessage(false)
-        setMessage('')
-        const { nombre, usuario, email, domicilio, descripcion } = data;
-        await axios.put(`http://localhost:3001/api/user/${_id}`, {
-            nombre,
-            usuario,
-            email,
-            domicilio,
-            descripcion
-        })
-            .then(res => {
-                setLoading(true)
-                if (res.data.ok) {
-                    localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
-                    handleLogin(res.data.logeado)
-                    setMessage('Datos actualizados..!')
-                    setSucces(true)
-                    setTimeout(() => {
-                        setLoading(false)
-                        setViewMessage(true)
-                    }, 2000)
-
-                } else {
-                    setLoading(!loading)
-                    setMessage(res.data.message)
-                    setMessage('Error al actualizar datos!')
-                    setSucces(false)
-
-                    setTimeout(() => {
-                        setViewMessage(true)
-                        setLoading(false)
-                    }, 2000)
-                }
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setViewMessage(false)
-                }, 5000)
-            })
-    }
-    const handleLogin = (data) => {
-        dispatch({
-            type: types.login,
-            payload: {
-                ...data
-            }
-        })
+        sendDataUser(data, _id, dispatch)
     }
     return (
         <>
-
             <div className="container-message">
                 {viewMessage ?
                     (<Message
                         message={message}
                         viewMessage={viewMessage}
                         setViewMessage={setViewMessage}
-                        className={succes ? 'alert-success' : 'alert-danger'} />) : (null)
+                        className={success ? 'alert-success' : 'alert-danger'} />) : (null)
                 }
             </div>
             <div className="container-form">

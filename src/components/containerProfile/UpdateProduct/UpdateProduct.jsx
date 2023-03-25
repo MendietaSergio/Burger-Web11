@@ -1,16 +1,15 @@
-import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { ValidationAddProduct } from "../../../utils/ValidationAddProduct";
 import { Message } from "../../Message/Message";
-import { Title } from "../../Title/Title";
 import "./UpdateProduct.css";
 import clearImg from "../../../Img/closed.png";
-import imgDefault from "../../../Img/imgDefault.png";
-import { scrollToTop } from "../../../utils/ScrollToTop";
 import { TagsInput } from "../../TagsInput/TagsInput";
-
+import { useDetailProduct } from '../../../hooks/useDetailProduct'
+import { useCategories } from "../../../hooks/useCategories";
+import useUpdateProduct from "../../../hooks/useUpdateProduct";
+import { useCloudinary } from "../../../hooks/useCloudinary";
+import { changeImg, deleteImage } from "../../../utils/LoadImg";
 export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
   const {
     register,
@@ -20,133 +19,45 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
     watch,
     setValue,
   } = useForm();
-  const [viewMessage, setViewMessage] = useState(false);
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [loadingView, setLoadingView] = useState(true);
-  const [categoria, setCategoria] = useState([]);
-  const [totalCategoria, setTotalCategoria] = useState([]);
-  const [showDiscount, setShowDiscount] = useState(false);
-  const [valueOfert, setValueOfert] = useState();
-  const [tags, setTags] = useState([]);
-  const [product, setProduct] = useState({});
+  const [valueOfert, setValueOfert] = useState('si');
   const [viewSubmit, setViewSubmit] = useState(true)
-  const [showImgViewLoad, setShowImgViewLoad] = useState(true);
+  const [imgUpdate, setImgUpdate] = useState(null)
+
   const [newImg, setNewImg] = useState(
     "http://localhost:3000/src/img/imgDefault.png"
   );
   const [imgChange, setImgChange] = useState(false);
-  const changeImg = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setNewImg(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  };
-  const config = {
-    headaers: {
-      "Content-Type": "multipart/form-data",
-    },
-  };
-  const getProductDetail = async () => {
-    await axios
-      .get(`http://localhost:3001/api/products/detail/${_id}`)
-      .then((res) => {
-        setProduct(res.data.productDetail);
-        setTags(res.data.productDetail.tags)
-        setLoadingView(false);
-        if (res.data.productDetail.nombre_categoria.tipo !== "") {
-          setValue("categoria", "Bebidas");
-        }
-      });
-  };
+  const {
+    getProductDetail,
+    setTags,
+    product,
+    tags,
+    loadingView,
+  } = useDetailProduct()
+  const { menuCategorie, filteredCategory } = useCategories()
+  const { updateProducto,
+    viewMessage,
+    setViewMessage,
+    message,
+    setMessage,
+    showImgViewLoad,
+    setShowImgViewLoad } = useUpdateProduct()
+  const { uploadImage } = useCloudinary()
   useEffect(() => {
-    getProductDetail();
+    getProductDetail(_id, setValue);
   }, [_id, success]);
   useEffect(() => {
-    if (product.oferta === true) {
-      setShowDiscount(true);
+    if (product.oferta) {
+      setValueOfert('si')
     } else {
-      setShowDiscount(false);
+      setValueOfert('no')
     }
   }, [product]);
   useEffect(() => {
-    const getCategoria = async () => {
-      await axios
-        .get("http://localhost:3001/api/products/categories")
-        .then((resp) => {
-          let hash = {};
-          setTotalCategoria(resp.data);
-          setCategoria(
-            resp.data.filter((current) => {
-              let exists = !hash[current.nombre];
-              hash[current.nombre] = true;
-              return exists;
-            })
-          );
-        })
-        .catch((error) => console.log(error));
-    };
-    getCategoria();
-  }, []);
-  const updateProducto = async (data) => {
-    await axios
-      .put(`http://localhost:3001/api/products/update/${product._id}`, {
-        data,
-        config,
-      })
-      .then((resp) => {
-        if (resp.data.ok) {
-          setMessage(resp.data.msg);
-          setTimeout(() => {
-            reset();
-          }, 3000);
-        } else {
-          setMessage(resp.data.msg);
-        }
-      })
-      .finally(() => {
-        scrollToTop();
-        setViewMessage(true);
-        setSuccess(true);
-        setShowImgViewLoad(true);
-      });
-  };
-  const uploadImage = async (newData, img) => {
-    // CARGAR IMG
-    await axios
-      .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
-      .then((resp) => {
-        if (resp.status === 200) {
-          newData = {
-            ...newData,
-            img: resp.data.url, //despues sacar esto
-            images: {
-              img: resp.data.url,
-              public_id: resp.data.public_id,
-              public_id_old: product.images.public_id,
-            },
-          };
-          updateProducto(newData);
-        } else {
-          newData = {
-            ...newData,
-            img: resp.data.url, //despues sacar esto
-            images: {
-              img: imgDefault,
-              public_id: imgDefault,
-              public_id_old: product.images.public_id,
-            },
-          };
-        }
-      });
-  };
-  useEffect(() => {
-    setValueOfert(watch("oferta"));
+    setValueOfert(watch("oferta"))
   }, [watch("oferta")]);
-  
+
   const submit = async (data) => {
     setLoading(true);
     data.tags = tags;
@@ -154,32 +65,21 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
       ...data,
     };
     if (imgChange) {
-      const img = new FormData();
-      img.append("file", data.img[0]);
-      img.append("api_key", "349254229288134");
-      img.append("upload_preset", "burger_web");
-      uploadImage(newData, img);
+      let image = data.img[0]
+      uploadImage(newData, image, setSuccess, reset, imgChange, product, setImgUpdate)
     } else {
-      updateProducto(newData);
-    }
-    setTimeout(() => {
-      setSuccess(false);
-      setViewMessage(false);
-      setMessage("");
-      setLoading(false);
-    }, 5000);
-  };
-  const DeleteImage = () => {
-    if (showImgViewLoad) {
-      setNewImg("http://localhost:3000/src/img/imgDefault.png");
-      setShowImgViewLoad(false);
-      setImgChange(true);
-    } else {
-      setNewImg(product.img_art);
-      setShowImgViewLoad(true);
-      setImgChange(false);
-    }
-  };
+      updateProducto(newData, setSuccess, product);
+      setTimeout(() => {
+        setSuccess(false);
+        setViewMessage(false);
+        setMessage("");
+        setLoading(false);
+      }, 3000);
+    };
+  }
+  useEffect(() => {
+    if (imgUpdate) updateProducto(imgUpdate, setSuccess, product);
+  }, [imgUpdate])
   return (
     <>
       {loadingView ? (
@@ -263,7 +163,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                   ) : null}
                 </div>
               </div>
-              {showDiscount ? (
+              {valueOfert === 'si' ? (
                 <div className="col-6">
                   <label htmlFor="descuento">Descuento</label>
                   <input
@@ -321,7 +221,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                       <img
                         src={clearImg}
                         alt="Borrar imagen"
-                        onClick={() => DeleteImage()}
+                        onClick={() => deleteImage(showImgViewLoad, setShowImgViewLoad, setImgChange, setNewImg, product.img_art)}
                         className="clearImg"
                       />
                     </div>
@@ -330,12 +230,12 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                   <>
                     <div className="prueba">
                       <img src={newImg} alt="NewImg" className="img-modal" />
-                      <img
+                      {/* <img
                         src={clearImg}
                         alt="Borrar imagen"
-                        onClick={() => DeleteImage()}
+                        onClick={() => deleteImage(showImgViewLoad, setShowImgViewLoad, setImgChange, setNewImg, product.img_art)}
                         className="clearImg"
-                      />
+                      /> */}
                     </div>
                     <label htmlFor="img">Subir imagen</label>
                     <div>
@@ -346,7 +246,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                         accept=".png , .jpg, .jpeg"
                         className="form-control-file"
                         id="img"
-                        onChange={(e) => changeImg(e)}
+                        onChange={(e) => changeImg(e.target.files[0], setValue, setNewImg)}
                       />
                     </div>
                     <div className={`container-errors`}>
@@ -376,7 +276,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                     {...register("categoria", ValidationAddProduct.categoria)}
                   >
                     <option value="">Seleccione la categoria</option>
-                    {categoria.map((categorie) => (
+                    {filteredCategory.length > 0 && filteredCategory.map((categorie) => (
                       <option key={categorie._id} value={categorie.nombre}>
                         {categorie.nombre}
                       </option>
@@ -408,7 +308,7 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
                     )}
                   >
                     <option value="">Seleccione a subcategoria</option>
-                    {totalCategoria
+                    {menuCategorie.length > 0 && menuCategorie
                       .filter(
                         (subCategoria) =>
                           subCategoria.nombre ===
@@ -535,4 +435,4 @@ export const UpdateProduct = ({ _id, setView, setSuccess, success }) => {
       )}
     </>
   );
-};
+}

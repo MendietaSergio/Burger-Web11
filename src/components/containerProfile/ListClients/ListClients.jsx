@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import { Pagination } from "../../Container/Pagination/Pagination";
 import deleteIcon from "../../../Img/delete.png";
@@ -8,29 +7,21 @@ import { AuthContext } from "../../../Auth/AuthContext";
 import { SkeletonCard } from "../../Skeleton/SkeletonCard";
 import { Message } from "../../Message/Message";
 import { DetailClient } from "./DetailClient/DetailClient";
+import { useListClients } from "../../../hooks/useListClients";
 export const ListClients = ({ newRegister }) => {
-  const [clientsList, setClientsList] = useState([]);
-  const [total, setTotal] = useState();
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientsPage] = useState(8);
   const { user } = useContext(AuthContext);
-  const [message, setMessage] = useState("");
-  const [viewMessage, setViewMessage] = useState(false);
   const [viewClient, setViewClient] = useState({});
-  const [success, setSuccess] = useState(false);
-  const getListClient = async () => {
-    await axios
-      .get("http://localhost:3001/api/user")
-      .then((res) => {
-        setTotal(res.data.total);
-        setClientsList(res.data.data);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setTimeout(() => setLoading(false), 5000);
-      });
-  };
+  const { getListClient,
+    clientsList,
+    total,
+    loading,
+    handleDelete,
+    success,
+    message,
+    viewMessage,
+    setViewMessage } = useListClients()
   useEffect(() => {
     if (user.rol[0].name === "admin") {
       getListClient();
@@ -39,44 +30,12 @@ export const ListClients = ({ newRegister }) => {
       getListClient();
     }
   }, [user, newRegister]);
-  const deleteUser = async (idUser) => {
-    await axios
-      .delete(`http://localhost:3001/api/user/${idUser}`)
-      .then((resp) => {
-        setViewMessage(true);
-        if (resp.data.ok) {
-          setSuccess(true);
-          setMessage(resp.data.msg);
-          getListClient();
-        } else {
-          setSuccess(false);
-          setMessage(resp.data.msg);
-        }
-      })
-      .finally(() => setTimeout(() => setViewMessage(false), 3000));
-  };
-
   //PAGINACION
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   let indexOfLastPost = currentPage * clientsPage;
   let indexOfFirstPost = indexOfLastPost - clientsPage;
   let currentClients = clientsList.slice(indexOfFirstPost, indexOfLastPost);
-  const handleDelete = (user) => {
-    Swal.fire({
-      title: `Vas a eliminar al usuario ${user.usuario}`,
-      text: "¿Estás seguro que lo queres eliminar?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, eliminalo!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Eliminado!", "Usuario eliminado.", "success");
-        deleteUser(user._id);
-      }
-    });
-  };
+
   const viewModal = (client) => {
     setViewClient(client);
   };

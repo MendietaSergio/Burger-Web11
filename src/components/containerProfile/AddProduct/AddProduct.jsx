@@ -1,13 +1,17 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { scrollToTop } from "../../../utils/ScrollToTop";
+import { useCategories } from "../../../hooks/useCategories";
+import { useCloudinary } from "../../../hooks/useCloudinary";
+import { useProducts } from "../../../hooks/useProducts";
+import { changeImg } from "../../../utils/LoadImg";
 import { ValidationAddProduct } from "../../../utils/ValidationAddProduct";
 import { Message } from "../../Message/Message";
 import { TagsInput } from "../../TagsInput/TagsInput";
 import { Title } from "../../Title/Title";
 import "./AddProduct.css";
-
+const VITE_API_KEY = import.meta.env.VITE_API_KEY
+const VITE_UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
 export const AddProduct = ({ setSuccess, success }) => {
   const {
     register,
@@ -18,116 +22,28 @@ export const AddProduct = ({ setSuccess, success }) => {
     watch,
   } = useForm();
   const [viewSubmit, setViewSubmit] = useState(true)
-  const [viewMessage, setViewMessage] = useState(false);
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [categoria, setCategoria] = useState([]);
-  const [totalCategoria, setTotalCategoria] = useState([]);
   const [showDiscount, setShowDiscount] = useState("si");
-  const [tags, setTags] = useState([]);
-
-  const config = {
-    headaers: {
-      "Content-Type": "multipart/form-data",
-    },
-  };
-  let _URL = window.URL || window.webkitURL;
-  const changeImg = (e) => {
-    if (e !== undefined) {
-      const reader = new FileReader();
-      const img = new Image();
-      img.onload = function () {
-        if (img.width <= 1000 && img.height <= 1000) {
-          reader.readAsDataURL(e);
-        } else {
-          alert("El tamaño de la imagen es de " + this.width + "x" + this.height);
-          setValue('img', undefined)
-        }
-      };
-      img.onerror = function () {
-        alert("not a valid file: " + e.type);
-      };
-      img.src = _URL.createObjectURL(e);
-    }
-  };
-  useEffect(() => {
-    const getCategoria = async () => {
-      await axios
-        .get("http://localhost:3001/api/products/categories")
-        .then((resp) => {
-          let hash = {};
-          setTotalCategoria(resp.data);
-          setCategoria(
-            resp.data.filter((current) => {
-              let exists = !hash[current.nombre];
-              hash[current.nombre] = true;
-              return exists;
-            })
-          );
-        })
-        .catch((error) => console.log(error));
-    };
-    getCategoria();
-  }, []);
-  const sendProducto = async (data) => {
-    await axios
-      .post("http://localhost:3001/api/products/new", { data, config })
-      .then((resp) => {
-        if (resp.data.ok) {
-          setMessage(resp.data.msg);
-          setTimeout(() => {
-            setLoading(false);
-            scrollToTop();
-            reset();
-            setTags([])
-          }, 1500);
-        } else {
-          setLoading(false);
-          scrollToTop();
-          setMessage(resp.data.msg);
-        }
-      })
-      .finally(() => {
-        setViewMessage(true);
-        setSuccess(true);
-      });
-  };
-  const uploadImage = async (newData, img) => {
-    await axios
-      .post("https://api.cloudinary.com/v1_1/freelance01/image/upload", img)
-      .then((resp) => {
-        if (resp.status === 200) {
-          newData = {
-            ...newData,
-            img: resp.data.url, //despues sacarlo
-            images: {
-              img: resp.data.url,
-              public_id: resp.data.public_id,
-              public_id_old: "",
-            },
-          };
-          sendProducto(newData);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const { filteredCategory, menuCategorie } = useCategories()
+  const { uploadImage, loading,
+    message,
+    viewMessage,
+    setViewMessage,
+    setMessage,
+    setTags,
+    setLoading,
+    tags } = useCloudinary()
   const submit = async (data, e) => {
     data.tags = tags;
+    let image = data.img[0]
     let newData = {
       ...data,
     };
-    const img = new FormData();
-    img.append("file", data.img[0]);
-    img.append("api_key", "349254229288134");
-    img.append("upload_preset", "burger_web");
-    uploadImage(newData, img);
+    setLoading(true)
+    uploadImage(newData, image, setSuccess, reset);
     setTimeout(() => {
       setViewMessage(false);
       setSuccess(false);
       setMessage("");
-
     }, 5000);
   };
   return (
@@ -249,7 +165,7 @@ export const AddProduct = ({ setSuccess, success }) => {
                 {...register("categoria", ValidationAddProduct.categoria)}
               >
                 <option value="">Seleccione la categoria</option>
-                {categoria.map((categorie) => (
+                {filteredCategory.length > 0 && filteredCategory.map((categorie) => (
                   <option key={categorie._id} value={categorie.nombre}>
                     {categorie.nombre}
                   </option>
@@ -277,7 +193,7 @@ export const AddProduct = ({ setSuccess, success }) => {
                 {...register("subcategoria", ValidationAddProduct.subcategoria)}
               >
                 <option value="">Seleccione a subcategoria</option>
-                {totalCategoria
+                {menuCategorie.length > 0 && menuCategorie
                   .filter(
                     (subCategoria) => subCategoria.nombre === watch("categoria")
                   )
@@ -334,7 +250,7 @@ export const AddProduct = ({ setSuccess, success }) => {
                 type="file"
                 name="img"
                 accept=".png , .jpg, .jpeg"
-                onChange={(e) => changeImg(e.target.files[0])}
+                onChange={(e) => changeImg(e.target.files[0], setValue)}
                 className="form-control-file"
                 id="img"
               />

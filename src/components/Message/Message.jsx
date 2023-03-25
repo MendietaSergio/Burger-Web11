@@ -1,6 +1,6 @@
 import React from 'react'
 import './Message.css'
-export const Message = ({ message, setViewMessage, viewMessage, className }) => {
+export const Message = ({ message, setViewMessage, className }) => {
 
   return (
     <div className={`alert ${className} d-flex justify-content-between align-items-center`}>

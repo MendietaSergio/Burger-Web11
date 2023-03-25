@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ItemListProducts } from "../components/Container/ItemListProducts/ItemListProducts";
@@ -7,98 +6,42 @@ import { UpdateProduct } from "../components/containerProfile/UpdateProduct/Upda
 import { Navigation } from "../components/Navigation/Navigation";
 import { SkeletonCard } from "../components/Skeleton/SkeletonCard";
 import { Title } from "../components/Title/Title";
+import { useAllProduct } from "../hooks/useAllProduct";
 import "./filter.css";
 export const Productos = ({
   admin = false,
   cantPages,
   success,
   setSuccess,
+  allProducts = false
 }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [viewCant, setViewCant] = useState(false);
-  const [total, setTotal] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const [productsPage] = useState(cantPages ? 8 : 12);
   const [filter, setFilter] = useState("");
-  const { idCategoria } = useParams();
   const [viewProduct, setViewProduct] = useState(true);
+  const { idCategoria } = useParams();
   const { idSubcategoria } = useParams();
   const [view, setView] = useState(false);
   const [idProduct, setIdProduct] = useState(null);
-  const getProducts = async () => {
-    setLoading(true);
-    if (idCategoria) {
-      let categorie =
-        idCategoria.charAt(0).toUpperCase() + idCategoria.slice(1);
-      await axios
-        .get(`http://localhost:3001/api/products`)
-        .then((res) => {
-          setProducts(
-            res.data.filter(
-              (idCategorie) => idCategorie.nombre_categoria.nombre === categorie
-            )
-          );
-          setTotal(
-            res.data.filter(
-              (idCategorie) => idCategorie.nombre_categoria.nombre === categorie
-            ).length
-          );
-        })
-        .catch((error) => console.log(error))
-        .finally(() => {
-          setLoading(false);
-          setCurrentPage(1);
-        });
-      if (idSubcategoria) {
-        await axios
-          .get(`http://localhost:3001/api/products`)
-          .then((res) => {
-            setProducts(
-              res.data.filter(
-                (idSubCategorie) =>
-                  idSubCategorie.nombre_categoria.categoria === idSubcategoria
-              )
-            );
-            setTotal(
-              res.data.filter(
-                (idSubCategorie) =>
-                  idSubCategorie.nombre_categoria.categoria === idSubcategoria
-              ).length
-            );
-          })
-          .catch((error) => console.log(error))
-          .finally(() => {
-            setLoading(false);
-            setCurrentPage(1);
-          });
-      }
-    } else {
-      await axios
-        .get(`http://localhost:3001/api/products`)
-        .then((res) => {
-          setProducts(res.data);
-          setTotal(res.data.length);
-        })
-        .catch((error) => console.log(error))
-        .finally(() => {
-          setLoading(false);
-          setCurrentPage(1);
-        });
-    }
-    setViewCant(true);
-  };
+  const {
+    getProducts,
+    setCurrentPage,
+    setProducts,
+    setLoading,
+    currentPage,
+    products,
+    viewCant,
+    total,
+    loading } = useAllProduct()
+  useEffect(() => {
+    if (allProducts) return getProducts({ allProducts });
+  }, [success]);
   useEffect(() => {
     setViewProduct(false);
-
-    getProducts();
+    getProducts({ idCategoria, idSubcategoria });
     setTimeout(() => {
       setViewProduct(true);
     }, 3000);
   }, [idCategoria, idSubcategoria]);
-  useEffect(() => {
-    getProducts();
-  }, [success]);
 
   //FILTROS
   useEffect(() => {

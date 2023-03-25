@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { AuthContext } from '../Auth/AuthContext'
 import { ImgProfile } from '../components/containerProfile/Imgprofile/ImgProfile'
 import { OptionProfile } from '../components/containerProfile/OptionProfile/OptionProfile'
 
-export const Myaccount = () => {
+export const Myaccount = ({setStatus}) => {
   const { user, dispatch } = useContext(AuthContext)
   const { nombre, usuario, avatar } = user;
   const [widthImg, setWidthImg] = useState(window.innerWidth)
@@ -37,6 +36,7 @@ export const Myaccount = () => {
           <OptionProfile
             user={user}
             dispatch={dispatch}
+            setStatus={setStatus}
           />
         </div>
 

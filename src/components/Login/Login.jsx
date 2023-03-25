@@ -3,71 +3,34 @@ import { Title } from '../Title/Title'
 import { useForm } from 'react-hook-form'
 import './Login.css'
 import { validations } from '../../utils/ValidationsLogin'
-import axios from 'axios'
 import { Link, Navigate } from 'react-router-dom'
 import { Message } from '../Message/Message'
 import { AuthContext } from '../../Auth/AuthContext'
-import { types } from '../../Types/Types'
 import { ChangePassword } from '../ChangePassword/ChangePassword'
+import { useLogin } from '../../hooks/useLogin'
 
 export const Login = () => {
     const { dispatch } = useContext(AuthContext)
-    const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const [succes, setSucces] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [changeClassName, setChangeClassName] = useState(false)
-    const [viewMessage, setViewMessage] = useState(false)
-    const [message, setMessage] = useState('')
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [viewChangePass, setViewChangePass] = useState(false)
+    const {
+        sendLogin,
+        success,
+        loading,
+        setLoading,
+        changeClassName,
+        viewMessage,
+        setViewMessage,
+        message,
+    } = useLogin()
     const submit = async (data) => {
         setLoading(true)
-        const { email, password } = data;
-        await axios.post('http://localhost:3001/api/auth/signin', {
-            email,
-            password
-        })
-            .then(res => {
-                if (res.data.ok) {
-                    localStorage.setItem('userBurger', JSON.stringify(res.data.logeado, null))
-                    handleLogin(res.data.logeado)
-                    setMessage("Logeando...")
-                    setChangeClassName(true)
-                    setTimeout(() => {
-                        setLoading(false)
-                        setViewMessage(true)
-
-                    }, 2000)
-                    setTimeout(() => setSucces(true), 5000)
-                } else {
-                    setMessage(res.data.message)
-                    setChangeClassName(false)
-                    setTimeout(() => {
-                        setLoading(false)
-                        setViewMessage(true)
-                    }, 2000)
-                }
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setViewMessage(false)
-                    setMessage('')
-                }, 5000)
-            })
+        sendLogin({ data, dispatch })
     }
-    const handleLogin = (data) => {
-        dispatch({
-            type: types.login,
-            payload: {
-                ...data
-            }
-        })
-    }
-
     return (
         <>
-            {succes && <Navigate to='/' />}
+            {success && <Navigate to='/' />}
             <div className="container-message-login">
-
                 {viewMessage ?
                     (<Message
                         message={message}
@@ -117,10 +80,7 @@ export const Login = () => {
                                 </div>
                             </form>
                         </>
-
-                    )
-                    }
-
+                    )}
                 </div >
             </div >
         </>

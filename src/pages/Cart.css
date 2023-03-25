@@ -1,7 +1,7 @@
 .container-cart {
-    height: auto;
-    width : 80%;
-    margin: 0 auto;
+    height   : auto;
+    /* width : 80%; */
+    margin   : 0 auto;
 }
 
 .container-info-cart {
@@ -57,5 +57,9 @@
 @media(min-width:768px) {
     .container-info-cart {
         padding: 50px;
+    }
+
+    .container-cart {
+        width: 80%;
     }
 }

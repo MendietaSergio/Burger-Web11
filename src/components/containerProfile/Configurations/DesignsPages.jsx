@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Logo } from './Logo'
 import './DesingsPages.css'
 import { InfoWhatsapp } from './InfoWhatsapp'
-export const DesignsPages = () => {
+export const DesignsPages = ({setStatus}) => {
     const [options, setOptions] = useState('Logo')
     return (
         <div className='container-desings'>
@@ -12,10 +12,8 @@ export const DesignsPages = () => {
                     <button className='btn btn-primary' onClick={() => setOptions('Whatsapp')}>Whatsapp</button>
                 </div>
             </div>
-
-            <Logo options={options} />
-            <InfoWhatsapp options={options} />
-
+            <Logo options={options} setStatus={setStatus} />
+            <InfoWhatsapp options={options} setStatus={setStatus}/>
         </div>
     )
 }

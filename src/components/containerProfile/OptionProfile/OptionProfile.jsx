@@ -5,7 +5,7 @@ import { optionsProfile } from '../../../utils/OptionsProfile'
 import { FeaturedProduct } from '../../FeaturedProduct/FeaturedProduct'
 import { AddProduct } from '../AddProduct/AddProduct'
 import { CreateUser } from '../CreateUser/CreateUser'
-import { DesignsPages } from '../DesignsPages/DesignsPages'
+import { DesignsPages } from '../Configurations/DesignsPages'
 import '../Imgprofile/ImgProfile.css'
 import { ListClients } from '../ListClients/ListClients'
 import { PersonalInformation } from '../PersonalInformation/PersonalInformation'
@@ -14,7 +14,8 @@ import { PurchaseOrder } from '../PurchaseOrder/PurchaseOrder'
 
 export const OptionProfile = ({
     user,
-    dispatch
+    dispatch,
+    setStatus
 }) => {
     const [success, setSuccess] = useState(false)
     const [newRegister, setNewRegister] = useState(false)
@@ -55,6 +56,7 @@ export const OptionProfile = ({
             ) : null}
             {dataProfile === "lista-de-articulos" ? (
                 <Productos
+                    allProducts={true}
                     admin={true} cantPages={true}
                     setSuccess={setSuccess} success={success}
                 />
@@ -67,8 +69,8 @@ export const OptionProfile = ({
                 <ListClients
                     newRegister={newRegister} />
             ) : null}
-            {dataProfile === "diseño" ? (
-                <DesignsPages />
+            {dataProfile === "configuracion" ? (
+                <DesignsPages  setStatus={setStatus}/>
             ) : null}
 
         </div>

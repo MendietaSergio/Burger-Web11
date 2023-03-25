@@ -8,7 +8,8 @@ export const SkeletonCard = ({
   className = "image",
   viewDescription = false,
   viewListProduct = false,
-  viewListClients = false
+  viewListClients = false,
+  featuredProduct = false
 }) => {
   if (skeletonImg) {
     return (
@@ -155,6 +156,34 @@ export const SkeletonCard = ({
             </div>
           </div>
         </div>
+      </>
+    )
+  }
+  if (featuredProduct) {
+    const cant = []
+
+    for (let i = 1; i <= 6; i++) {
+      cant.push(i)
+    }
+
+    return (
+      <>
+        {cant.map((card, index) => (
+          <div className="col-6 col-md-3 my-2" key={index}>
+            <div className='card loading'>
+              <div className='image'>
+
+              </div>
+              <div className="content">
+                <h4></h4>
+                <div className="details">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+        }
       </>
     )
   }
