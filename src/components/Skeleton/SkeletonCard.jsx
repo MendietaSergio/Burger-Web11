@@ -123,7 +123,7 @@ export const SkeletonCard = ({
       <>
         <div className={`container-listClients w-100 ${loading && 'my-5'}`}>
           <div className='row'>
-            <table class="table-striped table-hover ">
+            <table className="table-striped table-hover ">
               <thead>
                 <tr>
                   <th className='columnId' scope="col">#</th>

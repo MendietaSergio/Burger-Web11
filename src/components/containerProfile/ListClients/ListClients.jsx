@@ -60,7 +60,7 @@ export const ListClients = ({ newRegister }) => {
         <>
           <div className={`container-listClients w-100 `}>
             <div className="row">
-              <table class="table-striped table-hover ">
+              <table className="table-striped table-hover">
                 <thead>
                   <tr>
                     <th className="columnId" scope="col">
@@ -79,9 +79,10 @@ export const ListClients = ({ newRegister }) => {
                 </thead>
                 <tbody>
                   {currentClients.map((list, index) => (
-                    <tr className="contianer-clients" key={list._id}>
+                    <tr className="contianer-clients" key={list._id} >
+                      {log}
                       <th className="columnId">
-                        {currentPage > 1 ? index + 1 + clientsPage : index + 1}{" "}
+                        {currentPage > 1 ? (index + 1) + clientsPage : (index + 1)}{" "}
                       </th>
                       <td className="columnUser">{list.usuario}</td>
                       <td className="columnName">{list.nombre}</td>

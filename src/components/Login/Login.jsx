@@ -24,8 +24,8 @@ export const Login = () => {
         message,
     } = useLogin()
     const submit = async (data) => {
-        setLoading(true)
         sendLogin({ data, dispatch })
+        setLoading(true)
     }
     return (
         <>
@@ -63,11 +63,11 @@ export const Login = () => {
                                     <input {...register('password', validations.password)} className={errors.password ? ("form-control is-invalid") : ("form-control")} type="password" />
                                     {errors.password ? <small className='text-danger'>{errors.password.message}</small> : null}
                                 </div>
-                                <div className='d-flex justify-content-start align-items-baseline'>
+                                {/* <div className='d-flex justify-content-start align-items-baseline'>
                                     <input name="rememberMe" type="checkbox" />
                                     <label htmlFor='rememberMe' name="rememberMe" className='px-2'>Recuérdame</label>
-                                </div>
-                                <div>
+                                </div> */}
+                                <div className='my-4'>
                                     <button type='submit' className='btn-toAccess' >Acceder
                                         {loading ? (<i className="fas fa-spinner fa-pulse"></i>) : null}
                                     </button>

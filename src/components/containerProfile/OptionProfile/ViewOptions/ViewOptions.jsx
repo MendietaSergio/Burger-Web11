@@ -37,19 +37,19 @@ export const ViewOptions = ({ widthImg, admin,
                 {admin[0].name === 'admin' ? (
                     <>
 
-                        <NavLink exact to={'/micuenta/datos-personales'} >Datos personales <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/orden-de-compras'} >Ord. de compras <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/nuevo-usuario'} >Nuevo usuario <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/nuevo-articulo'} >Nuevo articulo <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/lista-de-articulos'} >Lista articulos <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/articulos-destacados'} >Prod. Destacados<i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/lista-de-clientes'}  >Lista de clientes<i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/configuracion'}  >Configuracion<i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/datos-personales'} >Datos personales <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/orden-de-compras'} >Ord. de compras <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/nuevo-usuario'} >Nuevo usuario <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/nuevo-articulo'} >Nuevo articulo <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/lista-de-articulos'} >Lista articulos <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/articulos-destacados'} >Prod. Destacados<i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/lista-de-clientes'}  >Lista de clientes<i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/configuracion'}  >Configuracion<i className="fas fa-chevron-right"></i></NavLink>
                     </>
                 ) : (
                     <>
-                        <NavLink exact to={'/micuenta/datos-personales'} >Datos personales <i className="fas fa-chevron-right"></i></NavLink>
-                        <NavLink exact to={'/micuenta/historial-de-pedidos'} >Historial <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/datos-personales'} >Datos personales <i className="fas fa-chevron-right"></i></NavLink>
+                        <NavLink  to={'/micuenta/historial-de-pedidos'} >Historial <i className="fas fa-chevron-right"></i></NavLink>
                     </>
                 )}
             </div>

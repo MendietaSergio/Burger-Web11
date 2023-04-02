@@ -40,7 +40,6 @@ export const FeaturedProduct = ({
       Swal.fire("No realizaste ningun cambio");
     }
   };
-  // if (loading) return <SkeletonCard featuredProduct={true} />
   if (relatedView) {
     return (
       <>
@@ -92,7 +91,7 @@ export const FeaturedProduct = ({
                           htmlFor={element._id}
                         >
                           <input
-                            class="form-check-input input-featured"
+                            className="form-check-input input-featured"
                             name={element._id}
                             type="checkbox"
                             defaultChecked={element.destacado}

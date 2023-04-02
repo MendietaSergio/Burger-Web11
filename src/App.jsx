@@ -49,16 +49,16 @@ function App() {
               <div className="container-fluid">
                 <Header widthMin={992} loading={loading} dataConfig={dataConfig[0]} />
                 <Routes>
-                  <Route path='/' element={<Home />} />
-                  <Route path='/productos' element={<Productos cantPages={false} allProducts={true} />} />
-                  <Route path='/productos/:idCategoria' element={<Productos />} />
-                  <Route path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
-                  <Route path='/productos/detalle/:idDetail' element={<Detail />} />
-                  <Route path='/ingresar' element={<LoginPages />} />
-                  <Route path='/registrarse' element={<RegisterPages />} />
-                  <Route path='/micuenta/:dataProfile' element={<Myaccount setStatus={setStatus} />} />
-                  <Route path='/micarrito' element={<Cart />} />
-                  <Route path='*' element={<ErrorFound />} />
+                  <Route exact path='/' element={<Home />} />
+                  <Route exact path='/productos' element={<Productos cantPages={false} allProducts={true} />} />
+                  <Route exact path='/productos/:idCategoria' element={<Productos />} />
+                  <Route exact path='/productos/:idCategoria/:idSubcategoria' element={<Productos />} />
+                  <Route exact path='/productos/detalle/:idDetail' element={<Detail />} />
+                  <Route exact path='/ingresar' element={<LoginPages />} />
+                  <Route exact path='/registrarse' element={<RegisterPages />} />
+                  <Route exact path='/micuenta/:dataProfile' element={<Myaccount exact setStatus={setStatus} />} />
+                  <Route exact path='/micarrito' element={<Cart />} />
+                  <Route exact path='*' element={<ErrorFound />} />
                 </Routes>
                 <Footer />
               </div>

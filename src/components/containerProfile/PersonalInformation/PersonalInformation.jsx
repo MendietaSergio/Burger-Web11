@@ -53,7 +53,7 @@ export const PersonalInformation = ({ estados, user, dispatch }) => {
                                 className="form-control"
                                 type="text"
                                 defaultValue={usuario}
-                                disabled='true'
+                                disabled
                             />
                         </div>
                         <div className='col-12 col-md-6'>
@@ -63,7 +63,7 @@ export const PersonalInformation = ({ estados, user, dispatch }) => {
                                 className="form-control"
                                 type="email"
                                 defaultValue={email}
-                                disabled='true'
+                                disabled
                             />
                         </div>
                     </div>

@@ -109,7 +109,7 @@ export const AddProduct = ({ setSuccess, success }) => {
                 {...register("oferta", ValidationAddProduct.oferta)}
               >
                 <option value="">Seleccione si tiene oferta</option>
-                <option Value="si">Si</option>
+                <option value="si">Si</option>
                 <option value="no">No</option>
               </select>
               <div className={`container-errors`}>

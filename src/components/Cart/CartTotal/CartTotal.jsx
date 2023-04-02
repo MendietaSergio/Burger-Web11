@@ -67,35 +67,36 @@ export const CartTotal = ({ priceTotal, viewCartModal, clear, setShowCartList })
             </>
         )
     } else {
-
         return (
             <>
-                <div className='col-12 '>
-                    <div className="container-cartTotal mt-5">
-                        {data === null ? <span>cargando...</span> : (
-                            <>
-                                <div className="container-cartTotal-section">
-                                    <h5 className=''>Total del carrito</h5>
-                                </div>
-                                <div className='container-cartTotal-info'>
-                                    <div className="">
-                                        <span>Envío:</span>
-                                        <span>${data.envio ? data.valorEnvio : 'Sin cargo'}</span>
+                {data && (
+                    <>
+                        <div className='col-12 '>
+                            <div className="container-cartTotal mt-5">
+                                <>
+                                    <div className="container-cartTotal-section">
+                                        <h5 className=''>Total del carrito</h5>
                                     </div>
-                                    <div className="">
-                                        <span>Total:</span>
-                                        {data.envio ? (
-                                            <span>${priceTotal + data.valorEnvio}</span>
-                                        ) : (
-                                            <span>${priceTotal}, 0</span>
-                                        )}
+                                    <div className='container-cartTotal-info'>
+                                        <div className="">
+                                            <span>Envío:</span>
+                                            <span>${data.envio ? data.valorEnvio : 'Sin cargo'}</span>
+                                        </div>
+                                        <div className="">
+                                            <span>Total:</span>
+                                            {data.envio ? (
+                                                <span>${priceTotal + data.valorEnvio}</span>
+                                            ) : (
+                                                <span>${priceTotal}, 0</span>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div >
-                <FormOrder priceTotal={priceTotal} data={data} dataConfig={dataConfig} />
+                                </>
+                            </div>
+                        </div >
+                        <FormOrder priceTotal={priceTotal} data={data} dataConfig={dataConfig} />
+                    </>
+                )}
             </>
         )
     }
