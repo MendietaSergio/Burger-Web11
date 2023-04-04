@@ -56,7 +56,7 @@ function App() {
                   <Route exact path='/productos/detalle/:idDetail' element={<Detail />} />
                   <Route exact path='/ingresar' element={<LoginPages />} />
                   <Route exact path='/registrarse' element={<RegisterPages />} />
-                  <Route exact path='/micuenta/:dataProfile' element={<Myaccount exact setStatus={setStatus} />} />
+                  <Route exact path='/micuenta/:dataProfile' element={<Myaccount setStatus={setStatus} />} />
                   <Route exact path='/micarrito' element={<Cart />} />
                   <Route exact path='*' element={<ErrorFound />} />
                 </Routes>
